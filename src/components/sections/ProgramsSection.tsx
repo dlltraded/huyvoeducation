@@ -9,7 +9,7 @@ import sportsImg from '../../assets/images/premium_sports_1784076784989.png';
 import { EditableText } from '../editor/EditableText';
 import { EditableImage } from '../editor/EditableImage';
 
-const fadeUp = {
+const fadeUp: any = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
 };

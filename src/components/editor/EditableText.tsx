@@ -5,7 +5,7 @@ interface EditableTextProps {
   sectionId: string;
   path: string;
   value: string;
-  tag?: keyof JSX.IntrinsicElements;
+  tag?: any;
   className?: string;
   placeholder?: string;
 }
