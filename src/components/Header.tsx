@@ -3,15 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const Logo = () => (
-  <svg className="w-10 h-10" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-    <path d="M 20 75 Q 50 90 80 75" fill="none" stroke="#20B84D" strokeWidth="8" strokeLinecap="round"/>
-    <path d="M 30 70 C 30 70, 20 40, 45 45" fill="none" stroke="#0A66C2" strokeWidth="8" strokeLinecap="round"/>
-    <path d="M 70 70 C 70 70, 80 40, 55 45" fill="none" stroke="#FFC631" strokeWidth="8" strokeLinecap="round"/>
-    <circle cx="50" cy="30" r="10" fill="#0A66C2"/>
-  </svg>
-);
-
 export const Header = ({ lang, setLang, isScrolled, mobileMenuOpen, setMobileMenuOpen, t }: any) => {
   const linkBase = `font-medium transition-all duration-300`;
   const linkScrolled = `text-gray-600 hover:text-brand-blue`;
@@ -21,7 +12,7 @@ export const Header = ({ lang, setLang, isScrolled, mobileMenuOpen, setMobileMen
     <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'glass py-3' : 'bg-transparent py-5'}`}>
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         <Link to="/" className="flex items-center gap-3">
-          <Logo />
+          <img src="/favicon.svg" alt="Huy Võ Education" className="w-10 h-10" />
           <span className={`font-heading font-bold text-xl ${isScrolled ? 'text-gray-900' : 'text-gray-900 drop-shadow-md bg-white/50 px-3 py-1 rounded-full backdrop-blur-md border border-white/30'}`}>
             Huy Võ Education
           </span>

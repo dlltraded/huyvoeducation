@@ -1,21 +1,12 @@
 import React from 'react';
 
-const Logo = () => (
-  <svg className="w-10 h-10" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-    <path d="M 20 75 Q 50 90 80 75" fill="none" stroke="#20B84D" strokeWidth="8" strokeLinecap="round"/>
-    <path d="M 30 70 C 30 70, 20 40, 45 45" fill="none" stroke="#0A66C2" strokeWidth="8" strokeLinecap="round"/>
-    <path d="M 70 70 C 70 70, 80 40, 55 45" fill="none" stroke="#FFC631" strokeWidth="8" strokeLinecap="round"/>
-    <circle cx="50" cy="30" r="10" fill="#0A66C2"/>
-  </svg>
-);
-
 export const Footer = ({ t }: any) => {
   return (
     <footer className="bg-brand-dark text-gray-300 py-16 border-t-[12px] border-brand-green">
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12 mb-12">
         <div className="md:col-span-2">
           <div className="flex items-center gap-3 mb-6 text-white">
-            <Logo />
+            <img src="/favicon.svg" alt="Huy Võ Education" className="w-10 h-10" />
             <span className="font-heading font-bold text-2xl">Huy Võ Education</span>
           </div>
           <p className="text-lg font-heading font-semibold text-white mb-4">
