@@ -34,10 +34,15 @@ export const HeroSection = ({ props, sectionId }: { props: any, sectionId: strin
   return (
     <section className="relative h-screen flex items-center pt-20 overflow-hidden bg-white">
       <motion.div style={{ y: heroY, opacity: heroOpacity }} className="absolute inset-0 z-0">
-        <div className="absolute inset-0 z-0 opacity-20">
+        <motion.div 
+          className="absolute inset-0 z-0"
+          initial={{ scale: 1.05 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 2, ease: "easeOut" }}
+        >
           <EditableImage src={hero_image} alt="Hero" className="w-full h-full object-cover" sectionId={sectionId} path="hero_image" />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/70 to-transparent"></div>
+        </motion.div>
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 md:via-white/60 to-transparent"></div>
       </motion.div>
       
       <div className="max-w-7xl mx-auto px-6 relative z-10 grid md:grid-cols-2 gap-12">
