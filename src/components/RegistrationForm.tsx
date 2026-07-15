@@ -37,7 +37,7 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
                   </div>
                   <div>
                     <p className="text-sm text-blue-200">Hotline</p>
-                    <p className="font-semibold">090 123 4567</p>
+                    <p className="font-semibold">0907 828 939</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
