@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-blue: #0A66C2;
+  --color-brand-green: #20B84D;
+  --color-brand-yellow: #FFC631;
+  --color-brand-dark: #1D1D1F;
+  --font-sans: 'Inter', sans-serif;
+  --font-heading: 'Montserrat', sans-serif;
+}
+
+@layer base {
+  body {
+    @apply antialiased text-gray-800 bg-gray-50 overflow-x-hidden;
+  }
+}
+
+.glass {
+  @apply bg-white/70 backdrop-blur-md border border-white/40 shadow-xl;
+}
+
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-blue to-brand-green;
+}
