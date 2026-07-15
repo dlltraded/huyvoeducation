@@ -1,6 +1,8 @@
 import React from 'react';
+import { useSettings } from '../contexts/SettingsContext';
 
 export const Footer = ({ t }: any) => {
+  const { settings } = useSettings();
   return (
     <footer className="bg-brand-dark text-gray-300 py-16 border-t-[12px] border-brand-green">
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12 mb-12">
@@ -12,8 +14,8 @@ export const Footer = ({ t }: any) => {
           <p className="text-lg font-heading font-semibold text-white mb-4">
             {t('Kết nối tri thức – Kiến tạo tương lai', 'Learn. Connect. Grow.')}
           </p>
-          <p className="text-gray-400 max-w-md leading-relaxed">
-            {t('Hệ sinh thái giáo dục sau giờ học uy tín, an toàn và hiện đại dành cho thế hệ trẻ. Nơi xây dựng nền tảng vững chắc cho công dân toàn cầu.', 'A trusted, safe, and modern after-school education ecosystem for the young generation. Building a solid foundation for global citizens.')}
+          <p className="text-gray-400 max-w-md leading-relaxed whitespace-pre-wrap">
+            {t(settings.footerDescVi, settings.footerDescEn)}
           </p>
         </div>
         
@@ -29,12 +31,18 @@ export const Footer = ({ t }: any) => {
         <div>
           <h4 className="text-white font-heading font-bold text-lg mb-6">{t('Kết nối', 'Connect')}</h4>
           <ul className="space-y-4">
-            <li><a href="#" className="hover:text-brand-yellow transition-colors">Facebook Fanpage</a></li>
-            <li><a href="#" className="hover:text-brand-yellow transition-colors">Zalo Official</a></li>
-            <li><a href="#" className="hover:text-brand-yellow transition-colors">Youtube Channel</a></li>
+            <li><a href={settings.facebookUrl} target="_blank" rel="noreferrer" className="hover:text-brand-yellow transition-colors">Facebook Fanpage</a></li>
+            <li><a href={settings.zaloUrl} target="_blank" rel="noreferrer" className="hover:text-brand-yellow transition-colors">Zalo Official</a></li>
+            <li><a href={settings.youtubeUrl} target="_blank" rel="noreferrer" className="hover:text-brand-yellow transition-colors">Youtube Channel</a></li>
           </ul>
         </div>
       </div>
+
+      {settings.mapIframe && (
+        <div className="max-w-7xl mx-auto px-6 mb-12">
+          <div className="rounded-xl overflow-hidden shadow-2xl h-80 border-4 border-brand-green/20" dangerouslySetInnerHTML={{ __html: settings.mapIframe }} />
+        </div>
+      )}
       
       <div className="max-w-7xl mx-auto px-6 pt-8 border-t border-white/10 text-sm text-gray-500 flex flex-col md:flex-row justify-between items-center gap-4">
         <p>© 2026 Huy Võ Education. All rights reserved.</p>

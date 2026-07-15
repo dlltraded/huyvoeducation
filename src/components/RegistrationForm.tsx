@@ -63,7 +63,7 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
                   >
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-2">{t('Họ tên ba/mẹ *', "Parent's Name *")}</label>
+                        <label className="block text-sm font-semibold text-gray-700 mb-2">{t('Họ tên ba/mẹ *', 'Parent Name *')}</label>
                         <input type="text" required className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all bg-gray-50 focus:bg-white" />
                       </div>
                       <div>

@@ -1,10 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { PhoneCall, MessageCircle } from 'lucide-react';
+import { useSettings } from '../contexts/SettingsContext';
 
 export const ContactWidgets = () => {
-  const phoneNumber = '0907828939';
-  const zaloUrl = `https://zalo.me/${phoneNumber}`;
+  const { settings } = useSettings();
+  const phoneNumber = settings.phone || '0907828939';
+  const zaloUrl = settings.zaloUrl || `https://zalo.me/${phoneNumber}`;
 
   return (
     <>

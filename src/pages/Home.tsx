@@ -4,6 +4,7 @@ import type { Variants } from 'framer-motion';
 import { ArrowRight, CheckCircle2, MapPin, BookOpen, Users, Award } from 'lucide-react';
 import { useOutletContext, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { supabase } from '../lib/supabase';
 import { RegistrationForm } from '../components/RegistrationForm';
 
 // Images
@@ -34,6 +35,16 @@ export const Home = () => {
   const { scrollY } = useScroll();
   const heroY = useTransform(scrollY, [0, 500], [0, 150]);
   const heroOpacity = useTransform(scrollY, [0, 300], [1, 0]);
+
+  const [heroContent, setHeroContent] = React.useState<any>(null);
+
+  React.useEffect(() => {
+    const fetchContent = async () => {
+      const { data } = await supabase.from('site_content').select('content').eq('section_key', 'home_hero').single();
+      if (data?.content) setHeroContent(data.content);
+    };
+    fetchContent();
+  }, []);
 
   const programs = [
     {
@@ -84,18 +95,22 @@ export const Home = () => {
             </motion.div>
             
             <motion.h1 variants={fadeUp} className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-gray-900 leading-[1.15] mb-6">
-              {t('Sau tiếng chuông tan trường, ', 'After the final bell, ')}
-              <br className="hidden md:block"/>
-              <span className="text-gradient">{t('một thế giới để lớn lên.', 'a world to grow in.')}</span>
+              {heroContent?.title || (
+                <>
+                  {t('Sau tiếng chuông tan trường, ', 'After the final bell, ')}
+                  <br className="hidden md:block"/>
+                  <span className="text-gradient">{t('một thế giới để lớn lên.', 'a world to grow in.')}</span>
+                </>
+              )}
             </motion.h1>
             
             <motion.p variants={fadeUp} className="text-base md:text-lg text-gray-600 mb-8 max-w-lg leading-relaxed">
-              {t('Không chỉ là học thêm một môn năng khiếu. Tại Huy Võ Education, mỗi buổi chiều là một cơ hội để con khám phá năng lực, kết nối bạn bè và phát triển toàn diện.', 'Not just learning an extra skill. At Huy Võ Education, every afternoon is an opportunity to discover potential, connect with friends, and develop fully.')}
+              {heroContent?.subtitle || t('Không chỉ là học thêm một môn năng khiếu. Tại Huy Võ Education, mỗi buổi chiều là một cơ hội để con khám phá năng lực, kết nối bạn bè và phát triển toàn diện.', 'Not just learning an extra skill. At Huy Võ Education, every afternoon is an opportunity to discover potential, connect with friends, and develop fully.')}
             </motion.p>
             
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4">
               <a href="#register" className="bg-brand-blue hover:bg-blue-700 text-white px-8 py-3.5 rounded-full font-heading font-semibold shadow-lg hover:shadow-blue-500/30 transition-all flex justify-center items-center gap-2">
-                {t('Đầu tư cho con ngay', 'Invest in their future')}
+                {heroContent?.cta_text || t('Đầu tư cho con ngay', 'Invest in their future')}
                 <ArrowRight size={18} />
               </a>
               <a href="#about" className="bg-white hover:bg-gray-50 text-gray-800 border border-gray-200 px-8 py-3.5 rounded-full font-heading font-semibold shadow-sm transition-all text-center">
@@ -115,7 +130,7 @@ export const Home = () => {
             className="text-center max-w-3xl mx-auto mb-20"
           >
             <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-heading font-bold mb-6 text-gray-900">
-              {t('Ba mẹ có biết, khoảng thời gian sau giờ học quyết định rất lớn đến sự tự tin của trẻ?', "Did you know the hours after school greatly determine a child's confidence?")}
+              {t('Ba mẹ có biết, khoảng thời gian sau giờ học quyết định rất lớn đến sự tự tin của trẻ?', "Did you know the hours after school greatly determine a child confidence?")}
             </motion.h2>
             <motion.p variants={fadeUp} className="text-xl text-gray-500">
               {t('Chúng tôi không xây dựng một trung tâm cho một môn học riêng lẻ. Chúng tôi xây dựng một Hệ sinh thái xoay quanh người học, với triết lý cốt lõi:', "We didn't build a center for a single subject. We built a learner-centered Ecosystem with a core philosophy:")}
