@@ -14,6 +14,7 @@ export const SportsPage = () => {
       <Helmet>
         <title>Chương trình Thể thao & Bơi lội | Huy Võ Education</title>
         <meta name="description" content="Khóa học bơi lội và thể thao giúp trẻ phát triển thể chất toàn diện, tăng chiều cao, sức bền và rèn luyện kỹ năng sinh tồn an toàn dưới nước." />
+        <meta property="og:image" content={window.location.origin + sportsImg} />
       </Helmet>
 
       {/* Hero Section */}

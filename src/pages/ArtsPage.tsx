@@ -14,6 +14,7 @@ export const ArtsPage = () => {
       <Helmet>
         <title>Chương trình Nghệ thuật & Sáng tạo | Huy Võ Education</title>
         <meta name="description" content="Khám phá tiềm năng nghệ thuật của trẻ. Lộ trình vẽ và sáng tạo giúp rèn luyện tư duy, thẩm mỹ và giải phóng cảm xúc." />
+        <meta property="og:image" content={window.location.origin + artsImg} />
       </Helmet>
 
       {/* Hero Section */}

@@ -14,6 +14,7 @@ export const StemPage = () => {
       <Helmet>
         <title>Chương trình STEM & Lắp ráp | Huy Võ Education</title>
         <meta name="description" content="Lộ trình đào tạo STEM chuẩn mực cho trẻ em từ 3-15 tuổi. Phát triển tư duy logic, sáng tạo và kỹ năng giải quyết vấn đề thực tế." />
+        <meta property="og:image" content={window.location.origin + stemImg} />
       </Helmet>
 
       {/* Hero Section */}
