@@ -80,8 +80,12 @@ export const EditModeProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     if (!pageData || !pageData.slug) return;
     const { error } = await supabase
       .from('pages')
-      .update({ sections: pageData.sections, updated_at: new Date().toISOString() })
-      .eq('slug', pageData.slug);
+      .upsert({ 
+         slug: pageData.slug,
+         title: pageData.title || pageData.slug,
+         sections: pageData.sections,
+         updated_at: new Date().toISOString()
+      });
       
     if (!error) {
       setOriginalData(pageData);

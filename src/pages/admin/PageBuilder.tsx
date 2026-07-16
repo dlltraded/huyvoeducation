@@ -139,9 +139,13 @@ export const PageBuilder = () => {
   // Available pages to select
   const availablePages = [
     { slug: 'home', name: 'Trang chủ (Home)' },
+    { slug: 'home-en', name: 'Trang chủ (English)' },
     { slug: 'stem', name: 'Chương trình STEM' },
+    { slug: 'stem-en', name: 'Chương trình STEM (English)' },
     { slug: 'arts', name: 'Chương trình Nghệ thuật' },
+    { slug: 'arts-en', name: 'Chương trình Nghệ thuật (English)' },
     { slug: 'sports', name: 'Chương trình Thể thao' },
+    { slug: 'sports-en', name: 'Chương trình Thể thao (English)' },
   ];
 
   useEffect(() => {

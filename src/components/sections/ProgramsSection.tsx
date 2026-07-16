@@ -14,7 +14,7 @@ const fadeUp: any = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
 };
 
-export const ProgramsSection = ({ props, sectionId }: { props: any, sectionId: string }) => {
+export const ProgramsSection = ({ props, sectionId, t }: { props: any, sectionId: string, t?: any }) => {
   const title = props?.title || 'Hệ sinh thái Đa dạng';
   const subtitle = props?.subtitle || 'Mỗi bộ môn đều được thiết kế chuyên sâu bởi các chuyên gia, nhưng lại được kết nối chặt chẽ để tạo nên một lộ trình phát triển toàn diện.';
   
@@ -59,7 +59,7 @@ export const ProgramsSection = ({ props, sectionId }: { props: any, sectionId: s
           </motion.div>
           <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
             <Link to="/chuong-trinh" className="group flex items-center gap-2 text-brand-blue font-semibold hover:text-blue-800 transition-colors bg-blue-50/50 px-5 py-2.5 rounded-full border border-blue-100">
-              Xem tất cả lộ trình 
+              {t ? t('Xem tất cả lộ trình', 'View all programs') : 'Xem tất cả lộ trình'} 
               <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
             </Link>
           </motion.div>
@@ -87,7 +87,7 @@ export const ProgramsSection = ({ props, sectionId }: { props: any, sectionId: s
                   <EditableText tag="span" value={prog.desc} sectionId={sectionId} path={`programs[${i}].desc`} />
                 </p>
                 <Link to={prog.link} className="inline-flex items-center gap-2 text-brand-blue font-semibold group/link">
-                  Khám phá chi tiết 
+                  {t ? t('Khám phá chi tiết', 'Discover details') : 'Khám phá chi tiết'} 
                   <ArrowRight size={18} className="group-hover/link:translate-x-2 transition-transform" />
                 </Link>
               </div>

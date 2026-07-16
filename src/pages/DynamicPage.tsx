@@ -28,27 +28,45 @@ interface DynamicPageProps {
 }
 
 export const DynamicPage: React.FC<DynamicPageProps> = ({ slug }) => {
-  const { t } = useOutletContext<any>();
+  const { t, lang } = useOutletContext<any>();
   const [loading, setLoading] = useState(true);
   const { pageData, setPageData, isEditMode } = useEditMode();
 
   useEffect(() => {
     const fetchPage = async () => {
       setLoading(true);
-      const { data, error } = await supabase
+      const targetSlug = lang === 'en' ? `${slug}-en` : slug;
+      
+      let { data, error } = await supabase
         .from('pages')
         .select('*')
-        .eq('slug', slug)
+        .eq('slug', targetSlug)
         .single();
       
       if (data) {
         setPageData(data);
+      } else if (lang === 'en') {
+        // Fallback to Vietnamese if English page doesn't exist yet
+        const { data: fallbackData } = await supabase
+          .from('pages')
+          .select('*')
+          .eq('slug', slug)
+          .single();
+          
+        if (fallbackData) {
+          // Set to fallback data, but change slug so saving creates the English version
+          setPageData({ ...fallbackData, slug: targetSlug });
+        } else {
+          setPageData(null);
+        }
+      } else {
+        setPageData(null);
       }
       setLoading(false);
     };
 
     fetchPage();
-  }, [slug]);
+  }, [slug, lang]);
 
   if (loading) {
     return (
@@ -82,7 +100,7 @@ export const DynamicPage: React.FC<DynamicPageProps> = ({ slug }) => {
         
         return (
           <SectionWrapper key={section.id} sectionId={section.id} index={index} type={section.type}>
-            <SectionComponent props={section.props} sectionId={section.id} />
+            <SectionComponent props={section.props} sectionId={section.id} t={t} lang={lang} />
           </SectionWrapper>
         );
       })}

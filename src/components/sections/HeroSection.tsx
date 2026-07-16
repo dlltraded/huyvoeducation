@@ -19,7 +19,7 @@ const staggerContainer = {
   }
 };
 
-export const HeroSection = ({ props, sectionId }: { props: any, sectionId: string }) => {
+export const HeroSection = ({ props, sectionId, t }: { props: any, sectionId: string, t?: any }) => {
   const { scrollY } = useScroll();
   const heroY = useTransform(scrollY, [0, 500], [0, 150]);
   const heroOpacity = useTransform(scrollY, [0, 300], [1, 0]);
@@ -66,7 +66,7 @@ export const HeroSection = ({ props, sectionId }: { props: any, sectionId: strin
               <ArrowRight size={18} />
             </a>
             <a href="#about" className="bg-white hover:bg-gray-50 text-gray-800 border border-gray-200 px-8 py-3.5 rounded-full font-heading font-semibold shadow-sm transition-all text-center">
-              Tìm hiểu thêm
+              {t ? t('Tìm hiểu thêm', 'Learn more') : 'Tìm hiểu thêm'}
             </a>
           </motion.div>
         </motion.div>
