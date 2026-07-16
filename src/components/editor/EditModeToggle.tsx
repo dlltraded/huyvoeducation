@@ -4,7 +4,7 @@ import { supabase } from '../../lib/supabase';
 import { Pencil, X } from 'lucide-react';
 
 export const EditModeToggle = () => {
-  const { isEditMode, setIsEditMode } = useEditMode();
+  const { isEditMode, setIsEditMode, pageData } = useEditMode();
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
@@ -13,7 +13,9 @@ export const EditModeToggle = () => {
     });
   }, []);
 
-  if (!isAdmin) return null;
+  // Only show edit button for Vietnamese pages (not -en slugs)
+  const isEnPage = pageData?.slug?.endsWith('-en');
+  if (!isAdmin || isEnPage) return null;
 
   return (
     <button

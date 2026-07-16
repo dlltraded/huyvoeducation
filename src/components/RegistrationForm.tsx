@@ -86,10 +86,15 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 mb-3">{t('Quan tâm chương trình', 'Interested in')}</label>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {['Thể thao', 'Nghệ thuật', 'STEM', 'Ngoại ngữ'].map((item, i) => (
+                        {[
+                          { vi: 'Thể thao & Bơi lội', en: 'Sports & Swimming' },
+                          { vi: 'Nghệ thuật', en: 'Arts & Creativity' },
+                          { vi: 'STEM', en: 'STEM' },
+                          { vi: 'Ngoại ngữ', en: 'Foreign Language' }
+                        ].map((item, i) => (
                           <label key={i} className="flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer hover:bg-blue-50 transition-colors">
-                            <input type="checkbox" defaultChecked={item === initialProgram} className="w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue" />
-                            <span className="text-sm font-medium text-gray-700">{item}</span>
+                            <input type="checkbox" className="w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue" />
+                            <span className="text-sm font-medium text-gray-700">{t ? t(item.vi, item.en) : item.vi}</span>
                           </label>
                         ))}
                       </div>

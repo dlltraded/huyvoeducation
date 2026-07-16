@@ -85,7 +85,7 @@ export const DynamicPage: React.FC<DynamicPageProps> = ({ slug }) => {
       <div className="min-h-screen pt-32 pb-20 flex justify-center items-center bg-gray-50 text-center">
         <div>
           <h1 className="text-4xl font-bold mb-4">404</h1>
-          <p className="text-gray-600 text-lg">Trang không tồn tại hoặc chưa được xuất bản.</p>
+          <p className="text-gray-600 text-lg">{t('Trang không tồn tại hoặc chưa được xuất bản.', 'Page not found or not yet published.')}</p>
         </div>
       </div>
     );
