@@ -114,7 +114,7 @@ export const EditModeProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       isEditMode, setIsEditMode,
       pageData, setPageData: (data) => {
         setPageData(data);
-        if (!originalData || data.slug !== originalData?.slug) {
+        if (!originalData || data?.slug !== originalData?.slug) {
           setOriginalData(data);
           setHasChanges(false);
         }
