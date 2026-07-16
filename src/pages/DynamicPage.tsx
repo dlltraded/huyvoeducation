@@ -12,6 +12,8 @@ import { ProgramsSection } from '../components/sections/ProgramsSection';
 import { FacilitiesSection } from '../components/sections/FacilitiesSection';
 import { ProgramHeroSection } from '../components/sections/ProgramHeroSection';
 import { ProgramContentSection } from '../components/sections/ProgramContentSection';
+import { ProgramCurriculumSection } from '../components/sections/ProgramCurriculumSection';
+import { ProgramFAQSection } from '../components/sections/ProgramFAQSection';
 import { RegistrationForm } from '../components/RegistrationForm';
 
 const sectionMap: Record<string, React.FC<any>> = {
@@ -20,7 +22,9 @@ const sectionMap: Record<string, React.FC<any>> = {
   'ProgramsSection': ProgramsSection,
   'FacilitiesSection': FacilitiesSection,
   'ProgramHeroSection': ProgramHeroSection,
-  'ProgramContentSection': ProgramContentSection
+  'ProgramContentSection': ProgramContentSection,
+  'ProgramCurriculumSection': ProgramCurriculumSection,
+  'ProgramFAQSection': ProgramFAQSection
 };
 
 interface DynamicPageProps {

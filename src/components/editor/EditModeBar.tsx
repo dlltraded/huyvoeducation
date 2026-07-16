@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useEditMode } from '../../contexts/EditModeContext';
-import { Save, RotateCcw, Plus, Layout } from 'lucide-react';
+import { Save, RotateCcw, Plus, Layout, Languages, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { translateSections } from '../../lib/gemini';
 
 const availableSections = [
   { type: 'HeroSection', label: 'Hero Banner' },
@@ -9,12 +10,15 @@ const availableSections = [
   { type: 'ProgramsSection', label: 'Khóa học nổi bật' },
   { type: 'FacilitiesSection', label: 'Cơ sở vật chất' },
   { type: 'ProgramHeroSection', label: 'Banner Khóa học' },
-  { type: 'ProgramContentSection', label: 'Nội dung Khóa học' }
+  { type: 'ProgramContentSection', label: 'Nội dung Khóa học' },
+  { type: 'ProgramCurriculumSection', label: 'Lộ trình học' },
+  { type: 'ProgramFAQSection', label: 'Câu hỏi thường gặp' },
 ];
 
 export const EditModeBar = () => {
   const { isEditMode, hasChanges, saveChanges, discardChanges, pageData, setPageData } = useEditMode();
   const [showAddMenu, setShowAddMenu] = useState(false);
+  const [isTranslating, setIsTranslating] = useState(false);
 
   if (!isEditMode) return null;
 
@@ -23,14 +27,30 @@ export const EditModeBar = () => {
     const newSection = {
       id: `${type.toLowerCase()}-${Date.now()}`,
       type: type,
-      props: {} // default empty props, component should handle fallbacks
+      props: {}
     };
-    
-    setPageData({
-      ...pageData,
-      sections: [...pageData.sections, newSection]
-    });
+    setPageData({ ...pageData, sections: [...pageData.sections, newSection] });
     setShowAddMenu(false);
+  };
+
+  const handleAutoTranslate = async () => {
+    if (!pageData) return;
+    const isEnPage = pageData.slug?.endsWith('-en');
+    if (!isEnPage) {
+      alert('Tính năng dịch tự động chỉ hoạt động khi bạn đang xem trang Tiếng Anh (EN). Vui lòng chuyển ngôn ngữ sang EN trước.');
+      return;
+    }
+
+    setIsTranslating(true);
+    try {
+      const translatedSections = await translateSections(pageData.sections);
+      setPageData({ ...pageData, sections: translatedSections });
+      alert('✅ Đã dịch xong toàn bộ nội dung! Vui lòng kiểm tra lại rồi bấm "Xuất bản".');
+    } catch (err: any) {
+      alert('❌ Lỗi khi dịch: ' + (err.message || 'Không kết nối được Gemini API. Vui lòng thử lại.'));
+    } finally {
+      setIsTranslating(false);
+    }
   };
 
   return (
@@ -76,6 +96,19 @@ export const EditModeBar = () => {
               </div>
             )}
           </div>
+
+          {/* Auto-translate button */}
+          <button
+            onClick={handleAutoTranslate}
+            disabled={isTranslating}
+            className="flex items-center gap-2 px-4 py-2 bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 rounded-lg transition-colors font-medium disabled:opacity-60 disabled:cursor-not-allowed"
+            title="Dịch toàn bộ nội dung trang sang Tiếng Anh bằng Gemini AI"
+          >
+            {isTranslating 
+              ? <><Loader2 size={18} className="animate-spin" /> Đang dịch...</>
+              : <><Languages size={18} /> ✨ Tự động dịch EN</>
+            }
+          </button>
         </div>
 
         <div className="flex items-center gap-3">
