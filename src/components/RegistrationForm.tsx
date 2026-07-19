@@ -1,13 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle2, Phone, Mail } from 'lucide-react';
+import { CheckCircle2, Phone, Mail, Loader2 } from 'lucide-react';
+import { supabase } from '../lib/supabase';
+
+const PROGRAMS = [
+  { vi: 'Thể thao & Bơi lội', en: 'Sports & Swimming' },
+  { vi: 'Nghệ thuật', en: 'Arts & Creativity' },
+  { vi: 'STEM', en: 'STEM' },
+  { vi: 'Ngoại ngữ', en: 'Foreign Language' },
+];
 
 export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const parentNameRef = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
+  const childNameRef = useRef<HTMLInputElement>(null);
+  const childAgeRef = useRef<HTMLInputElement>(null);
+  const checkboxRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setFormSubmitted(true);
+    setIsSubmitting(true);
+    setError('');
+
+    const selectedPrograms = PROGRAMS
+      .filter((_, i) => checkboxRefs.current[i]?.checked)
+      .map(p => p.vi);
+
+    const { error: dbError } = await supabase.from('leads').insert({
+      parent_name: parentNameRef.current?.value || '',
+      phone: phoneRef.current?.value || '',
+      child_name: childNameRef.current?.value || '',
+      child_age: childAgeRef.current?.value ? parseInt(childAgeRef.current.value) : null,
+      programs: selectedPrograms,
+      status: 'new',
+    });
+
+    if (dbError) {
+      setError('Có lỗi xảy ra, vui lòng thử lại hoặc gọi hotline.');
+      console.error(dbError);
+    } else {
+      setFormSubmitted(true);
+    }
+    setIsSubmitting(false);
   };
 
   return (
@@ -64,44 +102,52 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
                         <label className="block text-sm font-semibold text-gray-700 mb-2">{t('Họ tên ba/mẹ *', 'Parent Name *')}</label>
-                        <input type="text" required className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all bg-gray-50 focus:bg-white" />
+                        <input ref={parentNameRef} type="text" required className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all bg-gray-50 focus:bg-white" />
                       </div>
                       <div>
                         <label className="block text-sm font-semibold text-gray-700 mb-2">{t('Số điện thoại *', 'Phone Number *')}</label>
-                        <input type="tel" required className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all bg-gray-50 focus:bg-white" />
+                        <input ref={phoneRef} type="tel" required className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all bg-gray-50 focus:bg-white" />
                       </div>
                     </div>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
                         <label className="block text-sm font-semibold text-gray-700 mb-2">{t('Tên bé', "Child's Name")}</label>
-                        <input type="text" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all bg-gray-50 focus:bg-white" />
+                        <input ref={childNameRef} type="text" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all bg-gray-50 focus:bg-white" />
                       </div>
                       <div>
                         <label className="block text-sm font-semibold text-gray-700 mb-2">{t('Tuổi bé', "Child's Age")}</label>
-                        <input type="number" min="3" max="18" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all bg-gray-50 focus:bg-white" />
+                        <input ref={childAgeRef} type="number" min="3" max="18" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all bg-gray-50 focus:bg-white" />
                       </div>
                     </div>
 
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 mb-3">{t('Quan tâm chương trình', 'Interested in')}</label>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {[
-                          { vi: 'Thể thao & Bơi lội', en: 'Sports & Swimming' },
-                          { vi: 'Nghệ thuật', en: 'Arts & Creativity' },
-                          { vi: 'STEM', en: 'STEM' },
-                          { vi: 'Ngoại ngữ', en: 'Foreign Language' }
-                        ].map((item, i) => (
+                        {PROGRAMS.map((item, i) => (
                           <label key={i} className="flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer hover:bg-blue-50 transition-colors">
-                            <input type="checkbox" className="w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue" />
+                            <input
+                              type="checkbox"
+                              ref={el => { checkboxRefs.current[i] = el; }}
+                              defaultChecked={item.vi === initialProgram}
+                              className="w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue"
+                            />
                             <span className="text-sm font-medium text-gray-700">{t ? t(item.vi, item.en) : item.vi}</span>
                           </label>
                         ))}
                       </div>
                     </div>
 
-                    <button type="submit" className="w-full bg-brand-blue hover:bg-blue-700 text-white font-heading font-bold text-lg py-4 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all">
-                      {t('Nhận tư vấn ngay', 'Get Consultation Now')}
+                    {error && (
+                      <p className="text-red-500 text-sm bg-red-50 px-4 py-3 rounded-xl">{error}</p>
+                    )}
+
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full bg-brand-blue hover:bg-blue-700 text-white font-heading font-bold text-lg py-4 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    >
+                      {isSubmitting ? <><Loader2 size={20} className="animate-spin" /> {t('Đang gửi...', 'Sending...')}</> : t('Nhận tư vấn ngay', 'Get Consultation Now')}
                     </button>
                   </motion.form>
                 ) : (

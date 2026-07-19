@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, useNavigate, Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Newspaper, Settings, LogOut, Loader2 } from 'lucide-react';
+import { LayoutDashboard, Newspaper, Settings, LogOut, Loader2, Users } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
 export const AdminLayout = () => {
@@ -39,6 +39,7 @@ export const AdminLayout = () => {
   };
 
   const navItems = [
+    { name: 'Lead đăng ký', path: '/admin/leads', icon: Users },
     { name: 'Quản lý Tin tức', path: '/admin/news', icon: Newspaper },
     { name: 'Quản lý Nội dung', path: '/admin/content', icon: Settings },
     { name: 'Cài đặt chung', path: '/admin/settings', icon: Settings },

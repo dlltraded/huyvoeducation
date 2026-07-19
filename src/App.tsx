@@ -10,6 +10,7 @@ import { Login } from './pages/admin/Login';
 import { NewsManager } from './pages/admin/NewsManager';
 import { PageBuilder } from './pages/admin/PageBuilder';
 import { GlobalSettings } from './pages/admin/GlobalSettings';
+import { LeadsManager } from './pages/admin/LeadsManager';
 import ScrollToTop from './components/ScrollToTop';
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
             <Route path="news" element={<NewsManager />} />
             <Route path="content" element={<PageBuilder />} />
             <Route path="settings" element={<GlobalSettings />} />
+            <Route path="leads" element={<LeadsManager />} />
           </Route>
         </Routes>
       </BrowserRouter>
