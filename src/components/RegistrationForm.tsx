@@ -1,7 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle2, Phone, Mail, Loader2 } from 'lucide-react';
+import { CheckCircle2, Phone, Mail, Loader2, BadgeCheck } from 'lucide-react';
 import { supabase } from '../lib/supabase';
+import { getStoredAttribution } from '../lib/referralTracking';
 
 const PROGRAMS = [
   { vi: 'Thể thao & Bơi lội', en: 'Sports & Swimming' },
@@ -21,6 +22,20 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
   const childAgeRef = useRef<HTMLInputElement>(null);
   const referralCodeRef = useRef<HTMLInputElement>(null);
   const checkboxRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const [autoRef, setAutoRef] = useState('');
+  const [source, setSource] = useState('');
+
+  // Auto-fill the referral code (and silently capture the marketing source)
+  // when the visitor arrived via a referrer's link/QR code (?ref=CODE) or a
+  // campaign link/QR code (?src=LABEL), captured on first page load in App.tsx.
+  useEffect(() => {
+    const { ref, src } = getStoredAttribution();
+    if (ref) {
+      setAutoRef(ref);
+      if (referralCodeRef.current) referralCodeRef.current.value = ref;
+    }
+    setSource(src || ref || '');
+  }, []);
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,6 +53,7 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
       child_age: childAgeRef.current?.value ? parseInt(childAgeRef.current.value) : null,
       programs: selectedPrograms,
       referral_code: referralCodeRef.current?.value?.trim() || null,
+      source: source || null,
       status: 'new',
     });
 
@@ -147,9 +163,16 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
                       <input
                         ref={referralCodeRef}
                         type="text"
+                        defaultValue={autoRef}
                         placeholder={t('Nhập mã của phụ huynh/học viên cũ để nhận ưu đãi học phí', "Enter a current parent's or student's code for a tuition discount")}
                         className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all bg-gray-50 focus:bg-white"
                       />
+                      {autoRef && (
+                        <p className="flex items-center gap-1.5 text-xs text-brand-green font-semibold mt-2">
+                          <BadgeCheck size={14} />
+                          {t(`Đã tự động áp dụng mã "${autoRef}" từ liên kết/QR bạn vừa quét.`, `Code "${autoRef}" auto-applied from the link/QR you scanned.`)}
+                        </p>
+                      )}
                     </div>
 
                     {error && (

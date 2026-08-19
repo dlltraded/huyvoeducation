@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
+import { captureAttribution } from './lib/referralTracking';
 import { MainLayout } from './layouts/MainLayout';
 import { DynamicPage } from './pages/DynamicPage';
 import { NewsPage } from './pages/NewsPage';
@@ -16,10 +17,15 @@ import { NewsManager } from './pages/admin/NewsManager';
 import { PageBuilder } from './pages/admin/PageBuilder';
 import { GlobalSettings } from './pages/admin/GlobalSettings';
 import { LeadsManager } from './pages/admin/LeadsManager';
+import { ReferrersManager } from './pages/admin/ReferrersManager';
 import { NotFound } from './pages/NotFound';
 import ScrollToTop from './components/ScrollToTop';
 
 function App() {
+  useEffect(() => {
+    captureAttribution();
+  }, []);
+
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -47,6 +53,7 @@ function App() {
             <Route path="content" element={<PageBuilder />} />
             <Route path="settings" element={<GlobalSettings />} />
             <Route path="leads" element={<LeadsManager />} />
+            <Route path="referrers" element={<ReferrersManager />} />
           </Route>
         </Routes>
       </BrowserRouter>

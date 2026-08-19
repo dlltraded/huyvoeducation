@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabase';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, User, Baby, BookOpen, Clock, CheckCircle2, XCircle, Loader2, RefreshCw, Trash2, ChevronDown, Gift } from 'lucide-react';
+import { Phone, User, Baby, BookOpen, Clock, CheckCircle2, XCircle, Loader2, RefreshCw, Trash2, ChevronDown, Gift, MapPin } from 'lucide-react';
 
 type LeadStatus = 'new' | 'contacted' | 'enrolled' | 'cancelled';
 
@@ -14,6 +14,7 @@ interface Lead {
   child_age: number | null;
   programs: string[];
   referral_code: string | null;
+  source: string | null;
   status: LeadStatus;
   note: string | null;
 }
@@ -157,6 +158,11 @@ export const LeadsManager = () => {
                         {lead.referral_code && (
                           <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-purple-100 text-purple-700 font-semibold">
                             <Gift size={13} /> {lead.referral_code}
+                          </span>
+                        )}
+                        {lead.source && lead.source !== lead.referral_code && (
+                          <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-cyan-100 text-cyan-700 font-semibold">
+                            <MapPin size={13} /> {lead.source}
                           </span>
                         )}
                         <span className="flex items-center gap-1"><Clock size={13} /> {new Date(lead.created_at).toLocaleString('vi-VN')}</span>
