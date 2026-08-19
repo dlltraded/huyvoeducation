@@ -16,8 +16,12 @@ interface Referrer {
 
 const SITE_ORIGIN = typeof window !== 'undefined' ? window.location.origin : 'https://huyvoeducation.com';
 
-const referralLink = (code: string) => `${SITE_ORIGIN}/?ref=${encodeURIComponent(code)}`;
-const campaignLink = (label: string) => `${SITE_ORIGIN}/?src=${encodeURIComponent(label)}`;
+// Both links land straight on the registration form (#register) — the query
+// param (?ref=/?src=) is captured on load in App.tsx before ScrollToTop
+// scrolls to the #register section, so the form is pre-filled by the time
+// the visitor sees it.
+const referralLink = (code: string) => `${SITE_ORIGIN}/?ref=${encodeURIComponent(code)}#register`;
+const campaignLink = (label: string) => `${SITE_ORIGIN}/?src=${encodeURIComponent(label)}#register`;
 
 const CopyButton = ({ value }: { value: string }) => {
   const [copied, setCopied] = useState(false);
