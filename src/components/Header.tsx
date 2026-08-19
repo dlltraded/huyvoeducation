@@ -24,7 +24,8 @@ export const Header = ({ lang, setLang, isScrolled, mobileMenuOpen, setMobileMen
           <Link to="/chuong-trinh/nghe-thuat" className={`${linkBase} ${isScrolled ? linkScrolled : linkTop}`}>{t('Nghệ thuật', 'Arts')}</Link>
           <Link to="/chuong-trinh/the-thao-boi-loi" className={`${linkBase} ${isScrolled ? linkScrolled : linkTop}`}>{t('Thể thao', 'Sports')}</Link>
           <Link to="/tin-tuc" className={`${linkBase} ${isScrolled ? linkScrolled : linkTop}`}>{t('Tin tức', 'News')}</Link>
-          
+          <Link to="/chinh-sach-bao-ve-tre-em" className={`${linkBase} ${isScrolled ? linkScrolled : linkTop}`}>{t('Cam kết an toàn', 'Safeguarding')}</Link>
+
           <button onClick={() => setLang(lang === 'vi' ? 'en' : 'vi')} className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1.5 rounded-full text-sm font-medium transition-colors">
             <Globe size={16} />
             {lang.toUpperCase()}
@@ -52,6 +53,7 @@ export const Header = ({ lang, setLang, isScrolled, mobileMenuOpen, setMobileMen
               <Link to="/chuong-trinh/nghe-thuat" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-gray-800">{t('Nghệ thuật', 'Arts')}</Link>
               <Link to="/chuong-trinh/the-thao-boi-loi" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-gray-800">{t('Thể thao', 'Sports')}</Link>
               <Link to="/tin-tuc" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-gray-800">{t('Tin tức', 'News')}</Link>
+              <Link to="/chinh-sach-bao-ve-tre-em" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-gray-800">{t('Cam kết an toàn', 'Safeguarding')}</Link>
               <div className="pt-4 border-t border-gray-100 flex justify-between items-center">
                 <button onClick={() => setLang(lang === 'vi' ? 'en' : 'vi')} className="flex items-center gap-2 bg-gray-100 text-gray-700 px-4 py-2 rounded-full font-medium">
                   <Globe size={18} />

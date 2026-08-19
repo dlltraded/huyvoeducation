@@ -5,6 +5,7 @@ import { MainLayout } from './layouts/MainLayout';
 import { DynamicPage } from './pages/DynamicPage';
 import { NewsPage } from './pages/NewsPage';
 import { NewsDetail } from './pages/NewsDetail';
+import { ChildProtection } from './pages/ChildProtection';
 import { AdminLayout } from './layouts/AdminLayout';
 import { Login } from './pages/admin/Login';
 import { NewsManager } from './pages/admin/NewsManager';
@@ -27,6 +28,7 @@ function App() {
             <Route path="chuong-trinh/the-thao-boi-loi" element={<DynamicPage slug="sports" />} />
             <Route path="tin-tuc" element={<NewsPage />} />
             <Route path="tin-tuc/:id" element={<NewsDetail />} />
+            <Route path="chinh-sach-bao-ve-tre-em" element={<ChildProtection />} />
             <Route path="*" element={<NotFound />} />
           </Route>
 

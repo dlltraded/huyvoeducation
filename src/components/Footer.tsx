@@ -25,6 +25,7 @@ export const Footer = ({ t }: any) => {
             <li><a href="/chuong-trinh/stem" className="hover:text-brand-yellow transition-colors">STEM</a></li>
             <li><a href="/chuong-trinh/nghe-thuat" className="hover:text-brand-yellow transition-colors">{t('Nghệ thuật', 'Arts')}</a></li>
             <li><a href="/chuong-trinh/the-thao-boi-loi" className="hover:text-brand-yellow transition-colors">{t('Thể thao', 'Sports')}</a></li>
+            <li><a href="/chinh-sach-bao-ve-tre-em" className="hover:text-brand-yellow transition-colors">{t('Bảo vệ trẻ em', 'Safeguarding')}</a></li>
           </ul>
         </div>
         
