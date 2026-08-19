@@ -11,6 +11,7 @@ import { NewsManager } from './pages/admin/NewsManager';
 import { PageBuilder } from './pages/admin/PageBuilder';
 import { GlobalSettings } from './pages/admin/GlobalSettings';
 import { LeadsManager } from './pages/admin/LeadsManager';
+import { NotFound } from './pages/NotFound';
 import ScrollToTop from './components/ScrollToTop';
 
 function App() {
@@ -26,8 +27,9 @@ function App() {
             <Route path="chuong-trinh/the-thao-boi-loi" element={<DynamicPage slug="sports" />} />
             <Route path="tin-tuc" element={<NewsPage />} />
             <Route path="tin-tuc/:id" element={<NewsDetail />} />
+            <Route path="*" element={<NotFound />} />
           </Route>
-          
+
           <Route path="/admin/login" element={<Login />} />
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<div className="p-8 text-xl font-bold">Trang chủ Admin (Đang cập nhật)</div>} />

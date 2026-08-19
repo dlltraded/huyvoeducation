@@ -19,6 +19,7 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
   const phoneRef = useRef<HTMLInputElement>(null);
   const childNameRef = useRef<HTMLInputElement>(null);
   const childAgeRef = useRef<HTMLInputElement>(null);
+  const referralCodeRef = useRef<HTMLInputElement>(null);
   const checkboxRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   const handleFormSubmit = async (e: React.FormEvent) => {
@@ -36,6 +37,7 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
       child_name: childNameRef.current?.value || '',
       child_age: childAgeRef.current?.value ? parseInt(childAgeRef.current.value) : null,
       programs: selectedPrograms,
+      referral_code: referralCodeRef.current?.value?.trim() || null,
       status: 'new',
     });
 
@@ -84,7 +86,7 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
                   </div>
                   <div>
                     <p className="text-sm text-blue-200">Email</p>
-                    <p className="font-semibold">hiepphatfoodvn@gmail.com</p>
+                    <p className="font-semibold">huyvoeducation@gmail.com</p>
                   </div>
                 </div>
               </div>
@@ -136,6 +138,18 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
                           </label>
                         ))}
                       </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">
+                        {t('Mã giới thiệu (nếu có)', 'Referral code (optional)')}
+                      </label>
+                      <input
+                        ref={referralCodeRef}
+                        type="text"
+                        placeholder={t('Nhập mã của phụ huynh/học viên cũ để nhận ưu đãi học phí', "Enter a current parent's or student's code for a tuition discount")}
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all bg-gray-50 focus:bg-white"
+                      />
                     </div>
 
                     {error && (
