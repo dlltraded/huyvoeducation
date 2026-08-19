@@ -2,6 +2,8 @@
 // where a verified authentic-Vietnamese stock photo could not be confirmed.
 import trongNghiThucImg from '../assets/images/trong_nghi_thuc_real.jpg';
 import danTranhImg from '../assets/images/dan_tranh_real.jpg';
+import bongDaImg from '../assets/images/bong_da_real.jpg';
+import vovinamImg from '../assets/images/vovinam_real.jpg';
 
 export interface Program {
   slug: string;
@@ -29,7 +31,7 @@ export const PROGRAMS: Program[] = [
     slug: 'bong-da',
     category: 'sports',
     icon: '⚽',
-    img: 'https://images.pexels.com/photos/35180899/pexels-photo-35180899.jpeg?auto=compress&cs=tinysrgb&w=1000',
+    img: bongDaImg,
     name: { vi: 'Bóng đá', en: 'Football' },
     tagline: { vi: 'Kỹ thuật nền tảng bằng lòng bàn chân', en: 'Foundational technique with the inside of the foot' },
     ageGroups: '7 – 15',
@@ -101,7 +103,7 @@ export const PROGRAMS: Program[] = [
     slug: 'vovinam',
     category: 'martial-arts',
     icon: '🥋',
-    img: 'https://images.pexels.com/photos/6777314/pexels-photo-6777314.jpeg?auto=compress&cs=tinysrgb&w=1000',
+    img: vovinamImg,
     name: { vi: 'Vovinam – Việt Võ Đạo', en: 'Vovinam – Vietnamese Martial Art' },
     tagline: { vi: 'Sơ đẳng và Trung đẳng', en: 'Beginner to Intermediate ranks' },
     ageGroups: '6+',

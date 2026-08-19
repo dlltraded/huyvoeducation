@@ -4,6 +4,8 @@ import { MapPin, CheckCircle2 } from 'lucide-react';
 
 import nvhImg from '../../assets/images/nvh_campus_real.jpg';
 import trongNghiThucImg from '../../assets/images/trong_nghi_thuc_real.jpg';
+import bongDaImg from '../../assets/images/bong_da_real.jpg';
+import vovinamImg from '../../assets/images/vovinam_real.jpg';
 import { EditableText } from '../editor/EditableText';
 import { EditableImage } from '../editor/EditableImage';
 
@@ -15,9 +17,9 @@ const sunriseImg = 'https://images.pexels.com/photos/17893014/pexels-photo-17893
 // football, basketball, traditional drums) so parents see the diversity
 // at a glance.
 const PROGRAM_GALLERY = [
-  { img: 'https://images.pexels.com/photos/6777314/pexels-photo-6777314.jpeg?auto=compress&cs=tinysrgb&w=800', vi: 'Võ thuật', en: 'Martial Arts' },
+  { img: vovinamImg, vi: 'Võ thuật', en: 'Martial Arts' },
   { img: 'https://images.pexels.com/photos/31022969/pexels-photo-31022969.jpeg?auto=compress&cs=tinysrgb&w=800', vi: 'Nghệ thuật', en: 'Arts' },
-  { img: 'https://images.pexels.com/photos/35180899/pexels-photo-35180899.jpeg?auto=compress&cs=tinysrgb&w=800', vi: 'Bóng đá', en: 'Football' },
+  { img: bongDaImg, vi: 'Bóng đá', en: 'Football' },
   { img: 'https://images.pexels.com/photos/10643696/pexels-photo-10643696.jpeg?auto=compress&cs=tinysrgb&w=800', vi: 'Bóng rổ', en: 'Basketball' },
   { img: trongNghiThucImg, vi: 'Trống nghi thức', en: 'Ceremonial Drums' },
 ];
