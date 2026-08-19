@@ -26,10 +26,19 @@ export const FacilitiesSection = ({ props, sectionId }: { props: any, sectionId:
 
   return (
     <>
-      <section className="py-24 bg-brand-blue text-white overflow-hidden relative">
+      <section className="pt-28 pb-24 bg-brand-blue text-white overflow-hidden relative">
+        <div className="absolute top-0 left-0 right-0 leading-none rotate-180">
+          <svg viewBox="0 0 1440 50" className="w-full h-8 md:h-12" preserveAspectRatio="none">
+            <path d="M0,26 C240,52 480,0 720,13 C960,26 1200,52 1440,26 L1440,50 L0,50 Z" fill="#F9FAFB" />
+          </svg>
+        </div>
         <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/3 w-[800px] h-[800px] bg-blue-600/50 rounded-full blur-3xl mix-blend-screen pointer-events-none"></div>
         <div className="absolute bottom-0 left-0 translate-y-1/3 -translate-x-1/3 w-[600px] h-[600px] bg-brand-green/30 rounded-full blur-3xl mix-blend-screen pointer-events-none"></div>
-        
+        <div
+          className="absolute inset-0 opacity-[0.05] pointer-events-none"
+          style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '28px 28px' }}
+        />
+
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-heading font-bold mb-6">
@@ -53,6 +62,12 @@ export const FacilitiesSection = ({ props, sectionId }: { props: any, sectionId:
               </motion.div>
             ))}
           </div>
+        </div>
+
+        <div className="absolute bottom-0 left-0 right-0 leading-none">
+          <svg viewBox="0 0 1440 50" className="w-full h-8 md:h-12" preserveAspectRatio="none">
+            <path d="M0,26 C240,52 480,0 720,13 C960,26 1200,52 1440,26 L1440,50 L0,50 Z" fill="white" />
+          </svg>
         </div>
       </section>
 

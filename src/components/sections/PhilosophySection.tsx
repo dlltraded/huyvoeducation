@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { BookOpen, Users, Award } from 'lucide-react';
+import { BookOpen, Users, Award, Sparkles } from 'lucide-react';
 
 import learnImg from '../../assets/images/learn_philosophy.png';
 import connectImg from '../../assets/images/connect_philosophy.png';
@@ -63,6 +63,9 @@ export const PhilosophySection = ({ props, sectionId }: { props: any, sectionId:
           variants={staggerContainer}
           className="text-center max-w-3xl mx-auto mb-20"
         >
+          <motion.p variants={fadeUp} className="inline-flex items-center gap-1.5 uppercase tracking-widest text-xs font-bold text-brand-blue mb-4">
+            <Sparkles size={13} /> Triết lý giáo dục
+          </motion.p>
           <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-heading font-bold mb-6 text-gray-900">
             <EditableText tag="span" value={title} sectionId={sectionId} path="title" />
           </motion.h2>
