@@ -16,7 +16,7 @@ const stagger: any = {
 };
 
 const STATS = [
-  { value: '9', vi: 'Giảng viên & HLV', en: 'Instructors & Coaches' },
+  { value: '9', vi: 'Gương mặt tiêu biểu', en: 'Featured instructors' },
   { value: '100+', vi: 'Năm kinh nghiệm cộng dồn', en: 'Combined years of experience' },
   { value: '6', vi: 'Bộ môn chuyên sâu', en: 'Specializations' },
 ];
@@ -69,10 +69,16 @@ export const Instructors: React.FC = () => {
           <motion.h1 variants={fadeUp} className="text-3xl md:text-5xl font-heading font-bold mb-6 leading-tight text-white">
             {t('Đội ngũ giảng viên tiêu biểu', 'Featured Instructors')}
           </motion.h1>
-          <motion.p variants={fadeUp} className="text-lg text-blue-100/90 leading-relaxed max-w-2xl mx-auto mb-10">
+          <motion.p variants={fadeUp} className="text-lg text-blue-100/90 leading-relaxed max-w-2xl mx-auto mb-3">
             {t(
               'Được tuyển chọn và xác minh chuyên môn cùng Đoàn TNCS Hồ Chí Minh và Nhà Văn Hóa Thanh Thiếu Nhi Đồng Nai — mỗi giảng viên đều công khai học vấn, kinh nghiệm và thành tích.',
               'Sourced and verified together with the Ho Chi Minh Communist Youth Union and the Dong Nai Youth Cultural House — every instructor publishes their education, experience, and achievements.'
+            )}
+          </motion.p>
+          <motion.p variants={fadeUp} className="text-sm text-blue-100/70 leading-relaxed max-w-2xl mx-auto mb-10 italic">
+            {t(
+              'Dưới đây là một số gương mặt tiêu biểu — đội ngũ giảng viên và huấn luyện viên thực tế của Huy Võ Education còn đông đảo hơn nhiều.',
+              'Below are a few featured faces — the actual team of instructors and coaches at Huy Vo Education is much larger.'
             )}
           </motion.p>
 

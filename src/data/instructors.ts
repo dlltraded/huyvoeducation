@@ -183,7 +183,7 @@ export const INSTRUCTORS: Instructor[] = [
   },
   {
     slug: 'pham-le-vu-hoang',
-    photo: null,
+    photo: '/instructors/pham-le-vu-hoang.jpg',
     specializationTag: { vi: 'Múa & Biên đạo', en: 'Dance & Choreography' },
     name: 'Phạm Lê Vũ Hoàng',
     title: { vi: 'Giảng viên Múa & Biên đạo', en: 'Dance & Choreography Instructor' },
