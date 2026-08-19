@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
-import { Save, Loader2, Link2, Map, PhoneCall, AlignLeft } from 'lucide-react';
+import { Save, Loader2, Link2, Map, PhoneCall, AlignLeft, Building2 } from 'lucide-react';
 import type { SiteSettings } from '../../contexts/SettingsContext';
 
 export const GlobalSettings = () => {
@@ -13,7 +13,10 @@ export const GlobalSettings = () => {
     youtubeUrl: '',
     mapIframe: '',
     footerDescVi: '',
-    footerDescEn: ''
+    footerDescEn: '',
+    address: '',
+    email: '',
+    taxCode: ''
   });
 
   useEffect(() => {
@@ -111,13 +114,53 @@ export const GlobalSettings = () => {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Link Zalo (Chat trực tiếp)</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   name="zaloUrl"
                   value={formData.zaloUrl}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition-all"
                   placeholder="Ví dụ: https://zalo.me/0901234567"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Email liên hệ</label>
+                <input
+                  type="text"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition-all"
+                  placeholder="info@huyvoeducation.com"
+                />
+              </div>
+            </div>
+          </section>
+
+          {/* Đơn vị */}
+          <section>
+            <h3 className="flex items-center gap-2 text-lg font-bold text-gray-700 mb-4 pb-2 border-b border-gray-100">
+              <Building2 size={20} className="text-brand-blue" /> Thông tin đơn vị
+            </h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">Địa chỉ văn phòng</label>
+                <input
+                  type="text"
+                  name="address"
+                  value={formData.address}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition-all"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Mã số thuế</label>
+                <input
+                  type="text"
+                  name="taxCode"
+                  value={formData.taxCode}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition-all"
                 />
               </div>
             </div>
