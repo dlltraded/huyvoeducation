@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle2, Phone, Mail, Loader2, BadgeCheck } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { getStoredAttribution } from '../lib/referralTracking';
+import { useSettings } from '../contexts/SettingsContext';
 
 const PROGRAMS = [
   { vi: 'Thể thao & Bơi lội', en: 'Sports & Swimming' },
@@ -12,6 +13,7 @@ const PROGRAMS = [
 ];
 
 export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
+  const { settings } = useSettings();
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -46,16 +48,25 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
       .filter((_, i) => checkboxRefs.current[i]?.checked)
       .map(p => p.vi);
 
-    const { error: dbError } = await supabase.from('leads').insert({
+    const basePayload = {
       parent_name: parentNameRef.current?.value || '',
       phone: phoneRef.current?.value || '',
       child_name: childNameRef.current?.value || '',
       child_age: childAgeRef.current?.value ? parseInt(childAgeRef.current.value) : null,
       programs: selectedPrograms,
       referral_code: referralCodeRef.current?.value?.trim() || null,
-      source: source || null,
       status: 'new',
-    });
+    };
+
+    let { error: dbError } = await supabase.from('leads').insert({ ...basePayload, source: source || null });
+
+    // Fallback for sites where the `source` column migration hasn't been run
+    // yet on the `leads` table — don't let a missing optional column block
+    // the whole registration.
+    if (dbError && /source/i.test(dbError.message || '')) {
+      console.warn('leads.source column missing — retrying insert without it. Run supabase/migrations/20260819d_leads_source_tracking.sql to enable source tracking.', dbError);
+      ({ error: dbError } = await supabase.from('leads').insert(basePayload));
+    }
 
     if (dbError) {
       setError('Có lỗi xảy ra, vui lòng thử lại hoặc gọi hotline.');
@@ -93,7 +104,7 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
                   </div>
                   <div>
                     <p className="text-sm text-blue-200">Hotline</p>
-                    <p className="font-semibold">0907 828 939</p>
+                    <p className="font-semibold">{settings.phone}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
@@ -102,7 +113,7 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
                   </div>
                   <div>
                     <p className="text-sm text-blue-200">Email</p>
-                    <p className="font-semibold">huyvoeducation@gmail.com</p>
+                    <p className="font-semibold">{settings.email}</p>
                   </div>
                 </div>
               </div>

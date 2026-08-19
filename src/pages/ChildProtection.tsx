@@ -12,6 +12,7 @@ import {
   Mail,
   Sparkles,
 } from 'lucide-react';
+import { useSettings } from '../contexts/SettingsContext';
 
 const fadeUp: any = {
   hidden: { opacity: 0, y: 28 },
@@ -76,6 +77,7 @@ const PRINCIPLES = [
 
 export const ChildProtection: React.FC = () => {
   const { t } = useOutletContext<any>() || { t: (vi: string) => vi };
+  const { settings } = useSettings();
 
   return (
     <div className="bg-white overflow-hidden">
@@ -263,16 +265,16 @@ export const ChildProtection: React.FC = () => {
           </motion.p>
           <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
-              href="tel:0907828939"
+              href={`tel:${settings.phone}`}
               className="flex items-center gap-2 bg-white text-gray-900 font-heading font-bold px-6 py-3 rounded-xl hover:-translate-y-0.5 hover:shadow-xl transition-all"
             >
-              <PhoneCall size={18} /> 0907 828 939
+              <PhoneCall size={18} /> {settings.phone}
             </a>
             <a
-              href="mailto:huyvoeducation@gmail.com"
+              href={`mailto:${settings.email}`}
               className="flex items-center gap-2 border border-white/30 text-white font-heading font-bold px-6 py-3 rounded-xl hover:bg-white/10 hover:-translate-y-0.5 transition-all"
             >
-              <Mail size={18} /> huyvoeducation@gmail.com
+              <Mail size={18} /> {settings.email}
             </a>
           </motion.div>
         </motion.div>

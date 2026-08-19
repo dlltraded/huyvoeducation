@@ -4,10 +4,10 @@ import { Menu, X, Globe, ChevronRight, ChevronDown, PhoneCall } from 'lucide-rea
 import { Link, useLocation } from 'react-router-dom';
 import { useSettings } from '../contexts/SettingsContext';
 
+// Per leadership: only the Nhà Văn Hoá logo stays alongside our own — the two
+// organizations co-train together, so only that partnership is shown here.
 const PARTNER_LOGOS = [
   { src: '/partners/nha-van-hoa-dong-nai.png', alt: 'Nhà Văn Hoá Thanh Thiếu Nhi Thành Phố Đồng Nai' },
-  { src: '/partners/doan-tncs-ho-chi-minh.png', alt: 'Đoàn TNCS Hồ Chí Minh' },
-  { src: '/partners/doi-tntp-ho-chi-minh.png', alt: 'Đội TNTP Hồ Chí Minh' },
 ];
 
 const INFO_DROPDOWN = [

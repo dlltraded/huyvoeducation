@@ -62,7 +62,7 @@ export const Careers: React.FC = () => {
   const { t } = useOutletContext<any>() || { t: (vi: string) => vi };
   const { settings } = useSettings();
   const phoneNumber = settings?.phone || '0907828939';
-  const email = 'huyvoeducation@gmail.com';
+  const email = settings?.email || 'info@huyvoeducation.com';
 
   return (
     <div className="bg-white overflow-hidden">
