@@ -1,3 +1,8 @@
+// Real user-supplied photos (not stock) for the two culturally-specific programs
+// where a verified authentic-Vietnamese stock photo could not be confirmed.
+import trongNghiThucImg from '../assets/images/trong_nghi_thuc_real.jpg';
+import danTranhImg from '../assets/images/dan_tranh_real.jpg';
+
 export interface Program {
   slug: string;
   category: 'sports' | 'martial-arts' | 'arts';
@@ -150,7 +155,7 @@ export const PROGRAMS: Program[] = [
     slug: 'trong-nghi-thuc',
     category: 'arts',
     icon: '🥁',
-    img: 'https://images.pexels.com/photos/34678847/pexels-photo-34678847.jpeg?auto=compress&cs=tinysrgb&w=1000',
+    img: trongNghiThucImg,
     name: { vi: 'Trống nghi thức Đội', en: 'Ceremonial Drum Corps' },
     tagline: { vi: 'Đội Nghi lễ Đội TNTP Hồ Chí Minh', en: 'Ho Chi Minh Young Pioneers Ceremonial Corps' },
     ageGroups: '7 – 15',
@@ -168,7 +173,7 @@ export const PROGRAMS: Program[] = [
     slug: 'dan-tranh-dan-bau',
     category: 'arts',
     icon: '🎶',
-    img: 'https://images.pexels.com/photos/16426063/pexels-photo-16426063.jpeg?auto=compress&cs=tinysrgb&w=1000',
+    img: danTranhImg,
     name: { vi: 'Đàn tranh – Đàn bầu', en: 'Dan Tranh & Dan Bau' },
     tagline: { vi: 'Nhạc cụ dân tộc Việt Nam', en: 'Traditional Vietnamese instruments' },
     ageGroups: '11+',
