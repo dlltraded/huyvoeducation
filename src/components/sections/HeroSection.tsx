@@ -1,112 +1,221 @@
-import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, ShieldCheck, Sparkles, GraduationCap } from 'lucide-react';
-import { useOutletContext } from 'react-router-dom';
-import heroImg from '../../assets/images/premium_hero_banner_1784076757254.png';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { EditableText } from '../editor/EditableText';
-import { EditableImage } from '../editor/EditableImage';
 
-const fadeUp: any = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
-};
+// Curated, authentically-Vietnamese photography (Pexels, free commercial use),
+// matched to each program theme, plus attention-grabbing bilingual copy.
+const DEFAULT_SLIDES = [
+  {
+    image: 'https://images.pexels.com/photos/30481773/pexels-photo-30481773.jpeg?auto=compress&cs=tinysrgb&w=1920',
+    kicker: { vi: 'HUY VÕ EDUCATION', en: 'HUY VO EDUCATION' },
+    headlineTop: { vi: 'HÀNH TRANG VỮNG VÀNG CHO', en: 'A STRONG FOUNDATION FOR' },
+    headlineHighlight: { vi: 'CON TỰ TIN VÀO ĐỜI', en: "YOUR CHILD'S FUTURE" },
+    subtitle: {
+      vi: 'Hệ sinh thái giáo dục kỹ năng sống sau giờ học — nơi con được là chính mình và trưởng thành mỗi ngày.',
+      en: 'An after-school life-skills ecosystem — where your child grows, plays, and thrives every single day.',
+    },
+    ctaText: { vi: 'Đăng Ký Đào Tạo', en: 'Enroll Now' },
+    ctaLink: '/#register',
+  },
+  {
+    image: 'https://images.pexels.com/photos/6777314/pexels-photo-6777314.jpeg?auto=compress&cs=tinysrgb&w=1920',
+    kicker: { vi: 'VÕ THUẬT & KỸ NĂNG TỰ VỆ', en: 'MARTIAL ARTS & SELF-DEFENSE' },
+    headlineTop: { vi: 'RÈN BẢN LĨNH TỪ', en: 'BUILD RESILIENCE WITH' },
+    headlineHighlight: { vi: 'VÕ CỔ TRUYỀN VIỆT NAM', en: "VIETNAM'S OWN VOVINAM" },
+    subtitle: {
+      vi: 'Vovinam giúp con rèn sức khoẻ, kỷ luật và sự tự tin — những giá trị theo con suốt cuộc đời.',
+      en: 'Vovinam builds strength, discipline, and confidence — values that stay with your child for life.',
+    },
+    ctaText: { vi: 'Khám phá lớp Võ thuật', en: 'Explore Martial Arts' },
+    ctaLink: '/chuong-trinh/vovinam',
+  },
+  {
+    image: 'https://images.pexels.com/photos/31022969/pexels-photo-31022969.jpeg?auto=compress&cs=tinysrgb&w=1920',
+    kicker: { vi: 'NGHỆ THUẬT & BIỂU DIỄN', en: 'ARTS & PERFORMANCE' },
+    headlineTop: { vi: 'THẮP SÁNG', en: 'IGNITE' },
+    headlineHighlight: { vi: 'ĐAM MÊ NGHỆ THUẬT TRONG CON', en: "YOUR CHILD'S PASSION FOR THE ARTS" },
+    subtitle: {
+      vi: 'Từ những bước nhảy đầu tiên đến sân khấu lớn — Huy Võ đồng hành cùng con khám phá năng khiếu nghệ thuật.',
+      en: "From first steps to the big stage — we help your child discover their artistic talent.",
+    },
+    ctaText: { vi: 'Khám phá lớp Nghệ thuật', en: 'Explore Arts Classes' },
+    ctaLink: '/chuong-trinh/nhay-hien-dai',
+  },
+  {
+    image: 'https://images.pexels.com/photos/35180899/pexels-photo-35180899.jpeg?auto=compress&cs=tinysrgb&w=1920',
+    kicker: { vi: 'THỂ THAO ĐỒNG ĐỘI', en: 'TEAM SPORTS' },
+    headlineTop: { vi: 'RÈN THỂ LỰC,', en: 'BUILD STRENGTH,' },
+    headlineHighlight: { vi: 'NUÔI DƯỠNG TINH THẦN ĐỒNG ĐỘI', en: 'NURTURE TEAM SPIRIT' },
+    subtitle: {
+      vi: 'Bóng đá và các môn thể thao đồng đội giúp con khoẻ mạnh, đoàn kết và học cách vượt qua thử thách.',
+      en: 'Football and team sports keep kids healthy, united, and ready to overcome any challenge.',
+    },
+    ctaText: { vi: 'Khám phá lớp Bóng đá', en: 'Explore Football' },
+    ctaLink: '/chuong-trinh/bong-da',
+  },
+];
 
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.2 }
-  }
-};
+const AUTO_ADVANCE_MS = 6000;
 
 export const HeroSection = ({ props, sectionId, t }: { props: any, sectionId: string, t?: any }) => {
-  const { scrollY } = useScroll();
-  const heroY = useTransform(scrollY, [0, 500], [0, 150]);
-  const heroOpacity = useTransform(scrollY, [0, 300], [1, 0]);
+  const tr = t || ((vi: string) => vi);
 
-  // Use props from DB, fallback to hardcoded
-  const title = props?.title || 'Sau tiếng chuông tan trường, một thế giới để lớn lên.';
-  const subtitle = props?.subtitle || 'Không chỉ là học thêm một môn năng khiếu. Tại Huy Võ Education, mỗi buổi chiều là một cơ hội để con khám phá năng lực, kết nối bạn bè và phát triển toàn diện.';
-  const cta_text = props?.cta_text || 'Đầu tư cho con ngay';
-  const badge_text = props?.badge_text || 'Hệ sinh thái giáo dục sau giờ học';
-  const hero_image = props?.hero_image || heroImg;
+  // Slide 0's copy stays CMS-editable (title/subtitle/cta_text/badge_text/hero_image);
+  // the remaining slides are curated program spotlights.
+  const slides = props?.slides && Array.isArray(props.slides) && props.slides.length > 0
+    ? props.slides
+    : DEFAULT_SLIDES;
 
-  const stats = props?.stats || [
-    { Icon: GraduationCap, vi: '9+ chương trình đào tạo', en: '9+ training programs' },
-    { Icon: ShieldCheck, vi: 'Giảng viên được xác minh', en: 'Verified instructors' },
-    { Icon: Sparkles, vi: '100+ năm kinh nghiệm cộng dồn', en: '100+ combined years experience' },
-  ];
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const goTo = useCallback((i: number) => {
+    setIndex(((i % slides.length) + slides.length) % slides.length);
+  }, [slides.length]);
+
+  const next = useCallback(() => goTo(index + 1), [goTo, index]);
+  const prev = useCallback(() => goTo(index - 1), [goTo, index]);
+
+  useEffect(() => {
+    if (paused || slides.length <= 1) return;
+    timerRef.current = setInterval(() => {
+      setIndex(i => (i + 1) % slides.length);
+    }, AUTO_ADVANCE_MS);
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, [paused, slides.length]);
+
+  const slide = slides[index];
+  const title = index === 0 && props?.title ? props.title : null;
+  const subtitleOverride = index === 0 && props?.subtitle ? props.subtitle : null;
+  const ctaOverride = index === 0 && props?.cta_text ? props.cta_text : null;
+  const imageOverride = index === 0 && props?.hero_image ? props.hero_image : null;
+  const badgeOverride = index === 0 && props?.badge_text ? props.badge_text : null;
 
   return (
-    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-white">
-      <motion.div style={{ y: heroY, opacity: heroOpacity }} className="absolute inset-0 z-0">
+    <section
+      className="relative h-[92vh] min-h-[600px] max-h-[920px] flex items-end overflow-hidden bg-gray-900"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      <AnimatePresence mode="sync">
         <motion.div
+          key={index}
           className="absolute inset-0 z-0"
-          initial={{ scale: 1.05 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 2, ease: "easeOut" }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.9, ease: 'easeInOut' }}
         >
-          <EditableImage src={hero_image} alt="Hero" className="w-full h-full object-cover" sectionId={sectionId} path="hero_image" />
+          <motion.img
+            src={imageOverride || slide.image}
+            alt={tr(slide.kicker?.vi, slide.kicker?.en)}
+            className="w-full h-full object-cover"
+            initial={{ scale: 1 }}
+            animate={{ scale: 1.08 }}
+            transition={{ duration: AUTO_ADVANCE_MS / 1000 + 1, ease: 'linear' }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 md:from-black/60 via-black/10 to-transparent" />
         </motion.div>
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 md:via-white/60 to-transparent"></div>
-      </motion.div>
+      </AnimatePresence>
 
-      {/* Decorative glow blobs for a more vibrant, lively feel */}
-      <motion.div
-        className="absolute top-10 -right-24 w-[26rem] h-[26rem] rounded-full bg-brand-yellow/20 blur-[110px] pointer-events-none"
-        animate={{ scale: [1, 1.15, 1] }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <motion.div
-        className="absolute bottom-0 left-0 w-[22rem] h-[22rem] rounded-full bg-brand-green/20 blur-[100px] pointer-events-none"
-        animate={{ scale: [1.1, 1, 1.1] }}
-        transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <div
-        className="absolute inset-0 opacity-[0.05] pointer-events-none"
-        style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, #0A66C2 1px, transparent 0)', backgroundSize: '28px 28px' }}
-      />
+      {/* Prev / next arrows */}
+      {slides.length > 1 && (
+        <>
+          <button
+            onClick={prev}
+            aria-label="Previous slide"
+            className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/10 hover:bg-white/25 backdrop-blur-sm border border-white/20 text-white items-center justify-center transition-colors"
+          >
+            <ChevronLeft size={22} />
+          </button>
+          <button
+            onClick={next}
+            aria-label="Next slide"
+            className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/10 hover:bg-white/25 backdrop-blur-sm border border-white/20 text-white items-center justify-center transition-colors"
+          >
+            <ChevronRight size={22} />
+          </button>
+        </>
+      )}
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10 grid md:grid-cols-2 gap-12 py-20">
-        <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="flex flex-col justify-center">
-          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 text-brand-blue px-4 py-1.5 rounded-full text-sm font-semibold mb-6 w-max">
-            <span className="w-2 h-2 rounded-full bg-brand-green animate-pulse"></span>
-            <EditableText tag="span" value={badge_text} sectionId={sectionId} path="badge_text" />
-          </motion.div>
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pb-24 pt-40 md:pb-28 md:pt-44">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className="max-w-2xl"
+          >
+            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 backdrop-blur-sm text-white px-4 py-1.5 rounded-full text-xs md:text-sm font-bold tracking-wide mb-5 w-max">
+              <span className="w-2 h-2 rounded-full bg-brand-yellow animate-pulse" />
+              {badgeOverride || tr(slide.kicker?.vi, slide.kicker?.en)}
+            </div>
 
-          <motion.h1 variants={fadeUp} className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-gray-900 leading-[1.15] mb-6">
-            <EditableText tag="span" value={title} sectionId={sectionId} path="title" />
-          </motion.h1>
+            <h1 className="font-heading font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.1] text-white mb-3 drop-shadow-lg">
+              {title ? (
+                <EditableText tag="span" value={title} sectionId={sectionId} path="title" />
+              ) : (
+                <>
+                  <span className="block">{tr(slide.headlineTop?.vi, slide.headlineTop?.en)}</span>
+                  <span className="inline-block bg-brand-blue px-3 py-1 mt-2 -ml-1 rounded-md">
+                    {tr(slide.headlineHighlight?.vi, slide.headlineHighlight?.en)}
+                  </span>
+                </>
+              )}
+            </h1>
 
-          <motion.p variants={fadeUp} className="text-base md:text-lg text-gray-600 mb-8 max-w-lg leading-relaxed">
-            <EditableText tag="span" value={subtitle} sectionId={sectionId} path="subtitle" />
-          </motion.p>
+            <p className="text-base md:text-lg text-white/90 mb-8 max-w-xl leading-relaxed">
+              {subtitleOverride || tr(slide.subtitle?.vi, slide.subtitle?.en)}
+            </p>
 
-          <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 mb-10">
-            <a href="#register" className="group bg-brand-blue hover:bg-blue-700 text-white px-8 py-3.5 rounded-full font-heading font-semibold shadow-lg shadow-brand-blue/30 hover:shadow-xl hover:-translate-y-0.5 transition-all flex justify-center items-center gap-2">
-              <EditableText tag="span" value={cta_text} sectionId={sectionId} path="cta_text" />
-              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-            </a>
-            <a href="#about" className="bg-white hover:bg-gray-50 text-gray-800 border border-gray-200 px-8 py-3.5 rounded-full font-heading font-semibold shadow-sm transition-all text-center">
-              {t ? t('Tìm hiểu thêm', 'Learn more') : 'Tìm hiểu thêm'}
-            </a>
-          </motion.div>
-
-          <motion.div variants={fadeUp} className="flex flex-wrap gap-3">
-            {stats.map((s: any, i: number) => (
-              <div
-                key={i}
-                className="flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-gray-100 shadow-sm rounded-full px-4 py-2 text-xs md:text-sm font-semibold text-gray-700"
+            <div className="flex flex-wrap gap-4">
+              <Link
+                to="/#register"
+                className="group bg-brand-yellow hover:bg-amber-400 text-gray-900 px-7 py-3.5 rounded-full font-heading font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center gap-2"
               >
-                <s.Icon size={15} className="text-brand-blue shrink-0" />
-                {t ? t(s.vi, s.en) : s.vi}
-              </div>
-            ))}
+                {ctaOverride || tr(slide.ctaText?.vi, slide.ctaText?.en)}
+                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              </Link>
+              {slide.ctaLink && slide.ctaLink !== '/#register' && (
+                <Link
+                  to="/#register"
+                  className="bg-white/10 hover:bg-white/20 text-white border border-white/30 backdrop-blur-sm px-7 py-3.5 rounded-full font-heading font-semibold transition-all flex items-center justify-center"
+                >
+                  {tr('Đăng Ký Đào Tạo', 'Enroll Now')}
+                </Link>
+              )}
+            </div>
           </motion.div>
-        </motion.div>
+        </AnimatePresence>
+
+        {/* Slide indicators */}
+        {slides.length > 1 && (
+          <div className="flex items-center gap-2 mt-12 md:mt-16">
+            {slides.map((_: any, i: number) => (
+              <button
+                key={i}
+                onClick={() => goTo(i)}
+                aria-label={`Slide ${i + 1}`}
+                className="group py-2"
+              >
+                <span
+                  className={`block h-1.5 rounded-full transition-all duration-300 ${
+                    i === index ? 'w-10 bg-brand-yellow' : 'w-4 bg-white/40 group-hover:bg-white/60'
+                  }`}
+                />
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 leading-none z-10">
+      <div className="absolute bottom-0 left-0 right-0 leading-none z-10 pointer-events-none">
         <svg viewBox="0 0 1440 50" className="w-full h-8 md:h-12" preserveAspectRatio="none">
           <path d="M0,26 C240,52 480,0 720,13 C960,26 1200,52 1440,26 L1440,50 L0,50 Z" fill="white" />
         </svg>

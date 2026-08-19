@@ -6,6 +6,7 @@ import { DynamicPage } from './pages/DynamicPage';
 import { NewsPage } from './pages/NewsPage';
 import { NewsDetail } from './pages/NewsDetail';
 import { ChildProtection } from './pages/ChildProtection';
+import { Careers } from './pages/Careers';
 import { Instructors } from './pages/Instructors';
 import { ProgramsIndex } from './pages/ProgramsIndex';
 import { ProgramDetail } from './pages/ProgramDetail';
@@ -35,6 +36,7 @@ function App() {
             <Route path="tin-tuc" element={<NewsPage />} />
             <Route path="tin-tuc/:id" element={<NewsDetail />} />
             <Route path="chinh-sach-bao-ve-tre-em" element={<ChildProtection />} />
+            <Route path="tuyen-dung" element={<Careers />} />
             <Route path="*" element={<NotFound />} />
           </Route>
 

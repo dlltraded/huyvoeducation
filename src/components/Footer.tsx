@@ -24,8 +24,9 @@ export const Footer = ({ t }: any) => {
           <ul className="space-y-4">
             <li><a href="/chuong-trinh" className="hover:text-brand-yellow transition-colors">{t('Chương trình học', 'Programs')}</a></li>
             <li><a href="/doi-ngu-giang-vien" className="hover:text-brand-yellow transition-colors">{t('Đội ngũ giảng viên', 'Instructors')}</a></li>
-            <li><a href="/tin-tuc" className="hover:text-brand-yellow transition-colors">{t('Tin tức', 'News')}</a></li>
+            <li><a href="/tin-tuc" className="hover:text-brand-yellow transition-colors">{t('Thông tin', 'News & Info')}</a></li>
             <li><a href="/chinh-sach-bao-ve-tre-em" className="hover:text-brand-yellow transition-colors">{t('Bảo vệ trẻ em', 'Safeguarding')}</a></li>
+            <li><a href="/tuyen-dung" className="hover:text-brand-yellow transition-colors">{t('Tuyển dụng', 'Careers')}</a></li>
           </ul>
         </div>
         

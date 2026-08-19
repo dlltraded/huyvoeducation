@@ -101,7 +101,7 @@ export const DynamicPage: React.FC<DynamicPageProps> = ({ slug }) => {
       {pageData.sections.map((section: any, index: number) => {
         const SectionComponent = sectionMap[section.type];
         if (!SectionComponent) return null;
-        
+
         return (
           <SectionWrapper key={section.id} sectionId={section.id} index={index} type={section.type}>
             <SectionComponent props={section.props} sectionId={section.id} t={t} lang={lang} />
