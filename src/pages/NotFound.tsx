@@ -7,7 +7,7 @@ export const NotFound: React.FC = () => {
   const { t } = useOutletContext<any>() || { t: (vi: string) => vi };
 
   return (
-    <section className="min-h-[70vh] flex items-center justify-center px-6 py-24 bg-gray-50">
+    <section className="min-h-[70vh] flex items-center justify-center px-6 pt-32 pb-20 bg-gray-50">
       <Helmet>
         <title>{t('Không tìm thấy trang | Huy Võ Education', 'Page Not Found | Huy Võ Education')}</title>
         <meta name="robots" content="noindex" />

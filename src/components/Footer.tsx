@@ -22,9 +22,9 @@ export const Footer = ({ t }: any) => {
         <div>
           <h4 className="text-white font-heading font-bold text-lg mb-6">{t('Khám phá', 'Explore')}</h4>
           <ul className="space-y-4">
-            <li><a href="/chuong-trinh/stem" className="hover:text-brand-yellow transition-colors">STEM</a></li>
-            <li><a href="/chuong-trinh/nghe-thuat" className="hover:text-brand-yellow transition-colors">{t('Nghệ thuật', 'Arts')}</a></li>
-            <li><a href="/chuong-trinh/the-thao-boi-loi" className="hover:text-brand-yellow transition-colors">{t('Thể thao', 'Sports')}</a></li>
+            <li><a href="/chuong-trinh" className="hover:text-brand-yellow transition-colors">{t('Chương trình học', 'Programs')}</a></li>
+            <li><a href="/doi-ngu-giang-vien" className="hover:text-brand-yellow transition-colors">{t('Đội ngũ giảng viên', 'Instructors')}</a></li>
+            <li><a href="/tin-tuc" className="hover:text-brand-yellow transition-colors">{t('Tin tức', 'News')}</a></li>
             <li><a href="/chinh-sach-bao-ve-tre-em" className="hover:text-brand-yellow transition-colors">{t('Bảo vệ trẻ em', 'Safeguarding')}</a></li>
           </ul>
         </div>

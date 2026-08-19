@@ -6,6 +6,9 @@ import { DynamicPage } from './pages/DynamicPage';
 import { NewsPage } from './pages/NewsPage';
 import { NewsDetail } from './pages/NewsDetail';
 import { ChildProtection } from './pages/ChildProtection';
+import { Instructors } from './pages/Instructors';
+import { ProgramsIndex } from './pages/ProgramsIndex';
+import { ProgramDetail } from './pages/ProgramDetail';
 import { AdminLayout } from './layouts/AdminLayout';
 import { Login } from './pages/admin/Login';
 import { NewsManager } from './pages/admin/NewsManager';
@@ -26,6 +29,9 @@ function App() {
             <Route path="chuong-trinh/stem" element={<DynamicPage slug="stem" />} />
             <Route path="chuong-trinh/nghe-thuat" element={<DynamicPage slug="arts" />} />
             <Route path="chuong-trinh/the-thao-boi-loi" element={<DynamicPage slug="sports" />} />
+            <Route path="chuong-trinh" element={<ProgramsIndex />} />
+            <Route path="chuong-trinh/:slug" element={<ProgramDetail />} />
+            <Route path="doi-ngu-giang-vien" element={<Instructors />} />
             <Route path="tin-tuc" element={<NewsPage />} />
             <Route path="tin-tuc/:id" element={<NewsDetail />} />
             <Route path="chinh-sach-bao-ve-tre-em" element={<ChildProtection />} />
