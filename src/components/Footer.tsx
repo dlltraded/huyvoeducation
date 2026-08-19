@@ -97,7 +97,7 @@ export const Footer = ({ t }: any) => {
           </ul>
         </div>
 
-        <div className="md:col-span-2">
+        <div className="md:col-span-3">
           <h4 className="text-white font-heading font-bold text-base mb-5">{t('Cộng đồng', 'Community')}</h4>
           <ul className="space-y-3 text-sm">
             <li><Link to="/doi-ngu-giang-vien" className="hover:text-brand-yellow transition-colors">{t('Đội ngũ giảng viên', 'Instructors')}</Link></li>
@@ -106,28 +106,14 @@ export const Footer = ({ t }: any) => {
           </ul>
         </div>
 
-        <div className="md:col-span-2">
+        <div className="md:col-span-3">
           <h4 className="text-white font-heading font-bold text-base mb-5">{t('Liên kết nhanh', 'Quick Links')}</h4>
           <ul className="space-y-3 text-sm">
             <li><Link to="/chuong-trinh" className="hover:text-brand-yellow transition-colors">{t('Chương trình học', 'Programs')}</Link></li>
             <li><a href="/#philosophy" className="hover:text-brand-yellow transition-colors">{t('Triết lý giáo dục', 'Our Philosophy')}</a></li>
             <li><a href="/#register" className="hover:text-brand-yellow transition-colors">{t('Đăng ký', 'Register')}</a></li>
-          </ul>
-        </div>
-
-        <div className="md:col-span-2">
-          <h4 className="text-white font-heading font-bold text-base mb-5">{t('Liên hệ', 'Contact Us')}</h4>
-          <ul className="space-y-3 text-sm">
-            <li>
-              <a href={`tel:${settings.phone}`} className="hover:text-brand-yellow transition-colors">{settings.phone}</a>
-            </li>
-            {settings.email && (
-              <li>
-                <a href={`mailto:${settings.email}`} className="hover:text-brand-yellow transition-colors break-all">{settings.email}</a>
-              </li>
-            )}
             {settings.taxCode && (
-              <li className="text-gray-500">
+              <li className="text-gray-500 pt-2 border-t border-white/10">
                 {t('MST', 'Tax code')}: {settings.taxCode}
               </li>
             )}
