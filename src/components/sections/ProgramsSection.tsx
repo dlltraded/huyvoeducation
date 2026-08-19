@@ -3,11 +3,13 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-import stemImg from '../../assets/images/premium_stem_1784076845442.png';
-import artsImg from '../../assets/images/premium_arts_1784076768648.png';
-import sportsImg from '../../assets/images/premium_sports_1784076784989.png';
 import { EditableText } from '../editor/EditableText';
 import { EditableImage } from '../editor/EditableImage';
+
+// Real photography (Pexels, free commercial use) — no AI-generated images.
+const sportsImg = 'https://images.pexels.com/photos/5649993/pexels-photo-5649993.jpeg?auto=compress&cs=tinysrgb&w=800';
+const artsImg = 'https://images.pexels.com/photos/31022969/pexels-photo-31022969.jpeg?auto=compress&cs=tinysrgb&w=800';
+const stemImg = 'https://images.pexels.com/photos/8471835/pexels-photo-8471835.jpeg?auto=compress&cs=tinysrgb&w=800';
 
 const fadeUp: any = {
   hidden: { opacity: 0, y: 30 },

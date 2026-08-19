@@ -95,16 +95,26 @@ export const ProgramsIndex: React.FC = () => {
                     <motion.div key={p.slug} variants={fadeUp}>
                       <Link
                         to={`/chuong-trinh/${p.slug}`}
-                        className="group block bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:shadow-brand-blue/10 p-6 h-full transition-all duration-300 hover:-translate-y-1"
+                        className="group block bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:shadow-brand-blue/10 overflow-hidden h-full transition-all duration-300 hover:-translate-y-1"
                       >
-                        <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${CATEGORY_COLOR[cat]} flex items-center justify-center text-2xl mb-4 shadow-md group-hover:scale-110 transition-transform duration-300`}>
-                          {p.icon}
+                        <div className="aspect-[16/10] relative overflow-hidden">
+                          <img
+                            src={p.img}
+                            alt={t(p.name.vi, p.name.en)}
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                          <div className={`absolute bottom-3 left-3 w-11 h-11 rounded-xl bg-gradient-to-br ${CATEGORY_COLOR[cat]} flex items-center justify-center text-xl shadow-md`}>
+                            {p.icon}
+                          </div>
                         </div>
-                        <h3 className="font-heading font-bold text-lg text-gray-900 mb-1">{t(p.name.vi, p.name.en)}</h3>
-                        <p className="text-sm text-gray-500 mb-4">{t(p.tagline.vi, p.tagline.en)}</p>
-                        <div className="flex items-center justify-between text-xs text-gray-400 font-semibold">
-                          <span>{p.ageGroups} {t('tuổi', 'yrs')} · {p.sessions}</span>
-                          <ArrowRight size={16} className="text-brand-blue group-hover:translate-x-1 transition-transform" />
+                        <div className="p-6">
+                          <h3 className="font-heading font-bold text-lg text-gray-900 mb-1">{t(p.name.vi, p.name.en)}</h3>
+                          <p className="text-sm text-gray-500 mb-4">{t(p.tagline.vi, p.tagline.en)}</p>
+                          <div className="flex items-center justify-between text-xs text-gray-400 font-semibold">
+                            <span>{p.ageGroups} {t('tuổi', 'yrs')} · {p.sessions}</span>
+                            <ArrowRight size={16} className="text-brand-blue group-hover:translate-x-1 transition-transform" />
+                          </div>
                         </div>
                       </Link>
                     </motion.div>

@@ -2,6 +2,7 @@ export interface Program {
   slug: string;
   category: 'sports' | 'martial-arts' | 'arts';
   icon: string; // emoji, matches existing site convention
+  img: string; // real photo (Pexels, free commercial use) — no AI-generated images
   name: { vi: string; en: string };
   tagline: { vi: string; en: string };
   ageGroups: string;
@@ -23,6 +24,7 @@ export const PROGRAMS: Program[] = [
     slug: 'bong-da',
     category: 'sports',
     icon: '⚽',
+    img: 'https://images.pexels.com/photos/35180899/pexels-photo-35180899.jpeg?auto=compress&cs=tinysrgb&w=1000',
     name: { vi: 'Bóng đá', en: 'Football' },
     tagline: { vi: 'Kỹ thuật nền tảng bằng lòng bàn chân', en: 'Foundational technique with the inside of the foot' },
     ageGroups: '7 – 15',
@@ -40,6 +42,7 @@ export const PROGRAMS: Program[] = [
     slug: 'bong-ro',
     category: 'sports',
     icon: '🏀',
+    img: 'https://images.pexels.com/photos/10643696/pexels-photo-10643696.jpeg?auto=compress&cs=tinysrgb&w=1000',
     name: { vi: 'Bóng rổ', en: 'Basketball' },
     tagline: { vi: 'Học phần cơ bản 38 buổi', en: 'A 38-session foundational course' },
     ageGroups: '7 – 15',
@@ -57,6 +60,7 @@ export const PROGRAMS: Program[] = [
     slug: 'taekwondo',
     category: 'martial-arts',
     icon: '🥋',
+    img: 'https://images.pexels.com/photos/7045594/pexels-photo-7045594.jpeg?auto=compress&cs=tinysrgb&w=1000',
     name: { vi: 'Taekwondo', en: 'Taekwondo' },
     tagline: { vi: 'Từ cấp 10 đến Tam đẳng', en: 'From level 10 up to 3rd Dan black belt' },
     ageGroups: '6+',
@@ -74,6 +78,7 @@ export const PROGRAMS: Program[] = [
     slug: 'karate',
     category: 'martial-arts',
     icon: '🥋',
+    img: 'https://images.pexels.com/photos/7991209/pexels-photo-7991209.jpeg?auto=compress&cs=tinysrgb&w=1000',
     name: { vi: 'Karate', en: 'Karate' },
     tagline: { vi: 'Từ cấp 10 đến Nhất đẳng huyền đai', en: 'From level 10 up to 1st Dan black belt' },
     ageGroups: '6+',
@@ -91,6 +96,7 @@ export const PROGRAMS: Program[] = [
     slug: 'vovinam',
     category: 'martial-arts',
     icon: '🥋',
+    img: 'https://images.pexels.com/photos/6777314/pexels-photo-6777314.jpeg?auto=compress&cs=tinysrgb&w=1000',
     name: { vi: 'Vovinam – Việt Võ Đạo', en: 'Vovinam – Vietnamese Martial Art' },
     tagline: { vi: 'Sơ đẳng và Trung đẳng', en: 'Beginner to Intermediate ranks' },
     ageGroups: '6+',
@@ -108,6 +114,7 @@ export const PROGRAMS: Program[] = [
     slug: 'vo-co-truyen',
     category: 'martial-arts',
     icon: '🥋',
+    img: 'https://images.pexels.com/photos/3340319/pexels-photo-3340319.jpeg?auto=compress&cs=tinysrgb&w=1000',
     name: { vi: 'Võ cổ truyền Việt Nam', en: 'Traditional Vietnamese Martial Arts' },
     tagline: { vi: 'Chương trình cơ bản 60 buổi', en: 'A 60-session foundational program' },
     ageGroups: '6 – 15',
@@ -125,6 +132,7 @@ export const PROGRAMS: Program[] = [
     slug: 'nhay-hien-dai',
     category: 'arts',
     icon: '💃',
+    img: 'https://images.pexels.com/photos/31022969/pexels-photo-31022969.jpeg?auto=compress&cs=tinysrgb&w=1000',
     name: { vi: 'Nhảy hiện đại (Hip Hop)', en: 'Modern Dance (Hip Hop)' },
     tagline: { vi: 'Hai nhóm tuổi 5–9 và 10–16', en: 'Two age groups: 5–9 and 10–16' },
     ageGroups: '5 – 16',
@@ -142,6 +150,7 @@ export const PROGRAMS: Program[] = [
     slug: 'trong-nghi-thuc',
     category: 'arts',
     icon: '🥁',
+    img: 'https://images.pexels.com/photos/34678847/pexels-photo-34678847.jpeg?auto=compress&cs=tinysrgb&w=1000',
     name: { vi: 'Trống nghi thức Đội', en: 'Ceremonial Drum Corps' },
     tagline: { vi: 'Đội Nghi lễ Đội TNTP Hồ Chí Minh', en: 'Ho Chi Minh Young Pioneers Ceremonial Corps' },
     ageGroups: '7 – 15',
@@ -159,6 +168,7 @@ export const PROGRAMS: Program[] = [
     slug: 'dan-tranh-dan-bau',
     category: 'arts',
     icon: '🎶',
+    img: 'https://images.pexels.com/photos/16426063/pexels-photo-16426063.jpeg?auto=compress&cs=tinysrgb&w=1000',
     name: { vi: 'Đàn tranh – Đàn bầu', en: 'Dan Tranh & Dan Bau' },
     tagline: { vi: 'Nhạc cụ dân tộc Việt Nam', en: 'Traditional Vietnamese instruments' },
     ageGroups: '11+',

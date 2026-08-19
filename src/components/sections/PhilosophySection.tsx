@@ -2,11 +2,13 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { BookOpen, Users, Award, Sparkles } from 'lucide-react';
 
-import learnImg from '../../assets/images/learn_philosophy.png';
-import connectImg from '../../assets/images/connect_philosophy.png';
-import growImg from '../../assets/images/grow_philosophy.png';
 import { EditableText } from '../editor/EditableText';
 import { EditableImage } from '../editor/EditableImage';
+
+// Real photography (Pexels, free commercial use) — no AI-generated images.
+const learnImg = 'https://images.pexels.com/photos/14025670/pexels-photo-14025670.jpeg?auto=compress&cs=tinysrgb&w=800';
+const connectImg = 'https://images.pexels.com/photos/34613629/pexels-photo-34613629.jpeg?auto=compress&cs=tinysrgb&w=800';
+const growImg = 'https://images.pexels.com/photos/10643696/pexels-photo-10643696.jpeg?auto=compress&cs=tinysrgb&w=800';
 
 const fadeUp: any = {
   hidden: { opacity: 0, y: 30 },

@@ -27,7 +27,12 @@ export const ProgramDetail: React.FC = () => {
 
       {/* Hero */}
       <section className="relative pt-32 pb-24 lg:pt-44 lg:pb-32 bg-gray-900 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-blue via-[#0A4A8F] to-gray-900" />
+        <img
+          src={program.img}
+          alt={t(program.name.vi, program.name.en)}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/90 via-[#0A4A8F]/90 to-gray-900/95" />
         <div
           className="absolute inset-0 opacity-[0.06]"
           style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '28px 28px' }}

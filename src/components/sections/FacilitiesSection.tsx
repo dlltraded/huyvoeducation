@@ -2,17 +2,32 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, CheckCircle2 } from 'lucide-react';
 
-import sunriseImg from '../../assets/images/sunrise_campus_notext.png';
-import nvhImg from '../../assets/images/nvh_campus_notext.png';
+import nvhImg from '../../assets/images/nvh_campus_real.jpg';
 import { EditableText } from '../editor/EditableText';
 import { EditableImage } from '../editor/EditableImage';
+
+// Real, authentically-Vietnamese photography (Pexels, free commercial use) —
+// replaces the earlier AI-generated illustrations.
+const sunriseImg = 'https://images.pexels.com/photos/17893014/pexels-photo-17893014.jpeg?auto=compress&cs=tinysrgb&w=1600';
+
+// Small gallery showing the breadth of programs (martial arts, dance,
+// football, basketball, traditional drums) so parents see the diversity
+// at a glance.
+const PROGRAM_GALLERY = [
+  { img: 'https://images.pexels.com/photos/6777314/pexels-photo-6777314.jpeg?auto=compress&cs=tinysrgb&w=800', vi: 'Võ thuật', en: 'Martial Arts' },
+  { img: 'https://images.pexels.com/photos/31022969/pexels-photo-31022969.jpeg?auto=compress&cs=tinysrgb&w=800', vi: 'Nghệ thuật', en: 'Arts' },
+  { img: 'https://images.pexels.com/photos/35180899/pexels-photo-35180899.jpeg?auto=compress&cs=tinysrgb&w=800', vi: 'Bóng đá', en: 'Football' },
+  { img: 'https://images.pexels.com/photos/10643696/pexels-photo-10643696.jpeg?auto=compress&cs=tinysrgb&w=800', vi: 'Bóng rổ', en: 'Basketball' },
+  { img: 'https://images.pexels.com/photos/34678847/pexels-photo-34678847.jpeg?auto=compress&cs=tinysrgb&w=800', vi: 'Trống nghi thức', en: 'Ceremonial Drums' },
+];
 
 const fadeUp: any = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
 };
 
-export const FacilitiesSection = ({ props, sectionId }: { props: any, sectionId: string }) => {
+export const FacilitiesSection = ({ props, sectionId, t }: { props: any, sectionId: string, t?: any }) => {
+  const tr = t || ((vi: string) => vi);
   const growth_title = props?.growth_title || 'Sự trưởng thành nhìn thấy được';
   const growth_subtitle = props?.growth_subtitle || 'Chúng tôi không đo lường thành công bằng số buổi học, mà bằng sự trưởng thành trong cách trẻ bước vào thế giới.';
   const growth_traits = props?.growth_traits || ['Tự tin hơn', 'Tò mò hơn', 'Biết hợp tác', 'Bền bỉ hơn', 'Hiểu bản thân'];
@@ -101,6 +116,41 @@ export const FacilitiesSection = ({ props, sectionId }: { props: any, sectionId:
             </motion.div>
           ))}
         </div>
+
+        {/* Program diversity gallery — a quick visual sense of how varied the programs are */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeUp}
+          className="mt-20 text-center"
+        >
+          <p className="text-sm font-bold uppercase tracking-wide text-brand-blue mb-8">
+            {tr('Đa dạng chương trình đào tạo', 'A Wide Range of Programs')}
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
+            {PROGRAM_GALLERY.map((item, i) => (
+              <motion.div
+                key={item.vi}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08, duration: 0.5 }}
+                className="group relative rounded-2xl overflow-hidden aspect-[3/4] shadow-md"
+              >
+                <img
+                  src={item.img}
+                  alt={tr(item.vi, item.en)}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                <span className="absolute bottom-3 left-0 right-0 text-white text-xs md:text-sm font-heading font-bold px-2">
+                  {tr(item.vi, item.en)}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
     </>
