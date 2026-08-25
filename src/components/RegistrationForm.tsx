@@ -5,11 +5,11 @@ import { supabase } from '../lib/supabase';
 import { getStoredAttribution } from '../lib/referralTracking';
 import { useSettings } from '../contexts/SettingsContext';
 
-const PROGRAMS = [
-  { vi: 'Thể thao & Bơi lội', en: 'Sports & Swimming' },
-  { vi: 'Nghệ thuật', en: 'Arts & Creativity' },
-  { vi: 'STEM', en: 'STEM' },
-  { vi: 'Ngoại ngữ', en: 'Foreign Language' },
+const PACKAGES = [
+  { id: 'TH_1BUOI', label: 'Học 01 buổi tại trường', desc: 'Tiểu học · tuyến gần', price: '2.695.000đ' },
+  { id: 'THCS_1BUOI', label: 'Học 01 buổi tại trường', desc: 'THCS · tuyến gần', price: '2.820.000đ' },
+  { id: 'TH_2BUOI', label: 'Học 02 buổi tại trường', desc: 'Tiểu học · tuyến gần', price: '2.795.000đ' },
+  { id: 'THCS_2BUOI', label: 'Học 02 buổi tại trường', desc: 'THCS · tuyến gần', price: '2.920.000đ' },
 ];
 
 export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
@@ -23,7 +23,9 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
   const childNameRef = useRef<HTMLInputElement>(null);
   const childAgeRef = useRef<HTMLInputElement>(null);
   const referralCodeRef = useRef<HTMLInputElement>(null);
-  const checkboxRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const childSchoolRef = useRef<HTMLInputElement>(null);
+  const [selectedPackage, setSelectedPackage] = useState('');
+  const [wantsAfter1630, setWantsAfter1630] = useState(false);
   const [autoRef, setAutoRef] = useState('');
   const [source, setSource] = useState('');
 
@@ -44,16 +46,15 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
     setIsSubmitting(true);
     setError('');
 
-    const selectedPrograms = PROGRAMS
-      .filter((_, i) => checkboxRefs.current[i]?.checked)
-      .map(p => p.vi);
-
     const basePayload = {
       parent_name: parentNameRef.current?.value || '',
       phone: phoneRef.current?.value || '',
       child_name: childNameRef.current?.value || '',
       child_age: childAgeRef.current?.value ? parseInt(childAgeRef.current.value) : null,
-      programs: selectedPrograms,
+      child_school: childSchoolRef.current?.value || null,
+      package_selected: selectedPackage || null,
+      wants_after_1630: wantsAfter1630,
+      programs: [],
       referral_code: referralCodeRef.current?.value?.trim() || null,
       status: 'new',
     };
@@ -151,21 +152,53 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-3">{t('Quan tâm chương trình', 'Interested in')}</label>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {PROGRAMS.map((item, i) => (
-                          <label key={i} className="flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer hover:bg-blue-50 transition-colors">
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">{t('Trường học hiện tại của bé *', "Child's Current School *")}</label>
+                      <input ref={childSchoolRef} type="text" required placeholder={t('VD: Tiểu học Quang Vinh', 'Ex: Quang Vinh Primary')} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all bg-gray-50 focus:bg-white" />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-3">{t('Chọn gói học kỹ năng theo tháng *', 'Select Monthly Skills Package *')}</label>
+                      <div className="flex flex-col gap-3">
+                        {PACKAGES.map((pkg) => (
+                          <label key={pkg.id} className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-colors ${selectedPackage === pkg.id ? 'border-brand-blue bg-blue-50/50' : 'border-gray-100 hover:border-gray-200 bg-white'}`}>
                             <input
-                              type="checkbox"
-                              ref={el => { checkboxRefs.current[i] = el; }}
-                              defaultChecked={item.vi === initialProgram}
-                              className="w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue"
+                              type="radio"
+                              name="package"
+                              value={pkg.id}
+                              checked={selectedPackage === pkg.id}
+                              onChange={() => setSelectedPackage(pkg.id)}
+                              required
+                              className="w-5 h-5 text-brand-blue border-gray-300 focus:ring-brand-blue"
                             />
-                            <span className="text-sm font-medium text-gray-700">{t ? t(item.vi, item.en) : item.vi}</span>
+                            <div className="flex-1 min-w-0">
+                              <div className="text-[15px] font-bold text-gray-900">{t(pkg.label, pkg.label)}</div>
+                              <div className="text-sm text-gray-500 mt-0.5">{t(pkg.desc, pkg.desc)}</div>
+                            </div>
+                            <div className="font-bold text-brand-blue whitespace-nowrap">{pkg.price}</div>
                           </label>
                         ))}
                       </div>
+                      <p className="text-xs text-gray-500 mt-3">
+                        {t('Giá trên áp dụng cho 08 trường tuyến gần. Nếu bé học trường ngoài danh sách, mức phí xe tuyến chuẩn sẽ được tư vấn thêm.', 'Prices apply for 8 nearby schools. If the child attends a school outside the list, standard route bus fees will be advised.')}
+                      </p>
                     </div>
+
+                    <label className={`flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-colors ${wantsAfter1630 ? 'border-[#f5b301] bg-[#fffaf0]' : 'border-gray-100 bg-gray-50'}`}>
+                      <input
+                        type="checkbox"
+                        checked={wantsAfter1630}
+                        onChange={(e) => setWantsAfter1630(e.target.checked)}
+                        className="w-5 h-5 mt-0.5 text-[#f5b301] border-gray-300 focus:ring-[#f5b301] rounded"
+                      />
+                      <div>
+                        <div className="text-[14px] font-semibold text-gray-900 leading-snug">
+                          {t('Ba/mẹ có nhu cầu đón bé sau 16:30 (ngoài khung giờ tiêu chuẩn)', 'Need to pick up the child after 16:30 (outside standard hours)')}
+                        </div>
+                        <div className="text-[13px] text-gray-500 mt-1">
+                          {t('Đánh dấu nếu gia đình cần hỗ trợ trông giữ bé muộn hơn giờ đón thông thường — Nhà Văn hóa sẽ tư vấn phương án phù hợp.', 'Check this if you need assistance caring for your child past regular pickup times — we will consult you on available options.')}
+                        </div>
+                      </div>
+                    </label>
 
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 mb-2">

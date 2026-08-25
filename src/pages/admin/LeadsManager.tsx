@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabase';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, User, Baby, BookOpen, Clock, CheckCircle2, XCircle, Loader2, RefreshCw, Trash2, ChevronDown, Gift, MapPin } from 'lucide-react';
+import { Phone, User, Baby, BookOpen, Clock, CheckCircle2, XCircle, Loader2, RefreshCw, Trash2, ChevronDown, Gift, MapPin, School, Package, Sunset } from 'lucide-react';
 
 type LeadStatus = 'new' | 'contacted' | 'enrolled' | 'cancelled';
 
@@ -13,6 +13,9 @@ interface Lead {
   child_name: string;
   child_age: number | null;
   programs: string[];
+  child_school?: string | null;
+  package_selected?: string | null;
+  wants_after_1630?: boolean;
   referral_code: string | null;
   source: string | null;
   status: LeadStatus;
@@ -152,8 +155,19 @@ export const LeadsManager = () => {
                         {lead.child_name && (
                           <span className="flex items-center gap-1"><Baby size={13} /> {lead.child_name}{lead.child_age ? `, ${lead.child_age} tuổi` : ''}</span>
                         )}
+                        {lead.child_school && (
+                          <span className="flex items-center gap-1"><School size={13} /> {lead.child_school}</span>
+                        )}
                         {lead.programs?.length > 0 && (
                           <span className="flex items-center gap-1"><BookOpen size={13} /> {lead.programs.join(', ')}</span>
+                        )}
+                        {lead.package_selected && (
+                          <span className="flex items-center gap-1"><Package size={13} /> Gói: {lead.package_selected}</span>
+                        )}
+                        {lead.wants_after_1630 && (
+                          <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-orange-100 text-orange-700 font-semibold">
+                            <Sunset size={13} /> Đón sau 16:30
+                          </span>
                         )}
                         {lead.referral_code && (
                           <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-purple-100 text-purple-700 font-semibold">
