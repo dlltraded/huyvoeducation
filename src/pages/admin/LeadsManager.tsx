@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabase';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, User, Baby, BookOpen, Clock, CheckCircle2, XCircle, Loader2, RefreshCw, Trash2, ChevronDown, Gift, MapPin, School, Package, Sunset, Eye } from 'lucide-react';
+import { Phone, User, Baby, BookOpen, Clock, CheckCircle2, XCircle, Loader2, RefreshCw, Trash2, ChevronDown, Gift, MapPin, School, Package, Sunset, Eye, Banknote } from 'lucide-react';
 
-type LeadStatus = 'new' | 'contacted' | 'enrolled' | 'cancelled';
+type LeadStatus = 'new' | 'contacted' | 'enrolled' | 'cancelled' | 'paid';
 
 interface Lead {
   id: string;
@@ -26,6 +26,7 @@ const STATUS_CONFIG: Record<LeadStatus, { label: string; color: string; bg: stri
   new:       { label: 'Mới',          color: 'text-blue-700',  bg: 'bg-blue-100',   icon: Clock },
   contacted: { label: 'Đã liên hệ',  color: 'text-amber-700', bg: 'bg-amber-100',  icon: Phone },
   enrolled:  { label: 'Đã đăng ký',  color: 'text-green-700', bg: 'bg-green-100',  icon: CheckCircle2 },
+  paid:      { label: 'Đã đóng HP',  color: 'text-purple-700', bg: 'bg-purple-100', icon: Banknote },
   cancelled: { label: 'Huỷ',         color: 'text-red-600',   bg: 'bg-red-100',    icon: XCircle },
 };
 
@@ -89,6 +90,7 @@ export const LeadsManager = () => {
     new: leads.filter(l => l.status === 'new').length,
     contacted: leads.filter(l => l.status === 'contacted').length,
     enrolled: leads.filter(l => l.status === 'enrolled').length,
+    paid: leads.filter(l => l.status === 'paid').length,
     cancelled: leads.filter(l => l.status === 'cancelled').length,
   };
 
