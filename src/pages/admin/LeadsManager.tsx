@@ -31,6 +31,13 @@ const STATUS_CONFIG: Record<LeadStatus, { label: string; color: string; bg: stri
 
 const STATUSES = Object.entries(STATUS_CONFIG) as [LeadStatus, (typeof STATUS_CONFIG)[LeadStatus]][];
 
+const PACKAGE_NAMES: Record<string, string> = {
+  'TH_1BUOI': 'Tiểu học (1 buổi)',
+  'THCS_1BUOI': 'THCS (1 buổi)',
+  'TH_2BUOI': 'Tiểu học (2 buổi)',
+  'THCS_2BUOI': 'THCS (2 buổi)',
+};
+
 export const LeadsManager = () => {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(true);
@@ -150,6 +157,13 @@ export const LeadsManager = () => {
                         <a href={`tel:${lead.phone}`} className="flex items-center gap-1 text-sm text-brand-blue font-semibold hover:underline w-fit mt-0.5">
                           <Phone size={13} /> {lead.phone}
                         </a>
+                        {(lead.child_name || lead.package_selected) && (
+                          <div className="flex items-center gap-1.5 mt-1 text-xs text-gray-500 truncate">
+                            {lead.child_name && <span className="truncate flex-shrink-0">Bé: {lead.child_name}</span>}
+                            {lead.child_name && lead.package_selected && <span className="text-gray-300 flex-shrink-0">•</span>}
+                            {lead.package_selected && <span className="text-brand-blue font-medium truncate">{PACKAGE_NAMES[lead.package_selected] || lead.package_selected}</span>}
+                          </div>
+                        )}
                       </div>
                     </div>
 
@@ -215,7 +229,7 @@ export const LeadsManager = () => {
                                 <div>
                                   <span className="text-gray-500 font-medium block mb-1">Chương trình quan tâm</span>
                                   <div className="flex items-center gap-1.5 text-brand-blue font-semibold">
-                                    <Package size={15} /> {lead.package_selected || lead.programs.join(', ')}
+                                    <Package size={15} /> {lead.package_selected ? (PACKAGE_NAMES[lead.package_selected] || lead.package_selected) : lead.programs.join(', ')}
                                   </div>
                                 </div>
                               )}
