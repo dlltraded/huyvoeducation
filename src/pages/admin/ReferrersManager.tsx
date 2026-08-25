@@ -14,14 +14,12 @@ interface Referrer {
   created_at: string;
 }
 
-const SITE_ORIGIN = typeof window !== 'undefined' ? window.location.origin : 'https://huyvoeducation.com';
-
-// Both links land straight on the registration form (#register) — the query
+// Both links land straight on the registration form (#dang-ky) — the query
 // param (?ref=/?src=) is captured on load in App.tsx before ScrollToTop
-// scrolls to the #register section, so the form is pre-filled by the time
+// scrolls to the section, so the form is pre-filled by the time
 // the visitor sees it.
-const referralLink = (code: string) => `${SITE_ORIGIN}/?ref=${encodeURIComponent(code)}#register`;
-const campaignLink = (label: string) => `${SITE_ORIGIN}/?src=${encodeURIComponent(label)}#register`;
+const referralLink = (code: string) => `https://www.nvhthanhthieunhidongnai.com/?ref=${encodeURIComponent(code)}#dang-ky`;
+const campaignLink = (label: string) => `https://www.nvhthanhthieunhidongnai.com/?src=${encodeURIComponent(label)}#dang-ky`;
 
 const CopyButton = ({ value }: { value: string }) => {
   const [copied, setCopied] = useState(false);
