@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabase';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, User, Baby, BookOpen, Clock, CheckCircle2, XCircle, Loader2, RefreshCw, Trash2, ChevronDown, Gift, MapPin, School, Package, Sunset } from 'lucide-react';
+import { Phone, User, Baby, BookOpen, Clock, CheckCircle2, XCircle, Loader2, RefreshCw, Trash2, ChevronDown, Gift, MapPin, School, Package, Sunset, Eye } from 'lucide-react';
 
 type LeadStatus = 'new' | 'contacted' | 'enrolled' | 'cancelled';
 
@@ -137,87 +137,46 @@ export const LeadsManager = () => {
                   className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden"
                 >
                   {/* Row */}
-                  <div className="flex items-center gap-4 px-6 py-4">
-                    {/* Avatar */}
-                    <div className="w-11 h-11 rounded-full bg-brand-blue/10 text-brand-blue font-bold text-lg flex items-center justify-center flex-shrink-0">
-                      {lead.parent_name?.charAt(0)?.toUpperCase() || '?'}
-                    </div>
-
-                    {/* Info */}
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-3 flex-wrap">
-                        <span className="font-heading font-bold text-gray-900">{lead.parent_name}</span>
-                        <a href={`tel:${lead.phone}`} className="flex items-center gap-1 text-brand-blue font-semibold hover:underline">
-                          <Phone size={14} /> {lead.phone}
+                  <div className="flex items-center justify-between gap-4 px-4 sm:px-6 py-4">
+                    <div className="flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
+                      {/* Avatar */}
+                      <div className="w-10 h-10 rounded-full bg-brand-blue/10 text-brand-blue font-bold text-lg flex items-center justify-center flex-shrink-0">
+                        {lead.parent_name?.charAt(0)?.toUpperCase() || '?'}
+                      </div>
+                      
+                      {/* Primary Info */}
+                      <div className="flex flex-col min-w-0">
+                        <span className="font-heading font-bold text-gray-900 truncate">{lead.parent_name}</span>
+                        <a href={`tel:${lead.phone}`} className="flex items-center gap-1 text-sm text-brand-blue font-semibold hover:underline w-fit mt-0.5">
+                          <Phone size={13} /> {lead.phone}
                         </a>
                       </div>
-                      <div className="flex items-center gap-4 mt-1 text-sm text-gray-500 flex-wrap">
-                        {lead.child_name && (
-                          <span className="flex items-center gap-1"><Baby size={13} /> {lead.child_name}{lead.child_age ? `, ${lead.child_age} tuổi` : ''}</span>
-                        )}
-                        {lead.child_school && (
-                          <span className="flex items-center gap-1"><School size={13} /> {lead.child_school}</span>
-                        )}
-                        {lead.programs?.length > 0 && (
-                          <span className="flex items-center gap-1"><BookOpen size={13} /> {lead.programs.join(', ')}</span>
-                        )}
-                        {lead.package_selected && (
-                          <span className="flex items-center gap-1"><Package size={13} /> Gói: {lead.package_selected}</span>
-                        )}
-                        {lead.wants_after_1630 && (
-                          <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-orange-100 text-orange-700 font-semibold">
-                            <Sunset size={13} /> Đón sau 16:30
-                          </span>
-                        )}
-                        {lead.referral_code && (
-                          <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-purple-100 text-purple-700 font-semibold">
-                            <Gift size={13} /> {lead.referral_code}
-                          </span>
-                        )}
-                        {lead.source && lead.source !== lead.referral_code && (
-                          <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-cyan-100 text-cyan-700 font-semibold">
-                            <MapPin size={13} /> {lead.source}
-                          </span>
-                        )}
-                        <span className="flex items-center gap-1"><Clock size={13} /> {new Date(lead.created_at).toLocaleString('vi-VN')}</span>
-                      </div>
                     </div>
 
-                    {/* Status selector */}
-                    <div className="flex items-center gap-2 flex-shrink-0">
-                      <span className={`hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold ${statusCfg.bg} ${statusCfg.color}`}>
+                    {/* Actions & Status */}
+                    <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+                      <span className={`hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${statusCfg.bg} ${statusCfg.color}`}>
                         <StatusIcon size={12} /> {statusCfg.label}
                       </span>
-                      <select
-                        value={lead.status}
-                        onChange={e => updateStatus(lead.id, e.target.value as LeadStatus)}
-                        className="text-sm border border-gray-200 rounded-lg px-2 py-1.5 bg-gray-50 focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue cursor-pointer"
-                      >
-                        {STATUSES.map(([k, v]) => (
-                          <option key={k} value={k}>{v.label}</option>
-                        ))}
-                      </select>
-
-                      {/* Expand */}
+                      
                       <button
                         onClick={() => setExpandedId(isExpanded ? null : lead.id)}
-                        className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 text-gray-500 transition-colors"
+                        className={`w-9 h-9 flex items-center justify-center rounded-lg transition-colors ${isExpanded ? 'bg-brand-blue/10 text-brand-blue' : 'hover:bg-gray-100 text-gray-500'}`}
                       >
-                        <ChevronDown size={16} className={`transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                        <Eye size={18} />
                       </button>
 
-                      {/* Delete */}
                       <button
                         onClick={() => deleteLead(lead.id)}
                         disabled={deletingId === lead.id}
-                        className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-red-50 text-red-400 hover:text-red-600 transition-colors"
+                        className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-red-50 text-red-400 hover:text-red-600 transition-colors"
                       >
-                        {deletingId === lead.id ? <Loader2 size={16} className="animate-spin" /> : <Trash2 size={16} />}
+                        {deletingId === lead.id ? <Loader2 size={16} className="animate-spin" /> : <Trash2 size={18} />}
                       </button>
                     </div>
                   </div>
 
-                  {/* Expanded note */}
+                  {/* Expanded Details */}
                   <AnimatePresence>
                     {isExpanded && (
                       <motion.div
@@ -227,24 +186,104 @@ export const LeadsManager = () => {
                         transition={{ duration: 0.25 }}
                         className="overflow-hidden border-t border-gray-100"
                       >
-                        <div className="px-6 py-4 bg-gray-50">
-                          <label className="block text-sm font-semibold text-gray-700 mb-2">Ghi chú nội bộ</label>
-                          <textarea
-                            rows={3}
-                            value={noteValues[lead.id] ?? (lead.note || '')}
-                            onChange={e => setNoteValues(prev => ({ ...prev, [lead.id]: e.target.value }))}
-                            placeholder="Nhập ghi chú về lead này (chỉ hiển thị nội bộ)..."
-                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all bg-white text-sm resize-none"
-                          />
-                          <div className="flex justify-end mt-3">
-                            <button
-                              onClick={() => saveNote(lead.id)}
-                              disabled={savingNote === lead.id}
-                              className="flex items-center gap-2 px-5 py-2 bg-brand-blue text-white rounded-lg font-medium text-sm hover:bg-blue-700 transition-colors disabled:opacity-70"
-                            >
-                              {savingNote === lead.id ? <Loader2 size={14} className="animate-spin" /> : null}
-                              Lưu ghi chú
-                            </button>
+                        <div className="px-4 sm:px-6 py-5 bg-gray-50/50 space-y-5">
+                          {/* Details Grid */}
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 text-sm">
+                            {/* Column 1 */}
+                            <div className="space-y-3">
+                              <div>
+                                <span className="text-gray-500 font-medium block mb-1">Thời gian đăng ký</span>
+                                <div className="flex items-center gap-1.5 text-gray-900 font-semibold"><Clock size={15} className="text-gray-400" /> {new Date(lead.created_at).toLocaleString('vi-VN')}</div>
+                              </div>
+                              {lead.child_name && (
+                                <div>
+                                  <span className="text-gray-500 font-medium block mb-1">Học viên</span>
+                                  <div className="flex items-center gap-1.5 text-gray-900 font-semibold"><Baby size={15} className="text-gray-400" /> {lead.child_name} {lead.child_age ? `(${lead.child_age} tuổi)` : ''}</div>
+                                </div>
+                              )}
+                              {lead.child_school && (
+                                <div>
+                                  <span className="text-gray-500 font-medium block mb-1">Trường học hiện tại</span>
+                                  <div className="flex items-center gap-1.5 text-gray-900 font-semibold"><School size={15} className="text-gray-400" /> {lead.child_school}</div>
+                                </div>
+                              )}
+                            </div>
+                            
+                            {/* Column 2 */}
+                            <div className="space-y-3">
+                              {(lead.package_selected || lead.programs?.length > 0) && (
+                                <div>
+                                  <span className="text-gray-500 font-medium block mb-1">Chương trình quan tâm</span>
+                                  <div className="flex items-center gap-1.5 text-brand-blue font-semibold">
+                                    <Package size={15} /> {lead.package_selected || lead.programs.join(', ')}
+                                  </div>
+                                </div>
+                              )}
+                              {lead.wants_after_1630 && (
+                                <div>
+                                  <span className="text-gray-500 font-medium block mb-1">Nhu cầu đưa đón</span>
+                                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-orange-100 text-orange-700 font-semibold">
+                                    <Sunset size={14} /> Đón sau 16:30
+                                  </div>
+                                </div>
+                              )}
+                              {(lead.referral_code || lead.source) && (
+                                <div>
+                                  <span className="text-gray-500 font-medium block mb-1">Nguồn / Mã giới thiệu</span>
+                                  <div className="flex items-center gap-2">
+                                    {lead.referral_code && (
+                                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-purple-100 text-purple-700 font-semibold">
+                                        <Gift size={14} /> {lead.referral_code}
+                                      </span>
+                                    )}
+                                    {lead.source && lead.source !== lead.referral_code && (
+                                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-cyan-100 text-cyan-700 font-semibold">
+                                        <MapPin size={14} /> {lead.source}
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          
+                          <hr className="border-gray-200" />
+
+                          {/* Status and Note */}
+                          <div className="space-y-4">
+                            <div>
+                              <label className="block text-sm font-semibold text-gray-700 mb-2">Trạng thái xử lý</label>
+                              <select
+                                value={lead.status}
+                                onChange={e => updateStatus(lead.id, e.target.value as LeadStatus)}
+                                className="w-full sm:w-auto text-sm border border-gray-200 rounded-xl px-4 py-2.5 bg-white focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue cursor-pointer font-medium"
+                              >
+                                {STATUSES.map(([k, v]) => (
+                                  <option key={k} value={k}>{v.label}</option>
+                                ))}
+                              </select>
+                            </div>
+                            
+                            <div>
+                              <label className="block text-sm font-semibold text-gray-700 mb-2">Ghi chú nội bộ</label>
+                              <textarea
+                                rows={3}
+                                value={noteValues[lead.id] ?? (lead.note || '')}
+                                onChange={e => setNoteValues(prev => ({ ...prev, [lead.id]: e.target.value }))}
+                                placeholder="Nhập ghi chú về lead này (chỉ hiển thị nội bộ)..."
+                                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all bg-white text-sm resize-none"
+                              />
+                              <div className="flex justify-end mt-3">
+                                <button
+                                  onClick={() => saveNote(lead.id)}
+                                  disabled={savingNote === lead.id}
+                                  className="flex items-center gap-2 px-5 py-2.5 bg-brand-blue text-white rounded-xl font-semibold text-sm hover:bg-blue-700 transition-colors disabled:opacity-70 shadow-sm"
+                                >
+                                  {savingNote === lead.id ? <Loader2 size={16} className="animate-spin" /> : null}
+                                  Lưu ghi chú
+                                </button>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </motion.div>
