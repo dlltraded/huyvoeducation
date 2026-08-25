@@ -5,6 +5,6 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
-    persistSession: false, // Ensure public forms always run as 'anon' even if admin is logged in
+    persistSession: true,
   }
 });
