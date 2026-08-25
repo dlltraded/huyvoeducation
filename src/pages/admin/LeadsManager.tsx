@@ -138,6 +138,7 @@ export const LeadsManager = () => {
               const statusCfg = STATUS_CONFIG[lead.status] || STATUS_CONFIG.new;
               const StatusIcon = statusCfg.icon;
               const isExpanded = expandedId === lead.id;
+              const displayPrograms = (lead.programs || []).filter(p => !p.includes('Rèn luyện Kỹ năng hè'));
 
               return (
                 <motion.div
@@ -162,12 +163,12 @@ export const LeadsManager = () => {
                         <a href={`tel:${lead.phone}`} className="flex items-center gap-1 text-sm text-brand-blue font-semibold hover:underline w-fit mt-0.5">
                           <Phone size={13} /> {lead.phone}
                         </a>
-                        {(lead.child_name || lead.package_selected || lead.programs?.length > 0) && (
+                        {(lead.child_name || lead.package_selected || displayPrograms.length > 0) && (
                           <div className="flex items-center gap-1.5 mt-1 text-xs text-gray-500 truncate">
                             {lead.child_name && <span className="truncate flex-shrink-0">Bé: {lead.child_name}</span>}
-                            {lead.child_name && (lead.package_selected || lead.programs?.length > 0) && <span className="text-gray-300 flex-shrink-0">•</span>}
+                            {lead.child_name && (lead.package_selected || displayPrograms.length > 0) && <span className="text-gray-300 flex-shrink-0">•</span>}
                             {lead.package_selected && <span className="text-brand-blue font-medium truncate">{PACKAGE_NAMES[lead.package_selected] || lead.package_selected}</span>}
-                            {!lead.package_selected && lead.programs?.length > 0 && <span className="text-brand-blue font-medium truncate">{lead.programs.join(', ')}</span>}
+                            {!lead.package_selected && displayPrograms.length > 0 && <span className="text-brand-blue font-medium truncate">{displayPrograms.join(', ')}</span>}
                           </div>
                         )}
                       </div>
@@ -231,7 +232,7 @@ export const LeadsManager = () => {
                             
                             {/* Column 2 */}
                             <div className="space-y-3">
-                              {(lead.package_selected || lead.programs?.length > 0) && (
+                              {(lead.package_selected || displayPrograms.length > 0) && (
                                 <div>
                                   <span className="text-gray-500 font-medium block mb-1">Chương trình quan tâm</span>
                                   <div className="flex flex-col gap-1.5 text-brand-blue font-semibold">
@@ -240,9 +241,9 @@ export const LeadsManager = () => {
                                         <Package size={15} /> {PACKAGE_NAMES[lead.package_selected] || lead.package_selected}
                                       </div>
                                     )}
-                                    {lead.programs?.length > 0 && (
+                                    {displayPrograms.length > 0 && (
                                       <div className="flex items-center gap-1.5">
-                                        <BookOpen size={15} /> {lead.programs.join(', ')}
+                                        <BookOpen size={15} /> {displayPrograms.join(', ')}
                                       </div>
                                     )}
                                   </div>
