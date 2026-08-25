@@ -36,6 +36,11 @@ const PACKAGE_NAMES: Record<string, string> = {
   'THCS_1BUOI': 'THCS (1 buổi)',
   'TH_2BUOI': 'Tiểu học (2 buổi)',
   'THCS_2BUOI': 'THCS (2 buổi)',
+  // Landing page aliases
+  'th-1': 'Tiểu học (1 buổi)',
+  'thcs-1': 'THCS (1 buổi)',
+  'th-2': 'Tiểu học (2 buổi)',
+  'thcs-2': 'THCS (2 buổi)',
 };
 
 export const LeadsManager = () => {
@@ -157,11 +162,12 @@ export const LeadsManager = () => {
                         <a href={`tel:${lead.phone}`} className="flex items-center gap-1 text-sm text-brand-blue font-semibold hover:underline w-fit mt-0.5">
                           <Phone size={13} /> {lead.phone}
                         </a>
-                        {(lead.child_name || lead.package_selected) && (
+                        {(lead.child_name || lead.package_selected || lead.programs?.length > 0) && (
                           <div className="flex items-center gap-1.5 mt-1 text-xs text-gray-500 truncate">
                             {lead.child_name && <span className="truncate flex-shrink-0">Bé: {lead.child_name}</span>}
-                            {lead.child_name && lead.package_selected && <span className="text-gray-300 flex-shrink-0">•</span>}
+                            {lead.child_name && (lead.package_selected || lead.programs?.length > 0) && <span className="text-gray-300 flex-shrink-0">•</span>}
                             {lead.package_selected && <span className="text-brand-blue font-medium truncate">{PACKAGE_NAMES[lead.package_selected] || lead.package_selected}</span>}
+                            {!lead.package_selected && lead.programs?.length > 0 && <span className="text-brand-blue font-medium truncate">{lead.programs.join(', ')}</span>}
                           </div>
                         )}
                       </div>
@@ -228,8 +234,17 @@ export const LeadsManager = () => {
                               {(lead.package_selected || lead.programs?.length > 0) && (
                                 <div>
                                   <span className="text-gray-500 font-medium block mb-1">Chương trình quan tâm</span>
-                                  <div className="flex items-center gap-1.5 text-brand-blue font-semibold">
-                                    <Package size={15} /> {lead.package_selected ? (PACKAGE_NAMES[lead.package_selected] || lead.package_selected) : lead.programs.join(', ')}
+                                  <div className="flex flex-col gap-1.5 text-brand-blue font-semibold">
+                                    {lead.package_selected && (
+                                      <div className="flex items-center gap-1.5">
+                                        <Package size={15} /> {PACKAGE_NAMES[lead.package_selected] || lead.package_selected}
+                                      </div>
+                                    )}
+                                    {lead.programs?.length > 0 && (
+                                      <div className="flex items-center gap-1.5">
+                                        <BookOpen size={15} /> {lead.programs.join(', ')}
+                                      </div>
+                                    )}
                                   </div>
                                 </div>
                               )}
