@@ -47,9 +47,9 @@ export const AdminLayout = () => {
   ];
 
   return (
-    <div className="min-h-screen flex bg-gray-100">
-      {/* Sidebar */}
-      <div className="w-64 bg-brand-dark text-white p-6 shadow-xl flex flex-col">
+    <div className="min-h-screen flex flex-col md:flex-row bg-gray-100 pb-16 md:pb-0" style={{ paddingBottom: 'calc(4rem + env(safe-area-inset-bottom))' }}>
+      {/* Desktop Sidebar */}
+      <div className="hidden md:flex w-64 bg-brand-dark text-white p-6 shadow-xl flex-col z-20">
         <div className="flex items-center gap-3 mb-10">
           <img src="/favicon.svg" alt="Logo" className="w-8 h-8" />
           <span className="font-heading font-bold text-xl">H-V Admin</span>
@@ -83,9 +83,20 @@ export const AdminLayout = () => {
         </button>
       </div>
 
+      {/* Mobile Top Header */}
+      <div className="md:hidden bg-brand-dark text-white px-4 py-3 shadow-sm flex items-center justify-between sticky top-0 z-30" style={{ paddingTop: 'calc(0.75rem + env(safe-area-inset-top))' }}>
+        <div className="flex items-center gap-2">
+          <img src="/favicon.svg" alt="Logo" className="w-6 h-6" />
+          <span className="font-heading font-bold text-lg">H-V Admin</span>
+        </div>
+        <button onClick={handleLogout} className="p-2 text-gray-300 hover:text-white rounded-lg hover:bg-white/10 transition-colors">
+          <LogOut size={18} />
+        </button>
+      </div>
+
       {/* Main Content */}
-      <div className="flex-1 flex flex-col min-h-screen overflow-hidden">
-        <header className="bg-white border-b border-gray-200 py-4 px-8 flex justify-between items-center shadow-sm">
+      <div className="flex-1 flex flex-col min-h-0 overflow-hidden relative z-10">
+        <header className="hidden md:flex bg-white border-b border-gray-200 py-4 px-8 justify-between items-center shadow-sm">
           <h2 className="text-xl font-heading font-semibold text-gray-800">
             {navItems.find(item => location.pathname.startsWith(item.path))?.name || 'Dashboard'}
           </h2>
@@ -97,9 +108,41 @@ export const AdminLayout = () => {
           </div>
         </header>
         
-        <main className="flex-1 overflow-y-auto p-8">
+        {/* Mobile Page Title */}
+        <div className="md:hidden bg-white border-b border-gray-200 py-3 px-4 shadow-sm flex justify-between items-center">
+          <h2 className="text-lg font-heading font-semibold text-gray-800 truncate">
+            {navItems.find(item => location.pathname.startsWith(item.path))?.name || 'Dashboard'}
+          </h2>
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <div className="w-8 h-8 rounded-full bg-brand-blue text-white flex items-center justify-center font-bold text-sm">
+              {session.user.email?.charAt(0).toUpperCase() || 'A'}
+            </div>
+          </div>
+        </div>
+        
+        <main className="flex-1 overflow-y-auto p-4 md:p-8">
           <Outlet />
         </main>
+      </div>
+
+      {/* Mobile Bottom Navigation */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-between items-center z-50 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
+        {navItems.map((item) => {
+          const Icon = item.icon;
+          const isActive = location.pathname.startsWith(item.path);
+          return (
+            <Link
+              key={item.path}
+              to={item.path}
+              className={`flex flex-col items-center justify-center py-3 px-1 flex-1 transition-colors ${
+                isActive ? 'text-brand-blue' : 'text-gray-400 hover:text-gray-600'
+              }`}
+            >
+              <Icon size={20} className={isActive ? 'scale-110 transition-transform' : ''} />
+              <span className="text-[10px] font-medium mt-1 text-center leading-tight truncate w-full px-1">{item.name}</span>
+            </Link>
+          );
+        })}
       </div>
     </div>
   );
