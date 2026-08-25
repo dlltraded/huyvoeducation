@@ -16,6 +16,7 @@ export default defineConfig({
         theme_color: '#ffffff',
         background_color: '#f3f4f6',
         display: 'standalone',
+        start_url: '/admin',
         icons: [
           {
             src: 'favicon.svg',
