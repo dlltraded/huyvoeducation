@@ -39,11 +39,11 @@ export const AdminLayout = () => {
   };
 
   const navItems = [
-    { name: 'Lead đăng ký', path: '/admin/leads', icon: Users },
-    { name: 'Giới thiệu (Referral)', path: '/admin/referrers', icon: Gift },
-    { name: 'Quản lý Tin tức', path: '/admin/news', icon: Newspaper },
-    { name: 'Quản lý Nội dung', path: '/admin/content', icon: Settings },
-    { name: 'Cài đặt chung', path: '/admin/settings', icon: Settings },
+    { name: 'Lead đăng ký', mobileName: 'Leads', path: '/admin/leads', icon: Users },
+    { name: 'Giới thiệu (Referral)', mobileName: 'Referral', path: '/admin/referrers', icon: Gift },
+    { name: 'Quản lý Tin tức', mobileName: 'Tin tức', path: '/admin/news', icon: Newspaper },
+    { name: 'Quản lý Nội dung', mobileName: 'Nội dung', path: '/admin/content', icon: LayoutDashboard },
+    { name: 'Cài đặt chung', mobileName: 'Cài đặt', path: '/admin/settings', icon: Settings },
   ];
 
   return (
@@ -139,7 +139,7 @@ export const AdminLayout = () => {
               }`}
             >
               <Icon size={20} className={isActive ? 'scale-110 transition-transform' : ''} />
-              <span className="text-[10px] font-medium mt-1 text-center leading-tight truncate w-full px-1">{item.name}</span>
+              <span className="text-[10px] font-medium mt-1 text-center leading-tight truncate w-full px-1">{item.mobileName || item.name}</span>
             </Link>
           );
         })}
