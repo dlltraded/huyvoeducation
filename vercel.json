@@ -8,7 +8,7 @@
           "value": "huyvoeducation.com"
         }
       ],
-      "destination": "https://huyvoeducation.vn/:path*",
+      "destination": "https://www.huyvoeducation.vn/:path*",
       "permanent": true
     },
     {
@@ -19,18 +19,7 @@
           "value": "www.huyvoeducation.com"
         }
       ],
-      "destination": "https://huyvoeducation.vn/:path*",
-      "permanent": true
-    },
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.huyvoeducation.vn"
-        }
-      ],
-      "destination": "https://huyvoeducation.vn/:path*",
+      "destination": "https://www.huyvoeducation.vn/:path*",
       "permanent": true
     }
   ],
