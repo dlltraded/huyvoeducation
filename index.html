@@ -8,13 +8,20 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="description" content="Huy Võ Education - Hệ sinh thái giáo dục sau giờ học uy tín, an toàn và hiện đại dành cho thế hệ trẻ." />
-    
+
+    <!-- Canonical domain: huyvoeducation.vn is the SEO-preferred domain.
+         The canonical link and og:url are set dynamically per-route by
+         CanonicalTag.tsx (mounted in MainLayout) via react-helmet-async —
+         intentionally NOT duplicated here as static tags, since Helmet
+         appends rather than replaces, which would otherwise leave two
+         conflicting canonical/og:url tags in <head> on every page. -->
+
     <!-- Open Graph / Social Media Meta Tags -->
     <meta property="og:title" content="Huy Võ Education | Kỹ năng sống & STEM cho trẻ" />
     <meta property="og:description" content="Huy Võ Education - Hệ sinh thái giáo dục sau giờ học uy tín, an toàn và hiện đại dành cho thế hệ trẻ." />
-    <meta property="og:image" content="/og-image.jpg" />
+    <meta property="og:image" content="https://huyvoeducation.vn/og-image.jpg" />
     <meta property="og:type" content="website" />
-    
+
     <title>Huy Võ Education</title>
   </head>
   <body>

@@ -7,6 +7,7 @@ import { EditModeProvider } from '../contexts/EditModeContext';
 import { SettingsProvider } from '../contexts/SettingsContext';
 import { EditModeToggle } from '../components/editor/EditModeToggle';
 import { EditModeBar } from '../components/editor/EditModeBar';
+import { CanonicalTag } from '../components/CanonicalTag';
 
 export const MainLayout = () => {
   const [lang, setLang] = useState<'vi'|'en'>('vi');
@@ -27,7 +28,8 @@ export const MainLayout = () => {
     <SettingsProvider>
       <EditModeProvider>
         <div className="font-sans text-gray-800 bg-gray-50 overflow-x-hidden">
-          <Header 
+          <CanonicalTag />
+          <Header
             lang={lang} setLang={setLang} 
             isScrolled={isScrolled} 
             mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} 
