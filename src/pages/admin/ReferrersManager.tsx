@@ -19,8 +19,8 @@ interface Referrer {
 // param (?ref=/?src=) is captured on load in App.tsx before ScrollToTop
 // scrolls to the section, so the form is pre-filled by the time
 // the visitor sees it.
-const referralLink = (code: string) => `https://www.nvhthanhthieunhidongnai.com/dang-ky.html?ref=${encodeURIComponent(code)}`;
-const campaignLink = (label: string) => `https://www.nvhthanhthieunhidongnai.com/dang-ky.html?src=${encodeURIComponent(label)}`;
+const referralLink = (code: string) => `https://www.nvhthanhthieunhidongnai.com/?ref=${encodeURIComponent(code)}#dang-ky`;
+const campaignLink = (label: string) => `https://www.nvhthanhthieunhidongnai.com/?src=${encodeURIComponent(label)}#dang-ky`;
 
 const CopyButton = ({ value }: { value: string }) => {
   const [copied, setCopied] = useState(false);
