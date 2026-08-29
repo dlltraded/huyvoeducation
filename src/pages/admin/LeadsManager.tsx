@@ -18,9 +18,14 @@ interface Lead {
   wants_after_1630?: boolean;
   referral_code: string | null;
   source: string | null;
+  site?: string | null;
   status: LeadStatus;
   note: string | null;
 }
+
+const SITE_CONFIG: Record<string, { label: string; color: string; bg: string }> = {
+  nvhttn: { label: 'NVHTTN', color: 'text-teal-700', bg: 'bg-teal-100' },
+};
 
 const STATUS_CONFIG: Record<LeadStatus, { label: string; color: string; bg: string; icon: any }> = {
   new:       { label: 'Mới',          color: 'text-blue-700',  bg: 'bg-blue-100',   icon: Clock },
@@ -48,6 +53,7 @@ export const LeadsManager = () => {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(true);
   const [filterStatus, setFilterStatus] = useState<LeadStatus | 'all'>('all');
+  const [filterSite, setFilterSite] = useState<'all' | 'nvhttn' | 'hve'>('all');
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [noteValues, setNoteValues] = useState<Record<string, string>>({});
   const [savingNote, setSavingNote] = useState<string | null>(null);
@@ -83,15 +89,25 @@ export const LeadsManager = () => {
     setDeletingId(null);
   };
 
-  const filtered = filterStatus === 'all' ? leads : leads.filter(l => l.status === filterStatus);
+  const bySite = filterSite === 'all' ? leads : filterSite === 'nvhttn'
+    ? leads.filter(l => l.site === 'nvhttn')
+    : leads.filter(l => l.site !== 'nvhttn');
+
+  const filtered = filterStatus === 'all' ? bySite : bySite.filter(l => l.status === filterStatus);
 
   const counts: Record<string, number> = {
+    all: bySite.length,
+    new: bySite.filter(l => l.status === 'new').length,
+    contacted: bySite.filter(l => l.status === 'contacted').length,
+    enrolled: bySite.filter(l => l.status === 'enrolled').length,
+    paid: bySite.filter(l => l.status === 'paid').length,
+    cancelled: bySite.filter(l => l.status === 'cancelled').length,
+  };
+
+  const siteCounts = {
     all: leads.length,
-    new: leads.filter(l => l.status === 'new').length,
-    contacted: leads.filter(l => l.status === 'contacted').length,
-    enrolled: leads.filter(l => l.status === 'enrolled').length,
-    paid: leads.filter(l => l.status === 'paid').length,
-    cancelled: leads.filter(l => l.status === 'cancelled').length,
+    nvhttn: leads.filter(l => l.site === 'nvhttn').length,
+    hve: leads.filter(l => l.site !== 'nvhttn').length,
   };
 
   return (
@@ -108,6 +124,28 @@ export const LeadsManager = () => {
         >
           <RefreshCw size={16} className={loading ? 'animate-spin' : ''} /> Làm mới
         </button>
+      </div>
+
+      {/* Site filter (nguồn website) */}
+      <div className="flex items-center gap-2 flex-wrap">
+        <span className="text-sm text-gray-500 font-medium mr-1">Nguồn website:</span>
+        {[
+          { key: 'all', label: `Tất cả (${siteCounts.all})` },
+          { key: 'hve', label: `HVE (${siteCounts.hve})` },
+          { key: 'nvhttn', label: `NVHTTN (${siteCounts.nvhttn})` },
+        ].map(({ key, label }) => (
+          <button
+            key={key}
+            onClick={() => setFilterSite(key as any)}
+            className={`px-3.5 py-1.5 rounded-full text-sm font-semibold border transition-colors ${
+              filterSite === key
+                ? 'bg-brand-blue text-white border-brand-blue'
+                : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'
+            }`}
+          >
+            {label}
+          </button>
+        ))}
       </div>
 
       {/* Stats */}
@@ -178,6 +216,11 @@ export const LeadsManager = () => {
 
                     {/* Actions & Status */}
                     <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+                      {lead.site && SITE_CONFIG[lead.site] && (
+                        <span className={`hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${SITE_CONFIG[lead.site].bg} ${SITE_CONFIG[lead.site].color}`}>
+                          {SITE_CONFIG[lead.site].label}
+                        </span>
+                      )}
                       <span className={`hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${statusCfg.bg} ${statusCfg.color}`}>
                         <StatusIcon size={12} /> {statusCfg.label}
                       </span>
