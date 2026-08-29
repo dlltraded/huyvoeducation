@@ -12,8 +12,8 @@ security definer   -- chạy với quyền owner, bypass RLS của referrers
 stable             -- không side-effect, có thể cache
 as $$
   select
-    r.name::text                                                as referrer_name,
-    coalesce(r.commission_amount, s.default_discount_amount)   as discount_amount
+    r.name::text                  as referrer_name,
+    s.default_discount_amount     as discount_amount
   from  public.referrers r
   cross join public.referral_settings s
   where upper(trim(r.referral_code)) = upper(trim(p_code))
