@@ -12,6 +12,7 @@ interface Referrer {
   notes: string | null;
   is_active: boolean;
   created_at: string;
+  stats?: { total: number; paid: number };
 }
 
 // Both links land straight on the registration form (#dang-ky) — the query
@@ -73,7 +74,26 @@ export const ReferrersManager = () => {
   const fetchReferrers = async () => {
     setLoading(true);
     const { data, error } = await supabase.from('referrers').select('*').order('created_at', { ascending: false });
-    if (!error && data) setReferrers(data as Referrer[]);
+    
+    // Fetch leads to calculate referral stats
+    const { data: leadsData } = await supabase.from('leads').select('referral_code, status').not('referral_code', 'is', null);
+    
+    if (!error && data) {
+      const referralStats = (leadsData || []).reduce((acc: any, lead: any) => {
+        const code = lead.referral_code?.toUpperCase();
+        if (!code) return acc;
+        if (!acc[code]) acc[code] = { total: 0, paid: 0 };
+        acc[code].total += 1;
+        if (lead.status === 'paid') acc[code].paid += 1;
+        return acc;
+      }, {});
+
+      const referrersWithStats = (data as Referrer[]).map(r => ({
+        ...r,
+        stats: referralStats[r.referral_code.toUpperCase()] || { total: 0, paid: 0 }
+      }));
+      setReferrers(referrersWithStats);
+    }
     setLoading(false);
   };
 
@@ -238,9 +258,31 @@ export const ReferrersManager = () => {
               </div>
 
               {r.notes && <p className="text-sm text-gray-500 mt-3">{r.notes}</p>}
-              {r.commission_amount != null && (
-                <p className="text-sm text-gray-500 mt-1">Hoa hồng: {r.commission_amount.toLocaleString('vi-VN')}đ / khách</p>
-              )}
+
+              <div className="mt-4 flex items-center gap-4 text-sm text-gray-600 bg-gray-50 p-3 rounded-xl border border-gray-100 overflow-x-auto">
+                <div className="flex flex-col min-w-[100px]">
+                   <span className="text-xs text-gray-500 mb-0.5">Số lead mang về</span>
+                   <span className="font-bold text-gray-900 text-base">{r.stats?.total || 0}</span>
+                </div>
+                <div className="w-px h-8 bg-gray-200 flex-shrink-0"></div>
+                <div className="flex flex-col min-w-[100px]">
+                   <span className="text-xs text-gray-500 mb-0.5">Đã đóng học phí</span>
+                   <span className="font-bold text-green-600 text-base">{r.stats?.paid || 0}</span>
+                </div>
+                {r.commission_amount != null && (
+                   <>
+                     <div className="w-px h-8 bg-gray-200 flex-shrink-0"></div>
+                     <div className="flex flex-col min-w-[120px]">
+                        <span className="text-xs text-gray-500 mb-0.5">
+                          Tạm tính hoa hồng <span className="font-normal">({(r.commission_amount / 1000).toLocaleString('vi-VN')}k/khách)</span>
+                        </span>
+                        <span className="font-bold text-brand-blue text-base">
+                          {((r.commission_amount * (r.stats?.paid || 0))).toLocaleString('vi-VN')}đ
+                        </span>
+                     </div>
+                   </>
+                )}
+              </div>
 
               <div className="flex items-center gap-2 mt-4 pt-4 border-t border-gray-100">
                 <CopyButton value={referralLink(r.referral_code)} />
