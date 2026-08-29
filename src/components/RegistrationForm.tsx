@@ -200,7 +200,7 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
                       </div>
                     </label>
 
-                    <div>
+                                        <div>
                       <label className="block text-sm font-semibold text-gray-700 mb-2">
                         {t('Mã giới thiệu (nếu có)', 'Referral code (optional)')}
                       </label>
@@ -208,13 +208,30 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
                         ref={referralCodeRef}
                         type="text"
                         defaultValue={autoRef}
+                        onBlur={(e) => checkReferralCode(e.target.value)}
                         placeholder={t('Nhập mã của phụ huynh/học viên cũ để nhận ưu đãi học phí', "Enter a current parent's or student's code for a tuition discount")}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all bg-gray-50 focus:bg-white"
+                        className={`w-full px-4 py-3 rounded-xl border transition-all bg-gray-50 focus:bg-white ${refState === 'valid' ? 'border-green-500 focus:ring-2 focus:ring-green-500/20' : refState === 'invalid' ? 'border-red-500 focus:ring-2 focus:ring-red-500/20' : 'border-gray-200 focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue'}`}
                       />
-                      {autoRef && (
-                        <p className="flex items-center gap-1.5 text-xs text-brand-green font-semibold mt-2">
-                          <BadgeCheck size={14} />
-                          {t(`Đã tự động áp dụng mã "${autoRef}" từ liên kết/QR bạn vừa quét.`, `Code "${autoRef}" auto-applied from the link/QR you scanned.`)}
+                      {refState === 'checking' && (
+                        <p className="flex items-center gap-1.5 text-xs text-gray-500 font-semibold mt-2">
+                          <Loader2 size={14} className="animate-spin" />
+                          {t('Đang kiểm tra mã...', 'Checking code...')}
+                        </p>
+                      )}
+                      {refState === 'valid' && (
+                        <motion.div initial={{opacity: 0, y: -5}} animate={{opacity: 1, y: 0}} className="flex items-center justify-between p-3 mt-2 bg-green-50 border border-green-200 rounded-lg">
+                          <p className="flex items-center gap-1.5 text-xs text-green-700 font-semibold">
+                            <CheckCircle2 size={14} />
+                            {t(`🎉 Mã hợp lệ của ${refData?.name}`, `🎉 Valid code by ${refData?.name}`)}
+                          </p>
+                          <span className="text-xs font-bold text-green-700 bg-green-200 px-2 py-1 rounded-md">
+                            -{refData?.discount?.toLocaleString('vi-VN')}đ
+                          </span>
+                        </motion.div>
+                      )}
+                      {refState === 'invalid' && (
+                        <p className="text-xs text-red-500 font-semibold mt-2">
+                          {t('❌ Mã giới thiệu không hợp lệ. Vui lòng kiểm tra lại hoặc để trống.', '❌ Invalid referral code. Please check again or leave blank.')}
                         </p>
                       )}
                     </div>
