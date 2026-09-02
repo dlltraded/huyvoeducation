@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { supabase } from '../../lib/supabase';
-import { Loader2, Plus, Trash2, Copy, Check, QrCode, X, Users2, Sparkles } from 'lucide-react';
+import { Loader2, Plus, Trash2, Copy, Check, QrCode, X, Users2, Sparkles, Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import { qrCodeImageUrl } from '../../lib/referralTracking';
 
 interface Referrer {
@@ -21,6 +21,7 @@ interface Referrer {
 // the visitor sees it.
 const referralLink = (code: string) => `https://www.nvhthanhthieunhidongnai.com/dang-ky.html?ref=${encodeURIComponent(code)}`;
 const campaignLink = (label: string) => `https://www.nvhthanhthieunhidongnai.com/dang-ky.html?src=${encodeURIComponent(label)}`;
+const PAGE_SIZE = 20;
 
 const CopyButton = ({ value }: { value: string }) => {
   const [copied, setCopied] = useState(false);
@@ -66,10 +67,32 @@ export const ReferrersManager = () => {
   const [saving, setSaving] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [qrTarget, setQrTarget] = useState<{ url: string; title: string } | null>(null);
+  const [search, setSearch] = useState('');
+  const [statusFilter, setStatusFilter] = useState<'all' | 'active' | 'inactive'>('all');
+  const [page, setPage] = useState(1);
 
   const [form, setForm] = useState({ name: '', phone: '', referral_code: '', commission_amount: '', notes: '' });
 
   const [campaignLabel, setCampaignLabel] = useState('');
+
+  const filteredReferrers = useMemo(() => {
+    const keyword = search.trim().toLocaleLowerCase('vi');
+    return referrers.filter(r => {
+      const matchesStatus = statusFilter === 'all'
+        || (statusFilter === 'active' && r.is_active)
+        || (statusFilter === 'inactive' && !r.is_active);
+      const matchesSearch = !keyword || [r.name, r.phone, r.referral_code, r.notes]
+        .filter(Boolean)
+        .some(value => value!.toLocaleLowerCase('vi').includes(keyword));
+      return matchesStatus && matchesSearch;
+    });
+  }, [referrers, search, statusFilter]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredReferrers.length / PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+  const visibleReferrers = filteredReferrers.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+
+  useEffect(() => { setPage(1); }, [search, statusFilter]);
 
   const fetchReferrers = async () => {
     setLoading(true);
@@ -232,69 +255,161 @@ export const ReferrersManager = () => {
           <p className="text-gray-400">Chưa có người giới thiệu nào. Bấm "Thêm người giới thiệu" để tạo mã đầu tiên.</p>
         </div>
       ) : (
-        <div className="grid md:grid-cols-2 gap-4">
-          {referrers.map(r => (
-            <div key={r.id} className={`bg-white rounded-2xl border shadow-sm p-5 ${r.is_active ? 'border-gray-100' : 'border-gray-100 opacity-60'}`}>
-              <div className="flex items-start justify-between gap-3">
-                <div className="min-w-0">
-                  <p className="font-heading font-bold text-gray-900 truncate">{r.name}</p>
-                  {r.phone && <p className="text-sm text-gray-500">{r.phone}</p>}
-                  <p className="mt-2 inline-flex items-center gap-1.5 font-mono text-sm font-bold text-brand-blue bg-blue-50 px-2.5 py-1 rounded-lg">
-                    {r.referral_code}
-                  </p>
-                </div>
-                <div className="flex items-center gap-1.5 flex-shrink-0">
-                  <button
-                    onClick={() => toggleActive(r)}
-                    title={r.is_active ? 'Đang bật — bấm để tắt' : 'Đang tắt — bấm để bật'}
-                    className={`text-xs font-bold px-2.5 py-1 rounded-full ${r.is_active ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}
-                  >
-                    {r.is_active ? 'Đang dùng' : 'Đã tắt'}
-                  </button>
-                  <button onClick={() => deleteReferrer(r.id)} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-red-50 text-red-400 hover:text-red-600">
-                    <Trash2 size={15} />
-                  </button>
-                </div>
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          <div className="p-4 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center gap-3">
+            <div className="relative flex-1">
+              <Search size={17} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+              <input
+                type="search"
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+                placeholder="Tìm theo tên, số điện thoại hoặc mã..."
+                className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue text-sm"
+              />
+            </div>
+            <select
+              value={statusFilter}
+              onChange={e => setStatusFilter(e.target.value as 'all' | 'active' | 'inactive')}
+              className="px-3 py-2.5 border border-gray-200 rounded-xl bg-white text-sm font-medium text-gray-700 outline-none focus:ring-2 focus:ring-brand-blue/20"
+            >
+              <option value="all">Tất cả trạng thái</option>
+              <option value="active">Đang dùng</option>
+              <option value="inactive">Đã tắt</option>
+            </select>
+            <span className="text-sm text-gray-500 whitespace-nowrap">
+              {filteredReferrers.length}/{referrers.length} người
+            </span>
+          </div>
+
+          {visibleReferrers.length === 0 ? (
+            <div className="text-center py-12 text-gray-400">Không tìm thấy người giới thiệu phù hợp.</div>
+          ) : (
+            <>
+              <div className="hidden md:block overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead className="bg-gray-50 text-xs uppercase tracking-wide text-gray-500">
+                    <tr>
+                      <th className="text-left font-semibold px-4 py-3">Người giới thiệu</th>
+                      <th className="text-left font-semibold px-4 py-3">Mã</th>
+                      <th className="text-center font-semibold px-4 py-3">Khách / Đã đóng</th>
+                      <th className="text-right font-semibold px-4 py-3">Hoa hồng tạm tính</th>
+                      <th className="text-center font-semibold px-4 py-3">Trạng thái</th>
+                      <th className="text-right font-semibold px-4 py-3">Thao tác</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {visibleReferrers.map(r => (
+                      <tr key={r.id} className={`${r.is_active ? '' : 'opacity-55'} hover:bg-gray-50/70`}>
+                        <td className="px-4 py-3 max-w-[220px]">
+                          <p className="font-semibold text-gray-900 truncate">{r.name}</p>
+                          <p className="text-xs text-gray-500 truncate" title={r.notes || undefined}>
+                            {[r.phone, r.notes].filter(Boolean).join(' · ') || '—'}
+                          </p>
+                        </td>
+                        <td className="px-4 py-3">
+                          <span className="font-mono text-xs font-bold text-brand-blue bg-blue-50 px-2 py-1 rounded-md">{r.referral_code}</span>
+                        </td>
+                        <td className="px-4 py-3 text-center whitespace-nowrap">
+                          <span className="font-bold text-gray-900">{r.stats?.total || 0}</span>
+                          <span className="text-gray-300 mx-1.5">/</span>
+                          <span className="font-bold text-green-600">{r.stats?.paid || 0}</span>
+                        </td>
+                        <td className="px-4 py-3 text-right whitespace-nowrap">
+                          <p className="font-semibold text-brand-blue">
+                            {r.commission_amount != null ? `${(r.commission_amount * (r.stats?.paid || 0)).toLocaleString('vi-VN')}đ` : 'Mặc định'}
+                          </p>
+                          {r.commission_amount != null && <p className="text-xs text-gray-400">{r.commission_amount.toLocaleString('vi-VN')}đ/khách</p>}
+                        </td>
+                        <td className="px-4 py-3 text-center">
+                          <button
+                            onClick={() => toggleActive(r)}
+                            title={r.is_active ? 'Bấm để tắt' : 'Bấm để bật'}
+                            className={`text-xs font-bold px-2.5 py-1 rounded-full ${r.is_active ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}
+                          >
+                            {r.is_active ? 'Đang dùng' : 'Đã tắt'}
+                          </button>
+                        </td>
+                        <td className="px-4 py-3">
+                          <div className="flex items-center justify-end gap-1.5">
+                            <CopyButton value={referralLink(r.referral_code)} />
+                            <button
+                              onClick={() => setQrTarget({ url: referralLink(r.referral_code), title: r.name })}
+                              title="Xem hoặc tải QR"
+                              className="w-8 h-8 flex items-center justify-center rounded-lg bg-brand-blue/10 hover:bg-brand-blue/20 text-brand-blue"
+                            >
+                              <QrCode size={15} />
+                            </button>
+                            <button
+                              onClick={() => deleteReferrer(r.id)}
+                              title="Xoá"
+                              className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-red-50 text-red-400 hover:text-red-600"
+                            >
+                              <Trash2 size={15} />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
 
-              {r.notes && <p className="text-sm text-gray-500 mt-3">{r.notes}</p>}
-
-              <div className="mt-4 flex items-center gap-4 text-sm text-gray-600 bg-gray-50 p-3 rounded-xl border border-gray-100 overflow-x-auto">
-                <div className="flex flex-col min-w-[100px]">
-                   <span className="text-xs text-gray-500 mb-0.5">Số lead mang về</span>
-                   <span className="font-bold text-gray-900 text-base">{r.stats?.total || 0}</span>
-                </div>
-                <div className="w-px h-8 bg-gray-200 flex-shrink-0"></div>
-                <div className="flex flex-col min-w-[100px]">
-                   <span className="text-xs text-gray-500 mb-0.5">Đã đóng học phí</span>
-                   <span className="font-bold text-green-600 text-base">{r.stats?.paid || 0}</span>
-                </div>
-                {r.commission_amount != null && (
-                   <>
-                     <div className="w-px h-8 bg-gray-200 flex-shrink-0"></div>
-                     <div className="flex flex-col min-w-[120px]">
-                        <span className="text-xs text-gray-500 mb-0.5">
-                          Tạm tính hoa hồng <span className="font-normal">({(r.commission_amount / 1000).toLocaleString('vi-VN')}k/khách)</span>
-                        </span>
-                        <span className="font-bold text-brand-blue text-base">
-                          {((r.commission_amount * (r.stats?.paid || 0))).toLocaleString('vi-VN')}đ
-                        </span>
-                     </div>
-                   </>
-                )}
+              <div className="md:hidden divide-y divide-gray-100">
+                {visibleReferrers.map(r => (
+                  <div key={r.id} className={`p-4 ${r.is_active ? '' : 'opacity-55'}`}>
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="min-w-0">
+                        <p className="font-bold text-gray-900 truncate">{r.name}</p>
+                        <p className="text-xs text-gray-500 truncate">{r.phone || r.notes || 'Không có ghi chú'}</p>
+                      </div>
+                      <button
+                        onClick={() => toggleActive(r)}
+                        className={`flex-shrink-0 text-xs font-bold px-2.5 py-1 rounded-full ${r.is_active ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}
+                      >
+                        {r.is_active ? 'Đang dùng' : 'Đã tắt'}
+                      </button>
+                    </div>
+                    <div className="flex items-center justify-between gap-3 mt-3">
+                      <div>
+                        <span className="font-mono text-xs font-bold text-brand-blue bg-blue-50 px-2 py-1 rounded-md">{r.referral_code}</span>
+                        <span className="ml-2 text-xs text-gray-500">{r.stats?.total || 0} khách · {r.stats?.paid || 0} đã đóng</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <CopyButton value={referralLink(r.referral_code)} />
+                        <button onClick={() => setQrTarget({ url: referralLink(r.referral_code), title: r.name })} className="w-8 h-8 flex items-center justify-center rounded-lg bg-brand-blue/10 text-brand-blue"><QrCode size={15} /></button>
+                        <button onClick={() => deleteReferrer(r.id)} className="w-8 h-8 flex items-center justify-center rounded-lg text-red-400"><Trash2 size={15} /></button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
+            </>
+          )}
 
-              <div className="flex items-center gap-2 mt-4 pt-4 border-t border-gray-100">
-                <CopyButton value={referralLink(r.referral_code)} />
+          {totalPages > 1 && (
+            <div className="px-4 py-3 border-t border-gray-100 flex items-center justify-between gap-3">
+              <p className="text-xs text-gray-500">
+                Hiển thị {(currentPage - 1) * PAGE_SIZE + 1}–{Math.min(currentPage * PAGE_SIZE, filteredReferrers.length)} trong {filteredReferrers.length}
+              </p>
+              <div className="flex items-center gap-2">
                 <button
-                  onClick={() => setQrTarget({ url: referralLink(r.referral_code), title: r.name })}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-brand-blue/10 hover:bg-brand-blue/20 text-brand-blue transition-colors"
+                  onClick={() => setPage(p => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  className="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 disabled:opacity-30 hover:bg-gray-50"
                 >
-                  <QrCode size={13} /> Xem / Tải QR
+                  <ChevronLeft size={16} />
+                </button>
+                <span className="text-sm font-semibold text-gray-700">{currentPage}/{totalPages}</span>
+                <button
+                  onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                  className="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 disabled:opacity-30 hover:bg-gray-50"
+                >
+                  <ChevronRight size={16} />
                 </button>
               </div>
             </div>
-          ))}
+          )}
         </div>
       )}
 
