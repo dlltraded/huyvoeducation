@@ -9,6 +9,15 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg'],
+      workbox: {
+        // Admin pages must always load the current deployment instead of the
+        // precached app shell; otherwise an installed PWA can keep generating
+        // referral links with an older JavaScript bundle.
+        navigateFallbackDenylist: [/^\/admin(?:\/|$)/],
+        cleanupOutdatedCaches: true,
+        clientsClaim: true,
+        skipWaiting: true,
+      },
       manifest: {
         name: 'HVE Admin',
         short_name: 'HVE Admin',
