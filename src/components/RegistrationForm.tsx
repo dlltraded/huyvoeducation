@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle2, Phone, Mail, Loader2, BadgeCheck } from 'lucide-react';
+import { CheckCircle2, Phone, Mail, Loader2 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { getStoredAttribution } from '../lib/referralTracking';
 import { useSettings } from '../contexts/SettingsContext';
@@ -28,6 +28,33 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
   const [wantsAfter1630, setWantsAfter1630] = useState(false);
   const [autoRef, setAutoRef] = useState('');
   const [source, setSource] = useState('');
+  const [refState, setRefState] = useState<'idle' | 'checking' | 'valid' | 'invalid'>('idle');
+  const [refData, setRefData] = useState<{ name: string; discount: number } | null>(null);
+
+  const checkReferralCode = async (value: string) => {
+    const code = value.trim();
+    if (!code) {
+      setRefState('idle');
+      setRefData(null);
+      return;
+    }
+
+    setRefState('checking');
+    const { data, error: validationError } = await supabase.rpc('validate_referral_code', { p_code: code });
+    const match = Array.isArray(data) ? data[0] : data;
+
+    if (validationError || !match) {
+      setRefState('invalid');
+      setRefData(null);
+      return;
+    }
+
+    setRefData({
+      name: match.referrer_name,
+      discount: Number(match.discount_amount || 0),
+    });
+    setRefState('valid');
+  };
 
   // Auto-fill the referral code (and silently capture the marketing source)
   // when the visitor arrived via a referrer's link/QR code (?ref=CODE) or a
@@ -37,6 +64,7 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
     if (ref) {
       setAutoRef(ref);
       if (referralCodeRef.current) referralCodeRef.current.value = ref;
+      void checkReferralCode(ref);
     }
     setSource(src || ref || '');
   }, []);
@@ -200,7 +228,7 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
                       </div>
                     </label>
 
-                                        <div>
+                    <div>
                       <label className="block text-sm font-semibold text-gray-700 mb-2">
                         {t('Mã giới thiệu (nếu có)', 'Referral code (optional)')}
                       </label>
