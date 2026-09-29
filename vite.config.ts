@@ -7,17 +7,12 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
+      // The previous offline cache kept old HTML and asset hashes alive after
+      // deployments, leaving the admin UI stale and local images broken. Ship
+      // one final worker that unregisters itself and clears those caches.
+      selfDestroying: true,
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg'],
-      workbox: {
-        // Admin pages must always load the current deployment instead of the
-        // precached app shell; otherwise an installed PWA can keep generating
-        // referral links with an older JavaScript bundle.
-        navigateFallbackDenylist: [/^\/admin(?:\/|$)/],
-        cleanupOutdatedCaches: true,
-        clientsClaim: true,
-        skipWaiting: true,
-      },
       manifest: {
         name: 'HVE Admin',
         short_name: 'HVE Admin',
