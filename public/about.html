@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Giới thiệu & Thông tin pháp nhân | Huy Võ Education</title>
+  <meta name="description" content="Thông tin pháp lý và giới thiệu Công ty TNHH Huấn luyện và Đào tạo Huy Võ (Huy Võ Education) - Đơn vị đào tạo kỹ năng & công nghệ tại Đồng Nai." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="canonical" href="https://www.huyvoeducation.vn/about.html" />
+
+  <!-- Schema.org EducationalOrganization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "Huy Võ Education",
+    "legalName": "CÔNG TY TNHH HUẤN LUYỆN VÀ ĐÀO TẠO HUY VÕ",
+    "alternateName": "Huy Vo Training and Education Co., Ltd.",
+    "url": "https://www.huyvoeducation.vn",
+    "email": "info@huyvoeducation.vn",
+    "telephone": "+84907828939",
+    "foundingDate": "2025-10-31",
+    "taxID": "3604060494",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "70/2A đường số 7, ấp Trà Cổ, Xã Bình Minh",
+      "addressLocality": "Thành phố Đồng Nai",
+      "addressRegion": "Đồng Nai",
+      "addressCountry": "VN"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --brand-blue: #0A66C2;
+      --brand-green: #20B84D;
+      --brand-yellow: #FFC631;
+      --brand-dark: #1D1D1F;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-300: #cbd5e1;
+      --gray-600: #475569;
+      --gray-700: #334155;
+      --gray-800: #1e293b;
+      --gray-900: #0f172a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--gray-50);
+      color: var(--gray-800);
+      line-height: 1.65;
+      padding: 0;
+      margin: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .top-bar {
+      background-color: var(--brand-dark);
+      color: #ffffff;
+      border-bottom: 4px solid var(--brand-green);
+      padding: 16px 24px;
+    }
+
+    .top-container {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #ffffff;
+    }
+
+    .brand img {
+      width: 36px;
+      height: 36px;
+    }
+
+    .brand-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .home-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--brand-yellow);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 198, 49, 0.4);
+      transition: all 0.2s ease;
+    }
+
+    .home-link:hover {
+      background-color: var(--brand-yellow);
+      color: var(--brand-dark);
+    }
+
+    .main-wrapper {
+      max-width: 960px;
+      margin: 32px auto 48px;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      margin-bottom: 28px;
+      overflow: hidden;
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, #0A66C2 0%, #084d93 100%);
+      color: #ffffff;
+      padding: 20px 24px;
+    }
+
+    .card-header h1 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: #ffffff;
+    }
+
+    .card-header p {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .card-body {
+      padding: 24px;
+    }
+
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 18px;
+      background: var(--brand-blue);
+      border-radius: 2px;
+    }
+
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+
+    .info-table tr {
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .info-table tr:last-child {
+      border-bottom: none;
+    }
+
+    .info-table th {
+      text-align: left;
+      padding: 12px 14px;
+      font-size: 0.9rem;
+      color: var(--gray-600);
+      background-color: #f8fafc;
+      width: 35%;
+      vertical-align: top;
+      font-weight: 600;
+    }
+
+    .info-table td {
+      padding: 12px 14px;
+      font-size: 0.95rem;
+      color: var(--gray-800);
+      vertical-align: top;
+    }
+
+    .highlight-mst {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-weight: 700;
+      color: var(--brand-blue);
+      font-size: 1.05rem;
+    }
+
+    .badge-verified {
+      display: inline-block;
+      background-color: #dcfce7;
+      color: #166534;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    .desc-box {
+      background: #f8fafc;
+      border-left: 4px solid var(--brand-green);
+      padding: 18px 20px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 20px;
+    }
+
+    .desc-box h3 {
+      font-size: 1.05rem;
+      color: var(--gray-900);
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .desc-box p {
+      font-size: 0.95rem;
+      color: var(--gray-700);
+      margin-bottom: 12px;
+    }
+
+    .desc-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .programs-tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .program-tag {
+      background: #ffffff;
+      border: 1px solid var(--gray-300);
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--gray-700);
+    }
+
+    .footer {
+      background: var(--brand-dark);
+      color: #94a3b8;
+      padding: 28px 20px;
+      font-size: 0.875rem;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer a {
+      color: #cbd5e1;
+      text-decoration: underline;
+      margin: 0 8px;
+    }
+
+    .footer a:hover {
+      color: #ffffff;
+    }
+
+    @media (max-width: 640px) {
+      .info-table th,
+      .info-table td {
+        display: block;
+        width: 100%;
+        padding: 8px 12px;
+      }
+      .info-table th {
+        background: transparent;
+        padding-bottom: 2px;
+        color: var(--gray-600);
+        font-size: 0.85rem;
+      }
+      .info-table td {
+        padding-top: 0;
+        padding-bottom: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="top-bar">
+    <div class="top-container">
+      <a href="/" class="brand" title="Trang chủ Huy Võ Education">
+        <img src="/favicon.svg" alt="Huy Võ Education Logo" />
+        <span class="brand-title">Huy Võ Education</span>
+      </a>
+      <a href="/" class="home-link">
+        ← Về Trang Chủ / Home
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="main-wrapper">
+
+    <!-- Legal Entity Information Card -->
+    <section class="card" id="legal-entity-info">
+      <div class="card-header">
+        <h1>THÔNG TIN PHÁP NHÂN DOANH NGHIỆP</h1>
+        <p>LEGAL ENTITY &amp; COMPANY VERIFICATION DETAILS</p>
+      </div>
+      <div class="card-body">
+        <table class="info-table">
+          <tbody>
+            <tr>
+              <th>Tên pháp lý<br><small style="color: #64748b;">Legal Name (VI)</small></th>
+              <td><strong>CÔNG TY TNHH HUẤN LUYỆN VÀ ĐÀO TẠO HUY VÕ</strong></td>
+            </tr>
+            <tr>
+              <th>Tên giao dịch &amp; Thương hiệu<br><small style="color: #64748b;">Trade Name &amp; Brand</small></th>
+              <td><strong>Huy Võ Education</strong></td>
+            </tr>
+            <tr>
+              <th>Tên tiếng Anh<br><small style="color: #64748b;">English Name</small></th>
+              <td>Huy Vo Training and Education Co., Ltd.</td>
+            </tr>
+            <tr>
+              <th>Mã số doanh nghiệp / MST<br><small style="color: #64748b;">Enterprise Code / Tax ID</small></th>
+              <td>
+                <span class="highlight-mst">3604060494</span>
+                <span class="badge-verified">Đang hoạt động</span>
+              </td>
+            </tr>
+            <tr>
+              <th>Cơ quan cấp phép<br><small style="color: #64748b;">Licensing Authority</small></th>
+              <td>Phòng Đăng ký kinh doanh – Sở Tài chính Thành phố Đồng Nai</td>
+            </tr>
+            <tr>
+              <th>Ngày đăng ký lần đầu<br><small style="color: #64748b;">First Registration Date</small></th>
+              <td>31/10/2025</td>
+            </tr>
+            <tr>
+              <th>Địa chỉ trụ sở chính<br><small style="color: #64748b;">Registered Head Office</small></th>
+              <td>70/2A đường số 7, ấp Trà Cổ, Xã Bình Minh, Thành phố Đồng Nai, Việt Nam</td>
+            </tr>
+            <tr>
+              <th>Người đại diện theo pháp luật<br><small style="color: #64748b;">Legal Representative</small></th>
+              <td>Võ Ngọc Huy – Giám đốc (Vo Ngoc Huy – Director)</td>
+            </tr>
+            <tr>
+              <th>Email liên hệ<br><small style="color: #64748b;">Official Email</small></th>
+              <td><a href="mailto:info@huyvoeducation.vn" style="color: var(--brand-blue); text-decoration: none; font-weight: 500;">info@huyvoeducation.vn</a></td>
+            </tr>
+            <tr>
+              <th>Điện thoại / Hotline<br><small style="color: #64748b;">Telephone Hotline</small></th>
+              <td><a href="tel:0907828939" style="color: var(--brand-blue); text-decoration: none; font-weight: 500;">0907 828 939</a> (+84 907 828 939)</td>
+            </tr>
+            <tr>
+              <th>Website chính thức<br><small style="color: #64748b;">Official Website</small></th>
+              <td><a href="https://www.huyvoeducation.vn" style="color: var(--brand-blue); text-decoration: none; font-weight: 500;">https://www.huyvoeducation.vn</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Company Introduction Card -->
+    <section class="card" id="company-intro">
+      <div class="card-body">
+        <h2 class="section-title">GIỚI THIỆU HOẠT ĐỘNG &amp; VẬN HÀNH</h2>
+
+        <!-- Tiếng Việt -->
+        <div class="desc-box">
+          <h3>1. Về Huy Võ Education (Tiếng Việt)</h3>
+          <p>
+            <strong>Huy Võ Education</strong> là công ty giáo dục kỹ năng được thành lập vào tháng 10/2025 tại Đồng Nai.
+          </p>
+          <p>
+            Trong năm học 2026–2027, Huy Võ Education là đơn vị vận hành chương trình rèn luyện kỹ năng hợp tác với Nhà Văn hóa Thanh Thiếu nhi Đồng Nai (quy mô 250 học sinh từ lớp 1 đến lớp 9, chia thành 9 lớp chuyên đề), bao gồm các bộ môn:
+          </p>
+          <div class="programs-tag-list">
+            <span class="program-tag">🏊 Bơi lội</span>
+            <span class="program-tag">⚽ Bóng đá</span>
+            <span class="program-tag">🏀 Bóng rổ</span>
+            <span class="program-tag">🥋 Võ thuật</span>
+            <span class="program-tag">🤖 Robotics / Trí tuệ nhân tạo (AI)</span>
+            <span class="program-tag">🌱 Kỹ năng sống</span>
+          </div>
+          <p style="margin-top: 14px;">
+            Bên cạnh công tác giảng dạy chuyên môn, công ty tự xây dựng hệ thống phần mềm quản lý toàn diện (bao gồm website tuyển sinh trực tuyến và ứng dụng quản lý vận hành nội bộ), đảm bảo quy trình vận hành giáo dục chuyên nghiệp, minh bạch và an toàn.
+          </p>
+        </div>
+
+        <!-- English -->
+        <div class="desc-box" style="border-left-color: var(--brand-blue);">
+          <h3>2. About Huy Vo Education (English)</h3>
+          <p>
+            <strong>Huy Vo Education</strong> (Huy Vo Training and Education Co., Ltd.) is a specialized skills education company established in October 2025 in Dong Nai, Vietnam.
+          </p>
+          <p>
+            For the 2026–2027 academic year, Huy Vo Education operates the skill development program in partnership with the Dong Nai Children and Youth Cultural House, serving 250 students from Grade 1 to Grade 9 across 9 classes:
+          </p>
+          <div class="programs-tag-list">
+            <span class="program-tag">🏊 Swimming</span>
+            <span class="program-tag">⚽ Football</span>
+            <span class="program-tag">🏀 Basketball</span>
+            <span class="program-tag">🥋 Martial Arts</span>
+            <span class="program-tag">🤖 Robotics &amp; AI</span>
+            <span class="program-tag">🌱 Life Skills</span>
+          </div>
+          <p style="margin-top: 14px;">
+            The company independently develops and maintains its proprietary management software ecosystem, including an online enrollment platform and internal operational management applications to uphold high standards of safety, quality, and operational excellence.
+          </p>
+        </div>
+
+        <div style="text-align: center; margin-top: 24px;">
+          <a href="/" class="home-link" style="background-color: var(--brand-blue); color: #ffffff; border-color: var(--brand-blue); padding: 10px 24px; font-size: 1rem;">
+            ← Quay lại trang chủ / Return to Homepage
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2026 Công ty TNHH Huấn luyện và Đào tạo Huy Võ (Huy Võ Education). All rights reserved.</p>
+    <p style="margin-top: 8px;">
+      <a href="/">Trang chủ</a> |
+      <a href="mailto:info@huyvoeducation.vn">Email: info@huyvoeducation.vn</a> |
+      <a href="tel:0907828939">Hotline: 0907 828 939</a>
+    </p>
+  </footer>
+
+</body>
+</html>

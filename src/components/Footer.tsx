@@ -90,6 +90,7 @@ export const Footer = ({ t }: any) => {
         <div className="md:col-span-2">
           <h4 className="text-white font-heading font-bold text-base mb-5">{t('Thông tin', 'Information')}</h4>
           <ul className="space-y-3 text-sm">
+            <li><a href="/about.html" className="hover:text-brand-yellow transition-colors">{t('Giới thiệu công ty', 'About us')}</a></li>
             <li><Link to="/tin-tuc" className="hover:text-brand-yellow transition-colors">{t('Tin Tức', 'News')}</Link></li>
             <li><Link to="/tin-tuc" className="hover:text-brand-yellow transition-colors">{t('Sự kiện', 'Events')}</Link></li>
             <li><Link to="/tin-tuc" className="hover:text-brand-yellow transition-colors">{t('Thông báo', 'Announcements')}</Link></li>
@@ -112,11 +113,6 @@ export const Footer = ({ t }: any) => {
             <li><Link to="/chuong-trinh" className="hover:text-brand-yellow transition-colors">{t('Chương trình học', 'Programs')}</Link></li>
             <li><a href="/#philosophy" className="hover:text-brand-yellow transition-colors">{t('Triết lý giáo dục', 'Our Philosophy')}</a></li>
             <li><a href="/#register" className="hover:text-brand-yellow transition-colors">{t('Đăng ký', 'Register')}</a></li>
-            {settings.taxCode && (
-              <li className="text-gray-500 pt-2 border-t border-white/10">
-                {t('MST', 'Tax code')}: {settings.taxCode}
-              </li>
-            )}
           </ul>
         </div>
       </div>
@@ -131,9 +127,56 @@ export const Footer = ({ t }: any) => {
         </div>
       )}
 
+      {/* Legal Entity Information Block */}
+      <div className="max-w-7xl mx-auto px-6 pt-8 pb-4 border-t border-white/10 text-sm text-gray-400 space-y-2">
+        <p className="font-heading font-semibold text-gray-300 tracking-wide uppercase text-xs md:text-sm">
+          {t('Thông tin doanh nghiệp', 'Company Information')}
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 text-xs md:text-sm">
+          <div className="space-y-1.5">
+            <p>
+              <span className="text-gray-300 font-medium">{t('Tên pháp lý:', 'Legal Name:')}</span>{' '}
+              CÔNG TY TNHH HUẤN LUYỆN VÀ ĐÀO TẠO HUY VÕ
+            </p>
+            <p>
+              <span className="text-gray-300 font-medium">{t('Tên tiếng Anh:', 'English Name:')}</span>{' '}
+              Huy Vo Training and Education Co., Ltd.
+            </p>
+            <p>
+              <span className="text-gray-300 font-medium">{t('Mã số doanh nghiệp / MST:', 'Business Code / Tax ID:')}</span>{' '}
+              <span className="text-white font-mono">3604060494</span>{' '}
+              <span className="text-gray-400">
+                {t(
+                  '(Cấp bởi: Phòng Đăng ký kinh doanh – Sở Tài chính Thành phố Đồng Nai, Ngày đăng ký lần đầu: 31/10/2025)',
+                  '(Issued by: Business Registration Office – Dong Nai City Department of Finance, First registration date: 31/10/2025)'
+                )}
+              </span>
+            </p>
+          </div>
+          <div className="space-y-1.5">
+            <p>
+              <span className="text-gray-300 font-medium">{t('Trụ sở chính:', 'Head Office:')}</span>{' '}
+              70/2A đường số 7, ấp Trà Cổ, Xã Bình Minh, Thành phố Đồng Nai, Việt Nam
+            </p>
+            <p>
+              <span className="text-gray-300 font-medium">{t('Người đại diện theo pháp luật:', 'Legal Representative:')}</span>{' '}
+              {t('Võ Ngọc Huy – Giám đốc', 'Vo Ngoc Huy – Director')}
+            </p>
+            <p>
+              <span className="text-gray-300 font-medium">{t('Email:', 'Email:')}</span>{' '}
+              <a href="mailto:info@huyvoeducation.vn" className="text-gray-300 hover:text-white transition-colors underline decoration-white/30">info@huyvoeducation.vn</a>
+              <span className="mx-2 text-white/20">|</span>
+              <span className="text-gray-300 font-medium">{t('Điện thoại:', 'Hotline:')}</span>{' '}
+              <a href="tel:0907828939" className="text-gray-300 hover:text-white transition-colors underline decoration-white/30">0907 828 939</a>
+            </p>
+          </div>
+        </div>
+      </div>
+
       <div className="max-w-7xl mx-auto px-6 py-6 border-t border-white/10 text-sm text-gray-500 flex flex-col md:flex-row justify-between items-center gap-4">
-        <p>© 2026 Huy Võ Education. All rights reserved.</p>
+        <p>© 2026 Công ty TNHH Huấn luyện và Đào tạo Huy Võ (Huy Võ Education). All rights reserved.</p>
         <div className="flex gap-6">
+          <a href="/about.html" className="hover:text-white transition-colors">{t('Giới thiệu công ty', 'About Us')}</a>
           <a href="#" className="hover:text-white transition-colors">{t('Chính sách bảo mật', 'Privacy Policy')}</a>
           <a href="#" className="hover:text-white transition-colors">{t('Điều khoản', 'Terms of Service')}</a>
         </div>
