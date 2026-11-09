@@ -2,9 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Phone, Mail, MessageCircle, ArrowUpRight, Share2, Video } from 'lucide-react';
 import { useSettings } from '../contexts/SettingsContext';
+import { useHasNews } from '../lib/useHasNews';
+
+// A bare platform homepage (e.g. "https://facebook.com") is a placeholder, not a real page.
+const isRealSocialUrl = (url?: string) =>
+  !!url && url !== '#' && !/^https?:\/\/(www\.)?(facebook|youtube)\.com\/?$/i.test(url.trim());
 
 export const Footer = ({ t }: any) => {
   const { settings } = useSettings();
+  const hasNews = useHasNews();
 
   return (
     <footer className="bg-brand-dark text-gray-300 border-t-[12px] border-brand-green">
@@ -68,7 +74,7 @@ export const Footer = ({ t }: any) => {
           </ul>
 
           <div className="flex items-center gap-3 mt-6">
-            {settings.facebookUrl && settings.facebookUrl !== '#' && (
+            {isRealSocialUrl(settings.facebookUrl) && (
               <a href={settings.facebookUrl} target="_blank" rel="noreferrer" aria-label="Facebook" className="w-9 h-9 rounded-full bg-white/10 hover:bg-brand-yellow hover:text-brand-dark flex items-center justify-center transition-colors">
                 <Share2 size={16} />
               </a>
@@ -78,7 +84,7 @@ export const Footer = ({ t }: any) => {
                 <MessageCircle size={16} />
               </a>
             )}
-            {settings.youtubeUrl && settings.youtubeUrl !== '#' && (
+            {isRealSocialUrl(settings.youtubeUrl) && (
               <a href={settings.youtubeUrl} target="_blank" rel="noreferrer" aria-label="Youtube" className="w-9 h-9 rounded-full bg-white/10 hover:bg-brand-yellow hover:text-brand-dark flex items-center justify-center transition-colors">
                 <Video size={16} />
               </a>
@@ -91,10 +97,9 @@ export const Footer = ({ t }: any) => {
           <h4 className="text-white font-heading font-bold text-base mb-5">{t('Thông tin', 'Information')}</h4>
           <ul className="space-y-3 text-sm">
             <li><a href="/about.html" className="hover:text-brand-yellow transition-colors">{t('Giới thiệu công ty', 'About us')}</a></li>
-            <li><Link to="/tin-tuc" className="hover:text-brand-yellow transition-colors">{t('Tin Tức', 'News')}</Link></li>
-            <li><Link to="/tin-tuc" className="hover:text-brand-yellow transition-colors">{t('Sự kiện', 'Events')}</Link></li>
-            <li><Link to="/tin-tuc" className="hover:text-brand-yellow transition-colors">{t('Thông báo', 'Announcements')}</Link></li>
-            <li><Link to="/tin-tuc" className="hover:text-brand-yellow transition-colors">{t('Blog', 'Blog')}</Link></li>
+            {hasNews && (
+              <li><Link to="/tin-tuc" className="hover:text-brand-yellow transition-colors">{t('Tin tức & sự kiện', 'News & events')}</Link></li>
+            )}
           </ul>
         </div>
 
@@ -111,7 +116,8 @@ export const Footer = ({ t }: any) => {
           <h4 className="text-white font-heading font-bold text-base mb-5">{t('Liên kết nhanh', 'Quick Links')}</h4>
           <ul className="space-y-3 text-sm">
             <li><Link to="/chuong-trinh" className="hover:text-brand-yellow transition-colors">{t('Chương trình học', 'Programs')}</Link></li>
-            <li><a href="/#philosophy" className="hover:text-brand-yellow transition-colors">{t('Triết lý giáo dục', 'Our Philosophy')}</a></li>
+            <li><a href="/#about" className="hover:text-brand-yellow transition-colors">{t('Triết lý giáo dục', 'Our Philosophy')}</a></li>
+            <li><a href="/#nha-truong" className="hover:text-brand-yellow transition-colors">{t('Dành cho nhà trường', 'For schools')}</a></li>
             <li><a href="/#register" className="hover:text-brand-yellow transition-colors">{t('Đăng ký', 'Register')}</a></li>
           </ul>
         </div>
@@ -171,14 +177,20 @@ export const Footer = ({ t }: any) => {
             </p>
           </div>
         </div>
+        <p className="pt-2 text-xs md:text-sm">
+          <span className="text-gray-300 font-medium">{t('Giấy phép kinh doanh lữ hành nội địa:', 'Domestic tour operator licence:')}</span>{' '}
+          75-0079/2026/SVHTTDL-GP LHNĐ{' '}
+          <span className="text-gray-400">{t('(Sở VHTTDL TP. Đồng Nai cấp ngày 10/9/2026)', '(issued by Đồng Nai Dept. of Culture, Sports and Tourism on 10/9/2026)')}</span>
+          <span className="mx-2 text-white/20">|</span>
+          {t('Thành viên hệ sinh thái Hiệp Phát Group', 'A member of the Hiệp Phát Group ecosystem')}
+        </p>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-6 border-t border-white/10 text-sm text-gray-500 flex flex-col md:flex-row justify-between items-center gap-4">
         <p>© 2026 Công ty TNHH Huấn luyện và Đào tạo Huy Võ (Huy Võ Education). All rights reserved.</p>
         <div className="flex gap-6">
           <a href="/about.html" className="hover:text-white transition-colors">{t('Giới thiệu công ty', 'About Us')}</a>
-          <a href="#" className="hover:text-white transition-colors">{t('Chính sách bảo mật', 'Privacy Policy')}</a>
-          <a href="#" className="hover:text-white transition-colors">{t('Điều khoản', 'Terms of Service')}</a>
+          <a href="/chinh-sach-bao-ve-tre-em" className="hover:text-white transition-colors">{t('Bảo vệ trẻ em', 'Safeguarding')}</a>
         </div>
       </div>
     </footer>

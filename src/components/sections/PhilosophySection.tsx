@@ -31,7 +31,7 @@ export const PhilosophySection = ({ props, sectionId }: { props: any, sectionId:
       icon_name: 'BookOpen',
       img: learnImg,
       desc: 'Khơi dậy đam mê học hỏi qua trải nghiệm thực tế.',
-      details: 'Chúng tôi tin rằng mọi đứa trẻ đều có sẵn sự tò mò...',
+      details: 'Con học qua vận động, thực hành và trải nghiệm thay vì ngồi nghe giảng. Mỗi khóa học có lộ trình, mục tiêu và đánh giá rõ ràng.',
       color: 'text-brand-blue',
       bg: 'bg-blue-50'
     },
@@ -41,7 +41,7 @@ export const PhilosophySection = ({ props, sectionId }: { props: any, sectionId:
       icon_name: 'Users',
       img: connectImg,
       desc: 'Xây dựng kỹ năng xã hội và sự thấu cảm.',
-      details: 'Không ai lớn lên một mình...',
+      details: 'Từng buổi tập, từng chuyến đi là dịp để con giao tiếp, làm việc nhóm và học cách lắng nghe bạn bè, thầy cô.',
       color: 'text-brand-green',
       bg: 'bg-green-50'
     },
@@ -51,7 +51,7 @@ export const PhilosophySection = ({ props, sectionId }: { props: any, sectionId:
       icon_name: 'Award',
       img: growImg,
       desc: 'Trưởng thành toàn diện từ thể chất đến tinh thần.',
-      details: 'Sự trưởng thành không chỉ là điểm số...',
+      details: 'Tiến bộ được ghi nhận qua đánh giá định kỳ và buổi tổng kết cuối khóa, để phụ huynh và nhà trường cùng theo dõi.',
       color: 'text-yellow-600',
       bg: 'bg-yellow-50'
     }

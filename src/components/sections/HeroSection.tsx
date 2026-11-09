@@ -4,56 +4,56 @@ import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { EditableText } from '../editor/EditableText';
 
-// Curated, authentically-Vietnamese photography (Pexels, free commercial use),
-// matched to each program theme, plus attention-grabbing bilingual copy.
+// Slides follow the HVE Company Profile 2026: tagline, then services 01–03.
+// Photography: Pexels, free commercial use.
 const DEFAULT_SLIDES = [
   {
     image: 'https://images.pexels.com/photos/30481773/pexels-photo-30481773.jpeg?auto=compress&cs=tinysrgb&w=1920',
     kicker: { vi: 'HUY VÕ EDUCATION', en: 'HUY VO EDUCATION' },
-    headlineTop: { vi: 'HÀNH TRANG VỮNG VÀNG CHO', en: 'A STRONG FOUNDATION FOR' },
-    headlineHighlight: { vi: 'CON TỰ TIN VÀO ĐỜI', en: "YOUR CHILD'S FUTURE" },
+    headlineTop: { vi: 'SAU TIẾNG CHUÔNG TAN TRƯỜNG,', en: 'AFTER THE SCHOOL BELL RINGS,' },
+    headlineHighlight: { vi: 'MỘT THẾ GIỚI ĐANG LỚN LÊN', en: 'A WHOLE WORLD IS GROWING UP' },
     subtitle: {
-      vi: 'Hệ sinh thái giáo dục kỹ năng sống sau giờ học — nơi con được là chính mình và trưởng thành mỗi ngày.',
-      en: 'An after-school life-skills ecosystem — where your child grows, plays, and thrives every single day.',
+      vi: 'Đối tác ngoại khóa của nhà trường, học sinh và phụ huynh.',
+      en: 'The after-school partner for schools, students and parents.',
     },
     ctaText: { vi: 'Đăng Ký Đào Tạo', en: 'Enroll Now' },
     ctaLink: '/#register',
   },
   {
     image: 'https://images.pexels.com/photos/6777314/pexels-photo-6777314.jpeg?auto=compress&cs=tinysrgb&w=1920',
-    kicker: { vi: 'VÕ THUẬT & KỸ NĂNG TỰ VỆ', en: 'MARTIAL ARTS & SELF-DEFENSE' },
-    headlineTop: { vi: 'RÈN BẢN LĨNH TỪ', en: 'BUILD RESILIENCE WITH' },
-    headlineHighlight: { vi: 'VÕ CỔ TRUYỀN VIỆT NAM', en: "VIETNAM'S OWN VOVINAM" },
+    kicker: { vi: 'CCA TẠI TRƯỜNG', en: 'ON-CAMPUS CCA' },
+    headlineTop: { vi: 'TIẾNG CHUÔNG VỪA DỨT,', en: 'THE BELL RINGS,' },
+    headlineHighlight: { vi: 'LỚP HỌC MỚI BẮT ĐẦU', en: 'A NEW CLASS BEGINS' },
     subtitle: {
-      vi: 'Vovinam giúp con rèn sức khoẻ, kỷ luật và sự tự tin — những giá trị theo con suốt cuộc đời.',
-      en: 'Vovinam builds strength, discipline, and confidence — values that stay with your child for life.',
+      vi: 'HVE triển khai trọn gói chương trình ngoại khóa ngay tại trường: danh mục hoạt động, giáo viên, ghi danh, vận hành lớp và báo cáo.',
+      en: 'HVE runs complete co-curricular programmes on your campus: activities, instructors, enrolment, delivery and reporting.',
     },
-    ctaText: { vi: 'Khám phá lớp Võ thuật', en: 'Explore Martial Arts' },
-    ctaLink: '/chuong-trinh/vovinam',
-  },
-  {
-    image: 'https://images.pexels.com/photos/31022969/pexels-photo-31022969.jpeg?auto=compress&cs=tinysrgb&w=1920',
-    kicker: { vi: 'NGHỆ THUẬT & BIỂU DIỄN', en: 'ARTS & PERFORMANCE' },
-    headlineTop: { vi: 'THẮP SÁNG', en: 'IGNITE' },
-    headlineHighlight: { vi: 'ĐAM MÊ NGHỆ THUẬT TRONG CON', en: "YOUR CHILD'S PASSION FOR THE ARTS" },
-    subtitle: {
-      vi: 'Từ những bước nhảy đầu tiên đến sân khấu lớn — Huy Võ đồng hành cùng con khám phá năng khiếu nghệ thuật.',
-      en: "From first steps to the big stage — we help your child discover their artistic talent.",
-    },
-    ctaText: { vi: 'Khám phá lớp Nghệ thuật', en: 'Explore Arts Classes' },
-    ctaLink: '/chuong-trinh/nhay-hien-dai',
+    ctaText: { vi: 'Dành cho nhà trường', en: 'For schools' },
+    ctaLink: '/#nha-truong',
   },
   {
     image: 'https://images.pexels.com/photos/35180899/pexels-photo-35180899.jpeg?auto=compress&cs=tinysrgb&w=1920',
-    kicker: { vi: 'THỂ THAO ĐỒNG ĐỘI', en: 'TEAM SPORTS' },
-    headlineTop: { vi: 'RÈN THỂ LỰC,', en: 'BUILD STRENGTH,' },
-    headlineHighlight: { vi: 'NUÔI DƯỠNG TINH THẦN ĐỒNG ĐỘI', en: 'NURTURE TEAM SPIRIT' },
+    kicker: { vi: 'KỸ NĂNG SỐNG · KHÓA HÈ · THỂ THAO', en: 'LIFE SKILLS · SUMMER CAMPS · SPORTS' },
+    headlineTop: { vi: 'THẾ GIỚI ẤY TIẾP TỤC LỚN LÊN', en: 'THAT WORLD KEEPS GROWING' },
+    headlineHighlight: { vi: 'TẠI CAMPUS HVE', en: 'AT HVE CAMPUSES' },
     subtitle: {
-      vi: 'Bóng đá và các môn thể thao đồng đội giúp con khoẻ mạnh, đoàn kết và học cách vượt qua thử thách.',
-      en: 'Football and team sports keep kids healthy, united, and ready to overcome any challenge.',
+      vi: 'Lớp kỹ năng sống, khóa hè, dạy bơi và thể thao theo lộ trình từng độ tuổi. Mỗi khóa học có mục tiêu và đánh giá rõ ràng.',
+      en: 'Life-skills classes, summer camps, swimming and sports on age-based pathways. Every course has clear objectives and assessment.',
     },
-    ctaText: { vi: 'Khám phá lớp Bóng đá', en: 'Explore Football' },
-    ctaLink: '/chuong-trinh/bong-da',
+    ctaText: { vi: 'Xem chương trình học', en: 'See programmes' },
+    ctaLink: '/chuong-trinh',
+  },
+  {
+    image: 'https://images.pexels.com/photos/31022969/pexels-photo-31022969.jpeg?auto=compress&cs=tinysrgb&w=1920',
+    kicker: { vi: 'FIELD TRIP · LỮ HÀNH GIÁO DỤC', en: 'FIELD TRIPS · EDUCATIONAL TRAVEL' },
+    headlineTop: { vi: 'CÓ NHỮNG BÀI HỌC', en: 'SOME LESSONS LIE' },
+    headlineHighlight: { vi: 'NẰM NGOÀI CỔNG TRƯỜNG', en: 'BEYOND THE SCHOOL GATE' },
+    subtitle: {
+      vi: 'Chuyến đi học tập trọn gói, từ mục tiêu bài học đến xe, bữa ăn, an toàn và báo cáo, theo giấy phép lữ hành nội địa của HVE.',
+      en: "End-to-end learning trips, from objectives to transport, meals, safety and reporting, under HVE's own domestic tour licence.",
+    },
+    ctaText: { vi: 'Tìm hiểu field trip', en: 'About field trips' },
+    ctaLink: '/#nha-truong',
   },
 ];
 
@@ -176,7 +176,7 @@ export const HeroSection = ({ props, sectionId, t }: { props: any, sectionId: st
 
             <div className="flex flex-wrap gap-4">
               <Link
-                to="/#register"
+                to={ctaOverride ? '/#register' : (slide.ctaLink || '/#register')}
                 className="group bg-brand-yellow hover:bg-amber-400 text-gray-900 px-7 py-3.5 rounded-full font-heading font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center gap-2"
               >
                 {ctaOverride || tr(slide.ctaText?.vi, slide.ctaText?.en)}

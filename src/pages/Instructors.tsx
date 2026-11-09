@@ -71,8 +71,8 @@ export const Instructors: React.FC = () => {
           </motion.h1>
           <motion.p variants={fadeUp} className="text-lg text-blue-100/90 leading-relaxed max-w-2xl mx-auto mb-3">
             {t(
-              'Được tuyển chọn và xác minh chuyên môn cùng Đoàn TNCS Hồ Chí Minh và Nhà Văn Hóa Thanh Thiếu Nhi Đồng Nai — mỗi giảng viên đều công khai học vấn, kinh nghiệm và thành tích.',
-              'Sourced and verified together with the Ho Chi Minh Communist Youth Union and the Dong Nai Youth Cultural House — every instructor publishes their education, experience, and achievements.'
+              'Giáo viên và huấn luyện viên do HVE tuyển chọn, ký hợp đồng và quản lý trực tiếp: kiểm tra lý lịch, bằng cấp và chứng chỉ chuyên môn; ký cam kết bảo vệ trẻ em và quy tắc ứng xử trước khi đứng lớp; dự giờ và đánh giá định kỳ.',
+              'Instructors and coaches are recruited, contracted and managed directly by HVE: background, qualifications and credentials checked; child-protection pledge and code of conduct signed before teaching; class observation and regular reviews.'
             )}
           </motion.p>
           <motion.p variants={fadeUp} className="text-sm text-blue-100/70 leading-relaxed max-w-2xl mx-auto mb-10 italic">

@@ -15,6 +15,9 @@ import { ProgramContentSection } from '../components/sections/ProgramContentSect
 import { ProgramCurriculumSection } from '../components/sections/ProgramCurriculumSection';
 import { ProgramFAQSection } from '../components/sections/ProgramFAQSection';
 import { RegistrationForm } from '../components/RegistrationForm';
+import { ForSchoolsSection } from '../components/sections/ForSchoolsSection';
+import { SafetySection } from '../components/sections/SafetySection';
+import { useSettings } from '../contexts/SettingsContext';
 
 const sectionMap: Record<string, React.FC<any>> = {
   'HeroSection': HeroSection,
@@ -35,6 +38,7 @@ export const DynamicPage: React.FC<DynamicPageProps> = ({ slug }) => {
   const { t, lang } = useOutletContext<any>();
   const [loading, setLoading] = useState(true);
   const { pageData, setPageData, isEditMode } = useEditMode();
+  const { settings } = useSettings();
 
   useEffect(() => {
     const fetchPage = async () => {
@@ -94,7 +98,10 @@ export const DynamicPage: React.FC<DynamicPageProps> = ({ slug }) => {
   return (
     <>
       <Helmet>
-        <title>{pageData.title} | Huy Võ Education</title>
+        {/* Helmet needs a single string child; JSX text + expression breaks the title. */}
+        <title>{slug === 'home'
+          ? t('Huy Võ Education | Đối tác ngoại khóa cho nhà trường và phụ huynh', 'Huy Võ Education | After-school partner for schools and parents')
+          : `${pageData.title} | Huy Võ Education`}</title>
       </Helmet>
 
       {/* Render Dynamic Sections */}
@@ -108,6 +115,14 @@ export const DynamicPage: React.FC<DynamicPageProps> = ({ slug }) => {
           </SectionWrapper>
         );
       })}
+
+      {/* Homepage-only blocks from the HVE Company Profile 2026 (not CMS-managed) */}
+      {slug === 'home' && (
+        <>
+          <ForSchoolsSection t={t} phone={settings.phone} email={settings.email} />
+          <SafetySection t={t} />
+        </>
+      )}
 
       {/* Always render Registration Form at the bottom for now */}
       <RegistrationForm t={t} />

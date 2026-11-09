@@ -223,7 +223,7 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
                           {t('Ba/mẹ có nhu cầu đón bé sau 16:30 (ngoài khung giờ tiêu chuẩn)', 'Need to pick up the child after 16:30 (outside standard hours)')}
                         </div>
                         <div className="text-[13px] text-gray-500 mt-1">
-                          {t('Đánh dấu nếu gia đình cần hỗ trợ trông giữ bé muộn hơn giờ đón thông thường — Nhà Văn hóa sẽ tư vấn phương án phù hợp.', 'Check this if you need assistance caring for your child past regular pickup times — we will consult you on available options.')}
+                          {t('Đánh dấu nếu gia đình cần hỗ trợ trông giữ bé muộn hơn giờ đón thông thường — HVE sẽ tư vấn phương án phù hợp.', 'Check this if you need assistance caring for your child past regular pickup times — we will consult you on available options.')}
                         </div>
                       </div>
                     </label>

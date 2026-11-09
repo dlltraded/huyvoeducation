@@ -3,19 +3,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Globe, ChevronRight, ChevronDown, PhoneCall } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useSettings } from '../contexts/SettingsContext';
+import { useHasNews } from '../lib/useHasNews';
 
-const INFO_DROPDOWN = [
-  { to: '/tin-tuc', vi: 'Tin Tức', en: 'News' },
-  { to: '/tin-tuc', vi: 'Sự kiện', en: 'Events' },
-  { to: '/tin-tuc', vi: 'Thông báo', en: 'Announcements' },
-  { to: '/tin-tuc', vi: 'Blog', en: 'Blog' },
-];
-
-const NAV_ITEMS = [
+const NAV_ITEMS: { to: string; vi: string; en: string; children?: { to: string; vi: string; en: string }[] }[] = [
   { to: '/', vi: 'Trang chủ', en: 'Home' },
   { to: '/chuong-trinh', vi: 'Chương trình học', en: 'Programs' },
+  { to: '/#nha-truong', vi: 'Nhà trường', en: 'For schools' },
   { to: '/doi-ngu-giang-vien', vi: 'Giảng viên', en: 'Instructors' },
-  { to: '/tin-tuc', vi: 'Thông tin', en: 'Information', children: INFO_DROPDOWN },
+  { to: '/tin-tuc', vi: 'Tin tức', en: 'News' },
   { to: '/chinh-sach-bao-ve-tre-em', vi: 'An toàn', en: 'Safeguarding' },
   { to: '/tuyen-dung', vi: 'Tuyển dụng', en: 'Careers' },
 ];
@@ -26,6 +21,10 @@ export const Header = ({ lang, setLang, isScrolled, mobileMenuOpen, setMobileMen
   const phoneNumber = settings?.phone || '0907828939';
   const [openDropdown, setOpenDropdown] = useState(false);
   const [mobileInfoOpen, setMobileInfoOpen] = useState(false);
+
+  const hasNews = useHasNews();
+  // Hide the News link until at least one post is published.
+  const navItems = NAV_ITEMS.filter(item => item.to !== '/tin-tuc' || hasNews);
 
   const isActive = (to: string) => (to === '/' ? pathname === '/' : pathname.startsWith(to));
 
@@ -54,7 +53,7 @@ export const Header = ({ lang, setLang, isScrolled, mobileMenuOpen, setMobileMen
             </div>
 
             <div className="hidden lg:flex items-center gap-0.5 mx-2">
-              {NAV_ITEMS.map(item => {
+              {navItems.map(item => {
                 const active = isActive(item.to);
                 if (item.children) {
                   return (
@@ -182,7 +181,7 @@ export const Header = ({ lang, setLang, isScrolled, mobileMenuOpen, setMobileMen
             className="lg:hidden mx-4 mt-2 bg-white rounded-2xl border border-gray-100 shadow-2xl overflow-hidden"
           >
             <div className="flex flex-col p-6 gap-1">
-              {NAV_ITEMS.map(item => (
+              {navItems.map(item => (
                 item.children ? (
                   <div key={item.to}>
                     <button
