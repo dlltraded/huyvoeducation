@@ -6,7 +6,7 @@ import { School, Sun, Bus, UserCheck, Check, X, Phone, Mail, BadgeCheck } from '
 // Content mirrors the HVE Company Profile 2026 (services 01–04, "what we are / are not",
 // delivery process and the pilot-first contact flow).
 
-const SERVICES = [
+export const SERVICES = [
   {
     no: '01',
     Icon: School,
@@ -41,19 +41,19 @@ const SERVICES = [
   },
 ];
 
-const WE_ARE = [
+export const WE_ARE = [
   { vi: 'Đơn vị thiết kế và vận hành chương trình ngoại khóa', en: 'A designer and operator of after-school programmes' },
   { vi: 'Một đầu mối chịu trách nhiệm, từ đề xuất đến báo cáo', en: 'One accountable point of contact, from proposal to report' },
   { vi: 'Doanh nghiệp được cấp phép kinh doanh lữ hành nội địa', en: 'A licensed domestic tour operator' },
 ];
 
-const WE_ARE_NOT = [
+export const WE_ARE_NOT = [
   { vi: 'Trung tâm dạy thêm các môn văn hóa', en: 'A cram school for academic subjects' },
   { vi: 'Đơn vị cho thuê lại lao động', en: 'A labour sub-leasing agency' },
   { vi: 'Đơn vị trung gian chỉ giới thiệu nhà cung cấp', en: 'A middleman that only refers suppliers' },
 ];
 
-const PROCESS = [
+export const PROCESS = [
   { vi: 'Khảo sát và đề xuất', en: 'Brief and proposal', dVi: 'Nắm nhu cầu, lịch học, không gian; đề xuất danh mục hoạt động.', dEn: 'Understand needs, timetable and spaces; propose an activity list.' },
   { vi: 'Hồ sơ chương trình', en: 'Programme dossier', dVi: 'Khung chương trình và hồ sơ giáo viên từng hoạt động để trường thẩm định.', dEn: 'Curriculum framework and instructor profile per activity for school review.' },
   { vi: 'Tư vấn và ghi danh', en: 'Advice and enrolment', dVi: 'Bàn thông tin, bàn ghi danh tại trường; thông tin rõ ràng cho phụ huynh.', dEn: 'Information and enrolment desks on campus; clear information for parents.' },
@@ -128,6 +128,12 @@ export const ForSchoolsSection = ({ t, phone, email }: { t: any; phone: string; 
               ))}
             </ul>
           </div>
+        </div>
+
+        <div className="-mt-6 mb-16">
+          <a href="/dich-vu" className="inline-flex items-center gap-2 font-heading font-bold text-brand-blue hover:gap-3 transition-all">
+            {tr('Xem chi tiết dịch vụ và 5 lĩnh vực hoạt động', 'See full services and the 5 activity areas')} →
+          </a>
         </div>
 
         {/* Delivery process */}

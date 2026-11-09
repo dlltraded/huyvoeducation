@@ -9,8 +9,7 @@ import { BrandLockup } from './BrandLockup';
 
 const NAV_ITEMS: { to: string; vi: string; en: string; children?: { to: string; vi: string; en: string }[] }[] = [
   { to: '/', vi: 'Trang chủ', en: 'Home' },
-  { to: '/chuong-trinh', vi: 'Lĩnh vực hoạt động', en: 'Activity areas' },
-  { to: '/#nha-truong', vi: 'Nhà trường', en: 'For schools' },
+  { to: '/dich-vu', vi: 'Dịch vụ cho nhà trường', en: 'For schools' },
   { to: '/doi-ngu-giang-vien', vi: 'Giảng viên', en: 'Instructors' },
   { to: '/tin-tuc', vi: 'Tin tức', en: 'News' },
   { to: '/chinh-sach-bao-ve-tre-em', vi: 'An toàn', en: 'Safeguarding' },

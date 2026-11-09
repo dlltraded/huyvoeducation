@@ -32,7 +32,7 @@ export const ProgramsSection = ({ props, sectionId, t }: { props: any, sectionId
       desc: 'Bóng đá, bóng rổ, võ thuật và dạy bơi theo lộ trình từng độ tuổi: rèn thể lực, kỷ luật và tinh thần đồng đội.',
       img: sportsImg,
       icon: '🏊',
-      link: '/chuong-trinh#the-thao'
+      link: '/dich-vu#the-thao'
     },
     {
       id: 'arts',
@@ -40,7 +40,7 @@ export const ProgramsSection = ({ props, sectionId, t }: { props: any, sectionId
       desc: 'Nhảy hiện đại, trống nghi thức và nhạc cụ dân tộc: nuôi dưỡng sự tự tin và khả năng biểu đạt.',
       img: artsImg,
       icon: '🎨',
-      link: '/chuong-trinh#nghe-thuat'
+      link: '/dich-vu#nghe-thuat'
     },
     {
       id: 'stem',
@@ -48,7 +48,7 @@ export const ProgramsSection = ({ props, sectionId, t }: { props: any, sectionId
       desc: 'Robotics, lắp ráp và các thử thách sáng tạo, rèn tư duy logic và kỹ năng giải quyết vấn đề.',
       img: stemImg,
       icon: '🔬',
-      link: '/chuong-trinh#stem'
+      link: '/dich-vu#stem'
     }
   ];
 
@@ -65,7 +65,7 @@ export const ProgramsSection = ({ props, sectionId, t }: { props: any, sectionId
             </p>
           </motion.div>
           <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-            <Link to="/chuong-trinh" className="group flex items-center gap-2 text-brand-blue font-semibold hover:text-brand-blue-dark transition-colors bg-brand-blue-tint px-5 py-2.5 rounded-full border border-blue-100">
+            <Link to="/dich-vu#linh-vuc" className="group flex items-center gap-2 text-brand-blue font-semibold hover:text-brand-blue-dark transition-colors bg-brand-blue-tint px-5 py-2.5 rounded-full border border-blue-100">
               {t ? t('Xem 5 lĩnh vực hoạt động', 'See all 5 activity areas') : 'Xem 5 lĩnh vực hoạt động'} 
               <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
             </Link>

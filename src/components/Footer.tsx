@@ -21,10 +21,10 @@ export const Footer = ({ t }: any) => {
       <div className="max-w-7xl mx-auto px-6 pt-14 pb-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border-b border-white/10">
         <div>
           <p className="text-white font-heading font-bold text-xl md:text-2xl">
-            {t('Sẵn sàng đồng hành cùng con bạn?', 'Ready to join Huy Võ Education?')}
+            {t('Sẵn sàng đồng hành cùng nhà trường', 'Ready to partner with your school')}
           </p>
           <p className="text-white/60 mt-1">
-            {t('Đăng ký tư vấn miễn phí ngay hôm nay.', 'Register for a free consultation today.')}
+            {t('Gửi nhu cầu, HVE khảo sát và đề xuất phương án cho nhà trường.', 'Send us your needs; HVE will review and propose a plan for your school.')}
           </p>
         </div>
         <div className="flex items-center gap-3 flex-wrap">
@@ -117,9 +117,9 @@ export const Footer = ({ t }: any) => {
         <div className="md:col-span-3">
           <h4 className="text-white font-heading font-bold text-base mb-5">{t('Liên kết nhanh', 'Quick Links')}</h4>
           <ul className="space-y-3 text-sm">
-            <li><Link to="/chuong-trinh" className="hover:text-white transition-colors">{t('Lĩnh vực hoạt động', 'Activity areas')}</Link></li>
+            <li><Link to="/dich-vu" className="hover:text-white transition-colors">{t('Dịch vụ cho nhà trường', 'Services for schools')}</Link></li>
+            <li><Link to="/dich-vu#linh-vuc" className="hover:text-white transition-colors">{t('Lĩnh vực hoạt động', 'Activity areas')}</Link></li>
             <li><a href="/#about" className="hover:text-white transition-colors">{t('Triết lý giáo dục', 'Our Philosophy')}</a></li>
-            <li><a href="/#nha-truong" className="hover:text-white transition-colors">{t('Dành cho nhà trường', 'For schools')}</a></li>
             <li><a href="/#lien-he" className="hover:text-white transition-colors">{t('Liên hệ', 'Contact')}</a></li>
           </ul>
         </div>

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { captureAttribution } from './lib/referralTracking';
 import { MainLayout } from './layouts/MainLayout';
@@ -21,6 +21,12 @@ import { ReferrersManager } from './pages/admin/ReferrersManager';
 import { NotFound } from './pages/NotFound';
 import ScrollToTop from './components/ScrollToTop';
 
+// Old programmes URL now lives at /dich-vu; keep any #anchor.
+const LegacyProgramsRedirect = () => {
+  const { hash } = useLocation();
+  return <Navigate to={`/dich-vu${hash}`} replace />;
+};
+
 function App() {
   useEffect(() => {
     captureAttribution();
@@ -36,7 +42,8 @@ function App() {
             <Route path="chuong-trinh/stem" element={<DynamicPage slug="stem" />} />
             <Route path="chuong-trinh/nghe-thuat" element={<DynamicPage slug="arts" />} />
             <Route path="chuong-trinh/the-thao-boi-loi" element={<DynamicPage slug="sports" />} />
-            <Route path="chuong-trinh" element={<ProgramsIndex />} />
+            <Route path="dich-vu" element={<ProgramsIndex />} />
+            <Route path="chuong-trinh" element={<LegacyProgramsRedirect />} />
             <Route path="chuong-trinh/:slug" element={<ProgramDetail />} />
             <Route path="doi-ngu-giang-vien" element={<Instructors />} />
             <Route path="tin-tuc" element={<NewsPage />} />

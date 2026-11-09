@@ -17,7 +17,7 @@ export const ProgramDetail: React.FC = () => {
   const { slug } = useParams();
   const program = PROGRAMS.find(p => p.slug === slug);
 
-  if (!program) return <Navigate to="/chuong-trinh" replace />;
+  if (!program) return <Navigate to="/dich-vu#linh-vuc" replace />;
 
   return (
     <div className="bg-white">
@@ -47,7 +47,7 @@ export const ProgramDetail: React.FC = () => {
 
         <motion.div initial="hidden" animate="visible" variants={stagger} className="relative max-w-4xl mx-auto px-6 text-center">
           <motion.div variants={fadeUp}>
-            <Link to="/chuong-trinh" className="inline-flex items-center gap-1.5 text-sm text-white/80/80 hover:text-white mb-6 transition-colors">
+            <Link to="/dich-vu#linh-vuc" className="inline-flex items-center gap-1.5 text-sm text-white/80/80 hover:text-white mb-6 transition-colors">
               <ArrowLeft size={15} /> {t('Lĩnh vực hoạt động', 'Activity areas')}
             </Link>
           </motion.div>

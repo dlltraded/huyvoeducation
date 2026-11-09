@@ -17,8 +17,8 @@ const DEFAULT_SLIDES = [
       vi: 'Đối tác ngoại khóa của nhà trường, học sinh và phụ huynh.',
       en: 'The after-school partner for schools, students and parents.',
     },
-    ctaText: { vi: 'Đăng Ký Đào Tạo', en: 'Enroll Now' },
-    ctaLink: '/#register',
+    ctaText: { vi: 'Đăng ký làm đối tác', en: 'Become a partner' },
+    ctaLink: '/#lien-he',
   },
   {
     image: 'https://images.pexels.com/photos/6777314/pexels-photo-6777314.jpeg?auto=compress&cs=tinysrgb&w=1920',
@@ -30,7 +30,7 @@ const DEFAULT_SLIDES = [
       en: 'HVE runs complete co-curricular programmes on your campus: activities, instructors, enrolment, delivery and reporting.',
     },
     ctaText: { vi: 'Dành cho nhà trường', en: 'For schools' },
-    ctaLink: '/#nha-truong',
+    ctaLink: '/dich-vu',
   },
   {
     image: 'https://images.pexels.com/photos/35180899/pexels-photo-35180899.jpeg?auto=compress&cs=tinysrgb&w=1920',
@@ -42,7 +42,7 @@ const DEFAULT_SLIDES = [
       en: 'Life-skills classes, summer camps, swimming and sports on age-based pathways. Every course has clear objectives and assessment.',
     },
     ctaText: { vi: 'Xem lĩnh vực hoạt động', en: 'See activity areas' },
-    ctaLink: '/chuong-trinh',
+    ctaLink: '/dich-vu#linh-vuc',
   },
   {
     image: 'https://images.pexels.com/photos/31022969/pexels-photo-31022969.jpeg?auto=compress&cs=tinysrgb&w=1920',
@@ -54,7 +54,7 @@ const DEFAULT_SLIDES = [
       en: "End-to-end learning trips, from objectives to transport, meals, safety and reporting, under HVE's own domestic tour licence.",
     },
     ctaText: { vi: 'Tìm hiểu field trip', en: 'About field trips' },
-    ctaLink: '/#nha-truong',
+    ctaLink: '/dich-vu',
   },
 ];
 
@@ -91,7 +91,7 @@ export const HeroSection = ({ props, sectionId, t }: { props: any, sectionId: st
   const slide = slides[index];
   const title = index === 0 && props?.title ? props.title : null;
   const subtitleOverride = index === 0 && props?.subtitle ? props.subtitle : null;
-  const ctaOverride = index === 0 && props?.cta_text ? props.cta_text : null;
+  const ctaOverride = null; // CTA copy is code-defined (B2B); CMS cta_text is ignored
   const imageOverride = index === 0 && props?.hero_image ? props.hero_image : null;
   const badgeOverride = index === 0 && props?.badge_text ? props.badge_text : null;
 
@@ -179,20 +179,18 @@ export const HeroSection = ({ props, sectionId, t }: { props: any, sectionId: st
 
             <div className="flex flex-wrap gap-4">
               <Link
-                to={ctaOverride ? '/#phu-huynh' : (slide.ctaLink === '/#register' ? '/#phu-huynh' : (slide.ctaLink || '/#phu-huynh'))}
+                to={slide.ctaLink || '/#lien-he'}
                 className="group bg-brand-blue hover:bg-brand-blue-dark text-white px-7 py-3.5 rounded-full font-heading font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center gap-2"
               >
                 {ctaOverride || tr(slide.ctaText?.vi, slide.ctaText?.en)}
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </Link>
-              {slide.ctaLink && slide.ctaLink !== '/#register' && (
-                <Link
-                  to="/#lien-he"
-                  className="bg-white/10 hover:bg-white/20 text-white border border-white/30 backdrop-blur-sm px-7 py-3.5 rounded-full font-heading font-semibold transition-all flex items-center justify-center"
-                >
-                  {tr('Liên hệ HVE', 'Contact HVE')}
-                </Link>
-              )}
+              <Link
+                to={slide.ctaLink === '/#lien-he' ? '/dich-vu' : '/#lien-he'}
+                className="bg-white/10 hover:bg-white/20 text-white border border-white/30 backdrop-blur-sm px-7 py-3.5 rounded-full font-heading font-semibold transition-all flex items-center justify-center"
+              >
+                {slide.ctaLink === '/#lien-he' ? tr('Xem dịch vụ', 'Our services') : tr('Liên hệ HVE', 'Contact HVE')}
+              </Link>
             </div>
           </motion.div>
         </AnimatePresence>
