@@ -157,18 +157,14 @@ export const Footer = ({ t }: any) => {
           <div className="space-y-1.5">
             <p>
               <span className="text-white/80 font-medium">{t('Trụ sở chính:', 'Head Office:')}</span>{' '}
-              70/2A đường số 7, ấp Trà Cổ, Xã Bình Minh, Thành phố Đồng Nai, Việt Nam
-            </p>
-            <p>
-              <span className="text-white/80 font-medium">{t('Người đại diện theo pháp luật:', 'Legal Representative:')}</span>{' '}
-              {t('Võ Ngọc Huy – Giám đốc', 'Vo Ngoc Huy – Director')}
+              70/2A đường số 7, Xã Bình Minh, Thành phố Đồng Nai, Việt Nam
             </p>
             <p>
               <span className="text-white/80 font-medium">{t('Email:', 'Email:')}</span>{' '}
               <a href="mailto:info@huyvoeducation.vn" className="text-white/80 hover:text-white transition-colors underline decoration-white/30">info@huyvoeducation.vn</a>
               <span className="mx-2 text-white/20">|</span>
               <span className="text-white/80 font-medium">{t('Điện thoại:', 'Hotline:')}</span>{' '}
-              <a href="tel:0907828939" className="text-white/80 hover:text-white transition-colors underline decoration-white/30">0907 828 939</a>
+              <a href="tel:+84907828939" className="text-white/80 hover:text-white transition-colors underline decoration-white/30">(+84) 907 828 939</a>
             </p>
           </div>
         </div>
