@@ -37,7 +37,7 @@ export const FacilitiesSection = ({ props, sectionId, t }: { props: any, section
   const campuses_subtitle = 'Ba điểm đào tạo phục vụ học sinh khu vực Đồng Nai.';
   const campuses = [
     { vi: 'Campus Bắc Đồng Nai', en: 'North Đồng Nai campus', addrVi: 'Khu vực phía Bắc Đồng Nai', addrEn: 'Northern Đồng Nai', descVi: 'Phục vụ học sinh khu vực phía Bắc Đồng Nai.', descEn: 'Serving students in northern Đồng Nai.' },
-    { vi: 'Campus Nhà Văn hóa', en: 'Youth Cultural Centre campus', addrVi: '03 Cách Mạng Tháng 8, phường Trấn Biên, TP. Đồng Nai', addrEn: '03 Cach Mang Thang 8, Tran Bien ward, Đồng Nai', map: 'https://www.google.com/maps/search/?api=1&query=03+C%C3%A1ch+M%E1%BA%A1ng+Th%C3%A1ng+8%2C+Tr%E1%BA%A5n+Bi%C3%AAn%2C+%C4%90%E1%BB%93ng+Nai', descVi: 'Vận hành cùng Nhà Văn hóa Thanh thiếu nhi TP. Đồng Nai.', descEn: 'Operated with the Đồng Nai City Youth Cultural Centre.' },
+    { vi: 'Campus Nhà Văn hóa', en: 'Youth Cultural Centre campus', addrVi: '159 Cách Mạng Tháng 8, phường Trấn Biên, TP. Đồng Nai', addrEn: '159 Cach Mang Thang 8, Tran Bien ward, Đồng Nai', map: 'https://www.google.com/maps/search/?api=1&query=Nh%C3%A0+V%C4%83n+h%C3%B3a+Thanh+thi%E1%BA%BFu+nhi+159+C%C3%A1ch+M%E1%BA%A1ng+Th%C3%A1ng+8+Tr%E1%BA%A5n+Bi%C3%AAn+%C4%90%E1%BB%93ng+Nai', descVi: 'Vận hành cùng Nhà Văn hóa Thanh thiếu nhi TP. Đồng Nai.', descEn: 'Operated with the Đồng Nai City Youth Cultural Centre.' },
     { vi: 'Campus Sunrise', en: 'Sunrise campus', addrVi: 'Xã Bình Minh, TP. Đồng Nai', addrEn: 'Bình Minh, Đồng Nai', descVi: 'Hồ bơi và khu đào tạo.', descEn: 'Pool and training facility.' },
   ];
 
