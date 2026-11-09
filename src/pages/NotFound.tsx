@@ -11,6 +11,7 @@ export const NotFound: React.FC = () => {
       <Helmet>
         <title>{t('Không tìm thấy trang | Huy Võ Education', 'Page Not Found | Huy Võ Education')}</title>
         <meta name="robots" content="noindex" />
+        <meta name="robots" content="noindex" />
       </Helmet>
       <div className="max-w-lg mx-auto text-center">
         <p className="text-8xl font-heading font-bold text-brand-blue/20 mb-2">404</p>

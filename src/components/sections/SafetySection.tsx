@@ -28,8 +28,8 @@ export const SafetySection = ({ t }: { t: any }) => {
             </h2>
             <p className="text-gray-600 leading-relaxed mb-6">
               {tr(
-                'Mỗi lớp học, mỗi chuyến đi và mỗi giáo viên HVE cung ứng đều có quy trình, người chịu trách nhiệm và hồ sơ ghi nhận. HVE áp dụng chuẩn mực của các trường quốc tế cho mọi học sinh.',
-                'Every class, every trip and every instructor HVE supplies is covered by procedures, named responsibility and records. HVE applies international-school standards to every student.'
+                'Mỗi lớp học, mỗi chuyến đi và mỗi giáo viên HVE cung ứng đều có quy trình, người chịu trách nhiệm và hồ sơ ghi nhận. Đây cũng là bộ quy trình HVE đang áp dụng tại trường quốc tế song ngữ đối tác, và áp dụng như nhau cho mọi học sinh.',
+                'Every class, every trip and every instructor HVE supplies is covered by procedures, named responsibility and records: the same procedures HVE runs at its partner bilingual international school, applied to every student.'
               )}
             </p>
             <Link to="/chinh-sach-bao-ve-tre-em" className="inline-flex items-center gap-2 font-heading font-bold text-brand-blue hover:gap-3 transition-all">

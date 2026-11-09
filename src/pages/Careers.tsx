@@ -108,7 +108,7 @@ export const Careers: React.FC = () => {
           >
             <Briefcase size={30} className="text-brand-yellow" />
           </motion.div>
-          <motion.p variants={fadeUp} className="inline-flex items-center gap-1.5 uppercase tracking-widest text-xs font-bold text-brand-yellow mb-4">
+          <motion.p variants={fadeUp} className="inline-flex items-center gap-1.5 uppercase tracking-widest text-xs font-bold text-brand-blue-soft mb-4">
             <Sparkles size={13} /> {t('Gia nhập đội ngũ', 'Join Our Team')}
           </motion.p>
           <motion.h1 variants={fadeUp} className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white leading-tight mb-6 whitespace-pre-line">

@@ -9,10 +9,11 @@ const fetchHasNews = () => {
     cached = Promise.resolve(
       supabase
         .from('news_posts')
-        .select('id', { count: 'exact', head: true })
+        .select('id')
         .eq('is_published', true)
+        .limit(1)
     )
-      .then(({ count, error }) => !error && (count ?? 0) > 0)
+      .then(({ data, error }) => !error && Array.isArray(data) && data.length > 0)
       .catch(() => false);
   }
   return cached;

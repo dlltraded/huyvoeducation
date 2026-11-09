@@ -63,7 +63,7 @@ export const Instructors: React.FC = () => {
           >
             <GraduationCap size={30} className="text-brand-yellow" />
           </motion.div>
-          <motion.p variants={fadeUp} className="uppercase tracking-widest text-xs font-bold text-brand-yellow mb-4">
+          <motion.p variants={fadeUp} className="uppercase tracking-widest text-xs font-bold text-brand-blue-soft mb-4">
             {t('Đội ngũ Huy Võ Education', 'The Huy Vo Education Team')}
           </motion.p>
           <motion.h1 variants={fadeUp} className="text-3xl md:text-5xl font-heading font-bold mb-6 leading-tight text-white">

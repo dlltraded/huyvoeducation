@@ -87,7 +87,7 @@ const ProgramCard = ({ p, t }: { p: Program; t: any }) => (
       <div className="p-6">
         <h4 className="font-heading font-bold text-lg text-gray-900 mb-1">{t(p.name.vi, p.name.en)}</h4>
         <p className="text-sm text-gray-500 mb-4">{t(p.tagline.vi, p.tagline.en)}</p>
-        <div className="flex items-center justify-between text-xs text-gray-400 font-semibold">
+        <div className="flex items-center justify-between text-xs text-gray-500 font-semibold">
           <span>{p.ageGroups} {t('tuổi', 'yrs')} · {p.sessions}</span>
           <ArrowRight size={16} className="text-brand-blue group-hover:translate-x-1 transition-transform" />
         </div>
@@ -120,7 +120,7 @@ export const ProgramsIndex: React.FC = () => {
           style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '28px 28px' }}
         />
         <motion.div initial="hidden" animate="visible" variants={stagger} className="relative max-w-4xl mx-auto px-6 text-center">
-          <motion.p variants={fadeUp} className="uppercase tracking-widest text-xs font-bold text-brand-yellow mb-4">
+          <motion.p variants={fadeUp} className="uppercase tracking-widest text-xs font-bold text-brand-blue-soft mb-4">
             {t('Dịch vụ cho nhà trường', 'Services for schools')}
           </motion.p>
           <motion.h1 variants={fadeUp} className="text-3xl md:text-5xl font-heading font-bold mb-6 leading-tight text-white">
@@ -241,6 +241,75 @@ export const ProgramsIndex: React.FC = () => {
               </div>
             );
           })}
+        </div>
+      </section>
+
+      {/* For the school's due diligence (from the HVE Company Profile 2026) */}
+      <section id="ho-so" className="py-16 md:py-20 scroll-mt-24">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-2xl md:text-3xl font-heading font-bold text-gray-900 mb-2">{t('Thông tin để nhà trường thẩm định', 'For your due diligence')}</h2>
+          <p className="text-gray-600 mb-8 max-w-2xl">{t('Phân định trách nhiệm, nội dung báo cáo và nguyên tắc báo giá áp dụng cho mọi hợp đồng với HVE.', 'Responsibilities, reporting and pricing principles that apply to every HVE contract.')}</p>
+
+          <div className="overflow-hidden rounded-2xl border border-gray-100 mb-8">
+            <table className="w-full text-sm">
+              <thead className="bg-brand-navy text-white">
+                <tr>
+                  <th className="text-left font-heading font-semibold px-5 py-3.5 w-1/2">{t('Nhà trường', 'School')}</th>
+                  <th className="text-left font-heading font-semibold px-5 py-3.5 w-1/2">HVE</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {[
+                  ['Phê duyệt chương trình và giáo viên', 'Approves programme and instructors', 'Đề xuất danh mục hoạt động, khung chương trình, hồ sơ giáo viên', 'Proposes activities, curriculum framework and instructor profiles'],
+                  ['Bố trí phòng học, sân bãi theo lịch', 'Provides rooms and grounds per timetable', 'Giáo viên, học liệu; đứng lớp, điểm danh, quản lý lớp', 'Instructors and materials; teaching, attendance, class management'],
+                  ['Thông tin chương trình đến phụ huynh', 'Shares programme information with parents', 'Tư vấn, ghi danh; thu học phí trực tiếp hoặc qua nhà trường theo thỏa thuận', 'Advice and enrolment; collects fees directly or via the school, as agreed'],
+                  ['Giám sát chung, phản hồi', 'Oversight and feedback', 'Báo cáo định kỳ, buổi tổng kết cuối khóa', 'Regular reports and an end-of-course review'],
+                ].map(([sv, se, hv, he]) => (
+                  <tr key={sv} className="bg-white align-top">
+                    <td className="px-5 py-3.5 text-gray-700">{t(sv, se)}</td>
+                    <td className="px-5 py-3.5 text-gray-700">{t(hv, he)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 mb-12">
+            <div className="rounded-2xl bg-gray-50 p-7">
+              <h3 className="font-heading font-bold text-gray-900 mb-4">{t('Báo cáo cuối kỳ gồm', 'End-of-term report covers')}</h3>
+              <ul className="space-y-2.5 text-sm text-gray-700">
+                {[['Sĩ số và chuyên cần từng lớp', 'Enrolment and attendance per class'], ['Đánh giá tiến bộ của từng học sinh', "Each student's progress review"], ['Sản phẩm, buổi trình diễn hoặc kết quả kiểm tra', 'Outputs, performances or test results'], ['Sự cố (nếu có) và biện pháp khắc phục', 'Incidents, if any, and corrective actions'], ['Đề xuất cải tiến cho kỳ sau', 'Improvements proposed for next term']].map(([vi, en]) => (
+                  <li key={vi} className="flex gap-2.5"><Check size={18} className="text-brand-green shrink-0 mt-0.5" />{t(vi, en)}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-2xl bg-gray-50 p-7">
+              <h3 className="font-heading font-bold text-gray-900 mb-4">{t('Nguyên tắc báo giá', 'Pricing principles')}</h3>
+              <ul className="space-y-2.5 text-sm text-gray-700">
+                {[['Báo giá sau khi khảo sát nhu cầu, lịch học và cơ sở vật chất', 'Quoted after reviewing needs, timetable and facilities'], ['Tính theo buổi/khóa, theo học kỳ hoặc theo năm học', 'Per session/course, per semester or per academic year'], ['Học phí thu trực tiếp hoặc qua nhà trường, theo thỏa thuận', 'Fees collected directly or via the school, as agreed'], ['Người thay thế khi giáo viên vắng được bố trí theo thời hạn trong hợp đồng', 'Cover for absent instructors within the contracted timeframe'], ['Có thể thí điểm một học kỳ hoặc một chuyến đi trước khi mở rộng', 'Pilot one semester or one trip before scaling']].map(([vi, en]) => (
+                  <li key={vi} className="flex gap-2.5"><Check size={18} className="text-brand-green shrink-0 mt-0.5" />{t(vi, en)}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <h3 className="text-xl font-heading font-bold text-gray-900 mb-4">{t('Dự án tiêu biểu', 'Featured projects')}</h3>
+          <div className="grid md:grid-cols-2 gap-6">
+            {[
+              { tag: 'CCA', vi: 'CCA tại trường quốc tế song ngữ', en: 'CCA at a bilingual international school', sVi: 'Vận hành các hoạt động CCA năm học 2026–2027, phối hợp cùng Nhà Văn hóa Thanh thiếu nhi TP. Đồng Nai. Hồ sơ từng hoạt động gửi trường duyệt; bàn thông tin và ghi danh tại trường; vận hành lớp hằng tuần.', sEn: 'Running CCA activities for 2026–2027 in coordination with the Đồng Nai City Youth Cultural Centre. Each activity dossier approved by the school; on-site enrolment desks; weekly delivery.', stVi: 'Đã khai giảng, đang vận hành', stEn: 'Launched, in operation' },
+              { tag: 'TRIP', vi: 'Chuỗi field trip học kỳ I', en: 'Semester 1 field trips', sVi: 'Hợp đồng trực tiếp với HVE cho khối Mầm non và Tiểu học; chủ đề di sản, cộng đồng, nông trại, văn hóa đọc. Thiết kế theo mục tiêu từng khối, khảo sát địa điểm, kiểm đếm tại điểm chuyển giao, tổng kết cùng giáo viên.', sEn: 'Direct contract for preschool and primary grades; heritage, community, farm and reading themes. Designed per grade, sites reviewed, headcounts at every handover, teacher debrief.', stVi: 'Đã hoàn thành', stEn: 'Completed' },
+            ].map(pr => (
+              <div key={pr.vi} className="rounded-2xl border border-gray-100 p-7 bg-white">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs font-bold tracking-widest text-brand-blue">{pr.tag}</span>
+                  <span className="text-xs font-semibold text-brand-green bg-[#EDF7EC] px-2.5 py-1 rounded-full">{t(pr.stVi, pr.stEn)}</span>
+                </div>
+                <h4 className="font-heading font-bold text-gray-900 mb-2">{t(pr.vi, pr.en)}</h4>
+                <p className="text-sm text-gray-600 leading-relaxed">{t(pr.sVi, pr.sEn)}</p>
+              </div>
+            ))}
+          </div>
+          <p className="text-xs text-gray-500 mt-4">{t('Tên trường được giữ kín theo nguyên tắc bảo mật thông tin đối tác. Tham chiếu được cung cấp khi có sự đồng ý của nhà trường.', "School names are withheld under our partner confidentiality policy. References are available with the school's consent.")}</p>
         </div>
       </section>
 

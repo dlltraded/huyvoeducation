@@ -7,13 +7,8 @@ import { getStoredAttribution } from '../lib/referralTracking';
 import { useSettings } from '../contexts/SettingsContext';
 import { useLocation } from 'react-router-dom';
 import { PartnerForm } from './PartnerForm';
+import { PROGRAMS } from '../data/programs';
 
-const PACKAGES = [
-  { id: 'TH_1BUOI', label: 'Học 01 buổi tại trường', desc: 'Tiểu học · tuyến gần', price: '2.695.000đ' },
-  { id: 'THCS_1BUOI', label: 'Học 01 buổi tại trường', desc: 'THCS · tuyến gần', price: '2.820.000đ' },
-  { id: 'TH_2BUOI', label: 'Học 02 buổi tại trường', desc: 'Tiểu học · tuyến gần', price: '2.795.000đ' },
-  { id: 'THCS_2BUOI', label: 'Học 02 buổi tại trường', desc: 'THCS · tuyến gần', price: '2.920.000đ' },
-];
 
 export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
   const { settings } = useSettings();
@@ -40,7 +35,13 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
   const childAgeRef = useRef<HTMLInputElement>(null);
   const referralCodeRef = useRef<HTMLInputElement>(null);
   const childSchoolRef = useRef<HTMLInputElement>(null);
-  const [selectedPackage, setSelectedPackage] = useState('');
+  // Pre-select the activity when arriving from a programme page (?mon=<slug>).
+  const [interest, setInterest] = useState(() => {
+    try {
+      const slug = new URLSearchParams(window.location.search).get('mon');
+      return PROGRAMS.find(p => p.slug === slug)?.name.vi || '';
+    } catch { return ''; }
+  });
   const [wantsAfter1630, setWantsAfter1630] = useState(false);
   const [autoRef, setAutoRef] = useState('');
   const [source, setSource] = useState('');
@@ -96,9 +97,9 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
       child_name: childNameRef.current?.value || '',
       child_age: childAgeRef.current?.value ? parseInt(childAgeRef.current.value) : null,
       child_school: childSchoolRef.current?.value || null,
-      package_selected: selectedPackage || null,
+      package_selected: null,
       wants_after_1630: wantsAfter1630,
-      programs: [],
+      programs: interest ? [interest] : ['Chưa rõ, cần tư vấn'],
       referral_code: referralCodeRef.current?.value?.trim() || null,
       status: 'new',
     };
@@ -155,10 +156,10 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
             <div className="md:col-span-2 bg-gradient-to-br from-brand-blue to-brand-blue-dark p-10 text-white flex flex-col justify-between">
               <div>
                 <h3 className="text-3xl font-heading font-bold mb-4 leading-tight">
-                  {t('Đầu tư cho tuổi thơ của con', 'Invest in their childhood')}
+                  {t('Tìm lớp phù hợp cho con', 'Find the right class for your child')}
                 </h3>
                 <p className="text-white/80 text-lg mb-8">
-                  {t('Đăng ký ngay để nhận tư vấn lộ trình phát triển cá nhân hóa cho bé.', 'Register now to receive a personalized development consultation for your child.')}
+                  {t('Để lại thông tin, HVE gợi ý lớp phù hợp với độ tuổi và trường của con, kèm lịch học và học phí cụ thể.', "Leave your details and HVE will suggest classes that suit your child's age and school, with the exact schedule and fees.")}
                 </p>
               </div>
               
@@ -221,29 +222,28 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-3">{t('Chọn gói học kỹ năng theo tháng *', 'Select Monthly Skills Package *')}</label>
-                      <div className="flex flex-col gap-3">
-                        {PACKAGES.map((pkg) => (
-                          <label key={pkg.id} className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-colors ${selectedPackage === pkg.id ? 'border-brand-blue bg-brand-blue-tint' : 'border-gray-100 hover:border-gray-200 bg-white'}`}>
-                            <input
-                              type="radio"
-                              name="package"
-                              value={pkg.id}
-                              checked={selectedPackage === pkg.id}
-                              onChange={() => setSelectedPackage(pkg.id)}
-                              required
-                              className="w-5 h-5 text-brand-blue border-gray-300 focus:ring-brand-blue"
-                            />
-                            <div className="flex-1 min-w-0">
-                              <div className="text-[15px] font-bold text-gray-900">{t(pkg.label, pkg.label)}</div>
-                              <div className="text-sm text-gray-500 mt-0.5">{t(pkg.desc, pkg.desc)}</div>
-                            </div>
-                            <div className="font-bold text-brand-blue whitespace-nowrap">{pkg.price}</div>
-                          </label>
-                        ))}
-                      </div>
-                      <p className="text-xs text-gray-500 mt-3">
-                        {t('Giá trên áp dụng cho 08 trường tuyến gần. Nếu bé học trường ngoài danh sách, mức phí xe tuyến chuẩn sẽ được tư vấn thêm.', 'Prices apply for 8 nearby schools. If the child attends a school outside the list, standard route bus fees will be advised.')}
+                      <label htmlFor="parent-interest" className="block text-sm font-semibold text-gray-700 mb-2">{t('Môn / lĩnh vực quan tâm', 'Activity of interest')}</label>
+                      <select
+                        id="parent-interest"
+                        value={interest}
+                        onChange={(e) => setInterest(e.target.value)}
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all bg-gray-50 focus:bg-white"
+                      >
+                        <option value="">{t('Chưa rõ, cần HVE tư vấn', 'Not sure yet, please advise')}</option>
+                        <optgroup label={t('Môn học', 'Programmes')}>
+                          {PROGRAMS.map(p => <option key={p.slug} value={p.name.vi}>{t(p.name.vi, p.name.en)}</option>)}
+                        </optgroup>
+                        <optgroup label={t('Lĩnh vực khác', 'Other areas')}>
+                          {[['Bơi lội', 'Swimming'], ['Kỹ năng sống', 'Life skills'], ['STEM và sáng tạo', 'STEM & creativity'], ['Khóa hè', 'Summer camp']].map(([vi, en]) => (
+                            <option key={vi} value={vi}>{t(vi, en)}</option>
+                          ))}
+                        </optgroup>
+                      </select>
+                      <p className="text-xs text-gray-500 mt-3 leading-relaxed">
+                        {t(
+                          'Học phí, lịch học, địa điểm và phí đưa đón (nếu có) phụ thuộc vào trường của con và lớp đang mở. HVE gửi thông tin cụ thể để ba mẹ xem trước, ba mẹ chưa cần quyết định hay đóng phí khi gửi form này.',
+                          "Fees, schedule, venue and any transport fee depend on your child's school and the classes currently open. HVE sends the details for you to review first; submitting this form commits you to nothing."
+                        )}
                       </p>
                     </div>
 

@@ -5,6 +5,7 @@ import { CheckCircle2, Phone, Mail, Loader2, School, UserCheck, Bus, Sun, MoreHo
 import { supabase } from '../lib/supabase';
 import { getStoredAttribution } from '../lib/referralTracking';
 import { useSettings } from '../contexts/SettingsContext';
+import { PROGRAMS } from '../data/programs';
 
 // Partner/school enquiry form. Stored in the same `leads` table as parent
 // registrations, marked with site = 'doi-tac' so the admin can tell them apart.
@@ -49,6 +50,13 @@ export const PartnerForm = ({ t }: { t: any }) => {
   const scaleRef = useRef<HTMLInputElement>(null);
   const startRef = useRef<HTMLInputElement>(null);
   const messageRef = useRef<HTMLTextAreaElement>(null);
+
+  const prefillProgram = (() => {
+    try {
+      const slug = new URLSearchParams(window.location.search).get('mon');
+      return PROGRAMS.find(p => p.slug === slug)?.name.vi || '';
+    } catch { return ''; }
+  })();
 
   const toggleArea = (a: string) =>
     setAreas(prev => (prev.includes(a) ? prev.filter(x => x !== a) : [...prev, a]));
@@ -215,6 +223,7 @@ export const PartnerForm = ({ t }: { t: any }) => {
                 <label className={labelCls}>{t('Nội dung yêu cầu', 'Details')}</label>
                 <textarea
                   ref={messageRef}
+                  defaultValue={prefillProgram ? `Quan tâm môn: ${prefillProgram}. ` : ''}
                   rows={3}
                   className={inputCls}
                   placeholder={t('VD: Cần 02 HLV bóng đá, 2 buổi/tuần, từ tháng 1/2027.', 'e.g. Need 2 football coaches, twice a week, from January 2027.')}

@@ -100,8 +100,11 @@ export const DynamicPage: React.FC<DynamicPageProps> = ({ slug }) => {
       <Helmet>
         {/* Helmet needs a single string child; JSX text + expression breaks the title. */}
         <title>{slug === 'home'
-          ? t('Huy Võ Education - Hệ sinh thái sau giờ học hàng đầu Việt Nam', 'Huy Võ Education - A leading after-school ecosystem in Vietnam')
+          ? t('Huy Võ Education - Đối tác ngoại khóa của nhà trường tại Đồng Nai', 'Huy Võ Education - After-school partner for schools in Đồng Nai')
           : `${pageData.title} | Huy Võ Education`}</title>
+        {slug === 'home' && (
+          <meta name="description" content={t('Huy Võ Education là đối tác ngoại khóa của nhà trường, học sinh và phụ huynh tại Đồng Nai: CCA tại trường, cung ứng giáo viên và huấn luyện viên, field trip, khóa hè và kỹ năng sống.', 'Huy Võ Education is the after-school partner for schools, students and parents in Đồng Nai: on-campus CCA, instructor and coach staffing, field trips, summer camps and life skills.')} />
+        )}
       </Helmet>
 
       {/* Render Dynamic Sections */}

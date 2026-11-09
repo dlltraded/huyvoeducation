@@ -27,6 +27,15 @@ const defaultSettings: SiteSettings = {
   taxCode: '3604060494'
 };
 
+// Values that predate the HVE Company Profile 2026; treat them as unset.
+const OUTDATED: Partial<Record<keyof SiteSettings, string[]>> = {
+  footerDescVi: ['Hệ sinh thái giáo dục sau giờ học uy tín, an toàn và hiện đại dành cho thế hệ trẻ. Nơi xây dựng nền tảng vững chắc cho công dân toàn cầu.'],
+  footerDescEn: ['A trusted, safe, and modern after-school education ecosystem for the young generation. Building a solid foundation for global citizens.'],
+  address: ['Đồng Nai, Việt Nam'],
+};
+const withoutOutdated = (s: Partial<SiteSettings>) =>
+  Object.fromEntries(Object.entries(s).filter(([k, v]) => !(OUTDATED as any)[k]?.includes(v))) as Partial<SiteSettings>;
+
 interface SettingsContextType {
   settings: SiteSettings;
   loading: boolean;
@@ -52,7 +61,7 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       .single();
     
     if (data && data.settings) {
-      setSettings({ ...defaultSettings, ...data.settings });
+      setSettings({ ...defaultSettings, ...withoutOutdated(data.settings) });
     }
     setLoading(false);
   };

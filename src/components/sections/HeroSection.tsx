@@ -17,8 +17,10 @@ const DEFAULT_SLIDES = [
       vi: 'Đối tác ngoại khóa của nhà trường, học sinh và phụ huynh.',
       en: 'The after-school partner for schools, students and parents.',
     },
-    ctaText: { vi: 'Đăng ký làm đối tác', en: 'Become a partner' },
+    ctaText: { vi: 'Hợp tác nhà trường', en: 'Partner with us' },
     ctaLink: '/#lien-he',
+    secondaryText: { vi: 'Tìm lớp cho con', en: 'Find a class for my child' },
+    secondaryLink: '/#phu-huynh',
   },
   {
     image: 'https://images.pexels.com/photos/6777314/pexels-photo-6777314.jpeg?auto=compress&cs=tinysrgb&w=1920',
@@ -112,6 +114,11 @@ export const HeroSection = ({ props, sectionId, t }: { props: any, sectionId: st
         >
           <motion.img
             src={imageOverride || slide.image}
+            srcSet={!imageOverride && slide.image.includes('pexels.com')
+              ? [828, 1280, 1920].map(w => `${slide.image.replace(/w=\d+/, `w=${w}`)} ${w}w`).join(', ')
+              : undefined}
+            sizes="100vw"
+            fetchPriority={index === 0 ? 'high' : 'auto'}
             alt={tr(slide.kicker?.vi, slide.kicker?.en)}
             className="w-full h-full object-cover object-[center_30%]"
             initial={{ scale: 1 }}
@@ -186,10 +193,10 @@ export const HeroSection = ({ props, sectionId, t }: { props: any, sectionId: st
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
-                to={slide.ctaLink === '/#lien-he' ? '/dich-vu' : '/#lien-he'}
+                to={slide.secondaryLink || (slide.ctaLink === '/#lien-he' ? '/dich-vu' : '/#lien-he')}
                 className="bg-white/10 hover:bg-white/20 text-white border border-white/30 backdrop-blur-sm px-7 py-3.5 rounded-full font-heading font-semibold transition-all flex items-center justify-center"
               >
-                {slide.ctaLink === '/#lien-he' ? tr('Xem dịch vụ', 'Our services') : tr('Liên hệ HVE', 'Contact HVE')}
+                {slide.secondaryText ? tr(slide.secondaryText.vi, slide.secondaryText.en) : slide.ctaLink === '/#lien-he' ? tr('Xem dịch vụ', 'Our services') : tr('Liên hệ HVE', 'Contact HVE')}
               </Link>
             </div>
           </motion.div>

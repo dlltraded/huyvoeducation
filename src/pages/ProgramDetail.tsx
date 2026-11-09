@@ -3,13 +3,24 @@ import { IllustrationTag } from '../components/IllustrationTag';
 import { Link, useOutletContext, useParams, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
-import { ArrowLeft, CalendarDays, Users, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, CalendarDays, Users, CheckCircle2, MapPin, Wallet, Clock, Trophy, Shield, Palette } from 'lucide-react';
+import { INSTRUCTORS } from '../data/instructors';
 import { PROGRAMS, CATEGORIES } from '../data/programs';
 
 const fadeUp: any = {
   hidden: { opacity: 0, y: 26 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: 'easeOut' } },
 };
+// Lead instructors per programme (from the instructor profiles on this site).
+const LEAD_INSTRUCTORS: Record<string, string[]> = {
+  'bong-da': ['nguyen-le-hoang-phuc'],
+  taekwondo: ['ha-truong-khanh'],
+  karate: ['nguyen-nhat-truong'],
+  vovinam: ['dinh-thien-long'],
+  'nhay-hien-dai': ['truong-cong-khanh', 'nguyen-minh-tri'],
+  'dan-tranh-dan-bau': ['phung-manh-phong'],
+};
+
 const stagger: any = { hidden: {}, visible: { transition: { staggerChildren: 0.1 } } };
 
 export const ProgramDetail: React.FC = () => {
@@ -51,10 +62,10 @@ export const ProgramDetail: React.FC = () => {
               <ArrowLeft size={15} /> {t('Lĩnh vực hoạt động', 'Activity areas')}
             </Link>
           </motion.div>
-          <motion.div variants={fadeUp} className="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center mx-auto mb-6 text-3xl">
-            {program.icon}
+          <motion.div variants={fadeUp} className="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center mx-auto mb-6 text-white">
+            {(() => { const Icon = program.category === 'arts' ? Palette : program.category === 'martial-arts' ? Shield : Trophy; return <Icon size={28} />; })()}
           </motion.div>
-          <motion.p variants={fadeUp} className="uppercase tracking-widest text-xs font-bold text-brand-yellow mb-4">
+          <motion.p variants={fadeUp} className="uppercase tracking-widest text-xs font-bold text-brand-blue-soft mb-4">
             {t(CATEGORIES[program.category].vi, CATEGORIES[program.category].en)}
           </motion.p>
           <motion.h1 variants={fadeUp} className="text-3xl md:text-5xl font-heading font-bold mb-4 leading-tight text-white">
@@ -109,12 +120,56 @@ export const ProgramDetail: React.FC = () => {
             </ul>
           </motion.div>
 
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-center">
+          {/* Quick facts */}
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="mb-10">
+            <h3 className="font-heading font-bold text-gray-900 mb-4">{t('Thông tin nhanh', 'Key facts')}</h3>
+            <dl className="divide-y divide-gray-100 rounded-2xl border border-gray-100 overflow-hidden text-sm">
+              {[
+                { Icon: Users, k: t('Độ tuổi', 'Ages'), v: `${program.ageGroups} ${t('tuổi', 'years')}` },
+                { Icon: CalendarDays, k: t('Thời lượng', 'Length'), v: program.sessions },
+                { Icon: MapPin, k: t('Nơi học', 'Where'), v: t('Tại trường đối tác (CCA) hoặc tại campus HVE', 'At partner schools (CCA) or at HVE campuses') },
+                { Icon: Clock, k: t('Lịch mở lớp', 'Schedule'), v: t('Theo học kỳ của từng trường; HVE gửi lịch cụ thể khi tư vấn', "Follows each school's term; HVE sends the exact timetable when advising") },
+                { Icon: Wallet, k: t('Học phí', 'Fees'), v: t('Báo theo trường và hình thức học, gửi trước khi ba mẹ quyết định', 'Quoted per school and format, before you decide') },
+              ].map(row => (
+                <div key={row.k} className="grid grid-cols-[8.5rem_1fr] sm:grid-cols-[11rem_1fr] gap-3 px-5 py-3.5 bg-white">
+                  <dt className="flex items-center gap-2 font-semibold text-gray-700"><row.Icon size={16} className="text-brand-blue shrink-0" />{row.k}</dt>
+                  <dd className="text-gray-600">{row.v}</dd>
+                </div>
+              ))}
+            </dl>
+          </motion.div>
+
+          {/* Lead instructors */}
+          {(LEAD_INSTRUCTORS[program.slug] || []).length > 0 && (
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="mb-10">
+              <h3 className="font-heading font-bold text-gray-900 mb-4">{t('Giảng viên phụ trách', 'Lead instructors')}</h3>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {INSTRUCTORS.filter(i => LEAD_INSTRUCTORS[program.slug].includes(i.slug)).map(ins => (
+                  <Link key={ins.slug} to="/doi-ngu-giang-vien" className="flex items-center gap-4 rounded-2xl border border-gray-100 p-3 hover:border-brand-blue/30 hover:shadow-md transition-all">
+                    {ins.photo && <img src={ins.photo} alt={ins.name} loading="lazy" className="w-16 h-20 rounded-xl object-cover object-top shrink-0" />}
+                    <div>
+                      <p className="font-heading font-bold text-gray-900">{ins.name}</p>
+                      <p className="text-sm text-brand-blue font-semibold">{t(ins.title.vi, ins.title.en)}</p>
+                      <p className="text-xs text-gray-500 mt-0.5">{t(ins.experience.vi, ins.experience.en)} {t('kinh nghiệm', 'experience')}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
-              href="/#phu-huynh"
-              className="inline-flex items-center gap-2 bg-brand-blue hover:bg-brand-blue-dark text-white font-heading font-bold px-8 py-4 rounded-xl shadow-lg shadow-brand-blue/30 hover:shadow-xl hover:-translate-y-0.5 transition-all"
+              href={`/?mon=${program.slug}#phu-huynh`}
+              className="inline-flex items-center justify-center gap-2 bg-brand-blue hover:bg-brand-blue-dark text-white font-heading font-bold px-7 py-4 rounded-xl shadow-lg shadow-brand-blue/20 transition-all"
             >
-              {t('Đăng ký tư vấn chương trình này', 'Register interest in this program')}
+              {t('Tìm lớp này cho con', 'Find this class for my child')}
+            </a>
+            <a
+              href={`/?mon=${program.slug}#lien-he`}
+              className="inline-flex items-center justify-center gap-2 bg-white border border-brand-blue/30 text-brand-blue hover:bg-brand-blue-tint font-heading font-bold px-7 py-4 rounded-xl transition-all"
+            >
+              {t('Nhà trường: triển khai môn này', 'Schools: run this programme')}
             </a>
           </motion.div>
         </div>

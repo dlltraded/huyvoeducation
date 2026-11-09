@@ -129,7 +129,7 @@ export const ChildProtection: React.FC = () => {
           >
             <ShieldCheck size={30} className="text-brand-yellow" />
           </motion.div>
-          <motion.p variants={fadeUp} className="inline-flex items-center gap-1.5 uppercase tracking-widest text-xs font-bold text-brand-yellow mb-4">
+          <motion.p variants={fadeUp} className="inline-flex items-center gap-1.5 uppercase tracking-widest text-xs font-bold text-brand-blue-soft mb-4">
             <Sparkles size={13} /> {t('Cam kết an toàn', 'Our Safety Commitment')}
           </motion.p>
           <motion.h1 variants={fadeUp} className="text-3xl md:text-5xl font-heading font-bold mb-6 leading-tight text-white">
@@ -225,17 +225,46 @@ export const ChildProtection: React.FC = () => {
         className="py-16"
       >
         <div className="max-w-4xl mx-auto px-6">
-          <div className="relative overflow-hidden bg-[#FDF6DE] border border-brand-yellow/50 rounded-2xl p-8">
-            <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full bg-brand-yellow/30 blur-2xl" />
-            <h3 className="relative font-heading font-bold text-gray-900 mb-2">
-              {t('Tài liệu chính sách đầy đủ', 'Full policy document')}
-            </h3>
-            <p className="relative text-gray-600 leading-relaxed text-sm">
-              {t(
-                'Huy Võ Education đang hoàn thiện văn bản chính sách bảo vệ trẻ em đầy đủ, bao gồm quy trình xác minh lý lịch giảng viên và quy trình xử lý sự cố chi tiết. Quý phụ huynh cần bản đầy đủ vui lòng liên hệ trực tiếp theo thông tin bên dưới.',
-                "Huy Vo Education is finalizing the full child protection policy document, including our detailed instructor vetting and incident-response procedures. Parents who need the complete document are welcome to contact us directly using the details below."
-              )}
-            </p>
+          <h2 className="text-2xl md:text-3xl font-heading font-bold text-gray-900 mb-2">
+            {t('Quy trình xử lý sự cố', 'Incident response procedure')}
+          </h2>
+          <p className="text-gray-600 mb-8">
+            {t(
+              'Áp dụng cho mọi lớp học, mọi chuyến đi và mọi giáo viên HVE cung ứng. Mỗi sự cố đều được ghi nhận bằng văn bản và theo dõi đến khi khắc phục xong.',
+              'Applies to every class, every trip and every instructor HVE supplies. Every incident is recorded in writing and followed through to closure.'
+            )}
+          </p>
+          <ol className="space-y-4 mb-10">
+            {[
+              ['Xử lý tại chỗ', 'Immediate care', 'Giáo viên đảm bảo an toàn cho học sinh, sơ cứu khi cần và giữ các học sinh khác trong tầm quan sát.', 'The instructor secures the child, gives first aid if needed and keeps other students in sight.'],
+              ['Báo ngay', 'Notify', 'Liên hệ phụ huynh và nhà trường (hoặc đầu mối của chương trình) ngay sau khi tình huống được kiểm soát.', 'Parents and the school (or programme contact) are contacted as soon as the situation is under control.'],
+              ['Chuyển tuyến khi cần', 'Escalate', 'Đưa học sinh đến cơ sở y tế gần nhất hoặc phối hợp cơ quan chức năng khi vượt quá khả năng xử lý tại chỗ.', 'The child is taken to the nearest medical facility, or the authorities are involved, when needed.'],
+              ['Báo cáo sự cố', 'Report', 'Gửi báo cáo bằng văn bản cho nhà trường và phụ huynh: diễn biến, cách xử lý, người chịu trách nhiệm.', 'A written report goes to the school and parents: what happened, how it was handled, who is responsible.'],
+              ['Khắc phục', 'Follow up', 'Thống nhất biện pháp phòng ngừa, theo dõi đến khi hoàn tất và cập nhật quy trình nếu cần.', 'Preventive actions are agreed, tracked to completion and the procedure is updated if needed.'],
+            ].map(([vi, en, dvi, den], i) => (
+              <li key={vi} className="flex gap-4 rounded-2xl border border-gray-100 bg-white p-5">
+                <span className="w-9 h-9 shrink-0 rounded-full bg-brand-blue text-white font-heading font-bold text-sm flex items-center justify-center">{i + 1}</span>
+                <div>
+                  <p className="font-heading font-bold text-gray-900">{t(vi, en)}</p>
+                  <p className="text-sm text-gray-600 leading-relaxed mt-0.5">{t(dvi, den)}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+
+          <div className="grid sm:grid-cols-2 gap-4">
+            <div className="rounded-2xl bg-brand-blue-tint/60 border border-brand-blue/10 p-6">
+              <p className="font-heading font-bold text-gray-900 mb-1">{t('Đầu mối tiếp nhận', 'Point of contact')}</p>
+              <p className="text-sm text-gray-600 leading-relaxed">
+                {t('Ban Giám đốc Huy Võ Education trực tiếp tiếp nhận mọi phản ánh liên quan đến an toàn trẻ em qua hotline và email ở cuối trang. Thông tin người phản ánh được giữ kín.', 'The Huy Võ Education Board of Directors handles every child-safety concern directly, via the hotline and email below. Reporters are kept confidential.')}
+              </p>
+            </div>
+            <div className="rounded-2xl bg-brand-blue-tint/60 border border-brand-blue/10 p-6">
+              <p className="font-heading font-bold text-gray-900 mb-1">{t('Dữ liệu và hình ảnh', 'Data and images')}</p>
+              <p className="text-sm text-gray-600 leading-relaxed">
+                {t('Thông tin y tế, danh sách và hình ảnh học sinh chỉ dùng đúng mục đích đã thống nhất. HVE không dùng hình ảnh học sinh trong tài liệu quảng bá.', 'Medical data, rosters and student photos are used only for agreed purposes. HVE does not use student photos in promotional material.')}
+              </p>
+            </div>
           </div>
         </div>
       </motion.section>

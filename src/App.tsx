@@ -1,23 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { captureAttribution } from './lib/referralTracking';
 import { MainLayout } from './layouts/MainLayout';
 import { DynamicPage } from './pages/DynamicPage';
-import { NewsPage } from './pages/NewsPage';
-import { NewsDetail } from './pages/NewsDetail';
-import { ChildProtection } from './pages/ChildProtection';
-import { Careers } from './pages/Careers';
+const NewsPage = lazy(() => import('./pages/NewsPage').then(m => ({ default: m.NewsPage })));
+const NewsDetail = lazy(() => import('./pages/NewsDetail').then(m => ({ default: m.NewsDetail })));
+const ChildProtection = lazy(() => import('./pages/ChildProtection').then(m => ({ default: m.ChildProtection })));
+const Careers = lazy(() => import('./pages/Careers').then(m => ({ default: m.Careers })));
 import { Instructors } from './pages/Instructors';
 import { ProgramsIndex } from './pages/ProgramsIndex';
 import { ProgramDetail } from './pages/ProgramDetail';
-import { AdminLayout } from './layouts/AdminLayout';
-import { Login } from './pages/admin/Login';
-import { NewsManager } from './pages/admin/NewsManager';
-import { PageBuilder } from './pages/admin/PageBuilder';
-import { GlobalSettings } from './pages/admin/GlobalSettings';
-import { LeadsManager } from './pages/admin/LeadsManager';
-import { ReferrersManager } from './pages/admin/ReferrersManager';
+const AdminLayout = lazy(() => import('./layouts/AdminLayout').then(m => ({ default: m.AdminLayout })));
+const Login = lazy(() => import('./pages/admin/Login').then(m => ({ default: m.Login })));
+const NewsManager = lazy(() => import('./pages/admin/NewsManager').then(m => ({ default: m.NewsManager })));
+const PageBuilder = lazy(() => import('./pages/admin/PageBuilder').then(m => ({ default: m.PageBuilder })));
+const GlobalSettings = lazy(() => import('./pages/admin/GlobalSettings').then(m => ({ default: m.GlobalSettings })));
+const LeadsManager = lazy(() => import('./pages/admin/LeadsManager').then(m => ({ default: m.LeadsManager })));
+const ReferrersManager = lazy(() => import('./pages/admin/ReferrersManager').then(m => ({ default: m.ReferrersManager })));
 import { NotFound } from './pages/NotFound';
 import ScrollToTop from './components/ScrollToTop';
 
@@ -36,12 +36,14 @@ function App() {
     <HelmetProvider>
       <BrowserRouter>
         <ScrollToTop />
+        <Suspense fallback={<div className="min-h-screen" />}>
         <Routes>
           <Route path="/" element={<MainLayout />}>
             <Route index element={<DynamicPage slug="home" />} />
-            <Route path="chuong-trinh/stem" element={<DynamicPage slug="stem" />} />
-            <Route path="chuong-trinh/nghe-thuat" element={<DynamicPage slug="arts" />} />
-            <Route path="chuong-trinh/the-thao-boi-loi" element={<DynamicPage slug="sports" />} />
+            {/* Old CMS programme pages are superseded by /dich-vu */}
+            <Route path="chuong-trinh/stem" element={<Navigate to="/dich-vu#stem" replace />} />
+            <Route path="chuong-trinh/nghe-thuat" element={<Navigate to="/dich-vu#nghe-thuat" replace />} />
+            <Route path="chuong-trinh/the-thao-boi-loi" element={<Navigate to="/dich-vu#the-thao" replace />} />
             <Route path="dich-vu" element={<ProgramsIndex />} />
             <Route path="chuong-trinh" element={<LegacyProgramsRedirect />} />
             <Route path="chuong-trinh/:slug" element={<ProgramDetail />} />
@@ -63,6 +65,7 @@ function App() {
             <Route path="referrers" element={<ReferrersManager />} />
           </Route>
         </Routes>
+        </Suspense>
       </BrowserRouter>
     </HelmetProvider>
   );

@@ -19,7 +19,7 @@ export const EditableImage: React.FC<EditableImageProps> = ({
   const [tempUrl, setTempUrl] = useState(src);
 
   if (!isEditMode) {
-    return <img src={src} alt={alt} className={className} />;
+    return <img src={src} alt={alt} className={className} loading="lazy" decoding="async" />;
   }
 
   const handleSave = () => {
