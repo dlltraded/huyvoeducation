@@ -179,7 +179,7 @@ export const HeroSection = ({ props, sectionId, t }: { props: any, sectionId: st
 
             <div className="flex flex-wrap gap-4">
               <Link
-                to={ctaOverride ? '/#register' : (slide.ctaLink || '/#register')}
+                to={ctaOverride ? '/#phu-huynh' : (slide.ctaLink === '/#register' ? '/#phu-huynh' : (slide.ctaLink || '/#phu-huynh'))}
                 className="group bg-brand-blue hover:bg-brand-blue-dark text-white px-7 py-3.5 rounded-full font-heading font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center gap-2"
               >
                 {ctaOverride || tr(slide.ctaText?.vi, slide.ctaText?.en)}
@@ -187,10 +187,10 @@ export const HeroSection = ({ props, sectionId, t }: { props: any, sectionId: st
               </Link>
               {slide.ctaLink && slide.ctaLink !== '/#register' && (
                 <Link
-                  to="/#register"
+                  to="/#lien-he"
                   className="bg-white/10 hover:bg-white/20 text-white border border-white/30 backdrop-blur-sm px-7 py-3.5 rounded-full font-heading font-semibold transition-all flex items-center justify-center"
                 >
-                  {tr('Đăng Ký Đào Tạo', 'Enroll Now')}
+                  {tr('Liên hệ HVE', 'Contact HVE')}
                 </Link>
               )}
             </div>

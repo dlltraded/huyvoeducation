@@ -28,10 +28,10 @@ export const Footer = ({ t }: any) => {
         </div>
         <div className="flex items-center gap-3 flex-wrap">
           <a
-            href="/#register"
+            href="/#lien-he"
             className="inline-flex items-center gap-2 bg-white hover:bg-brand-blue-tint text-brand-navy font-heading font-bold px-6 py-3 rounded-full transition-colors"
           >
-            {t('Đăng Ký Đào Tạo', 'Enquire Now')} <ArrowUpRight size={18} />
+            {t('Liên hệ HVE', 'Contact HVE')} <ArrowUpRight size={18} />
           </a>
           {settings.zaloUrl && (
             <a
@@ -119,7 +119,7 @@ export const Footer = ({ t }: any) => {
             <li><Link to="/chuong-trinh" className="hover:text-white transition-colors">{t('Lĩnh vực hoạt động', 'Activity areas')}</Link></li>
             <li><a href="/#about" className="hover:text-white transition-colors">{t('Triết lý giáo dục', 'Our Philosophy')}</a></li>
             <li><a href="/#nha-truong" className="hover:text-white transition-colors">{t('Dành cho nhà trường', 'For schools')}</a></li>
-            <li><a href="/#register" className="hover:text-white transition-colors">{t('Đăng ký', 'Register')}</a></li>
+            <li><a href="/#lien-he" className="hover:text-white transition-colors">{t('Liên hệ', 'Contact')}</a></li>
           </ul>
         </div>
       </div>

@@ -4,6 +4,8 @@ import { CheckCircle2, Phone, Mail, Loader2 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { getStoredAttribution } from '../lib/referralTracking';
 import { useSettings } from '../contexts/SettingsContext';
+import { useLocation } from 'react-router-dom';
+import { PartnerForm } from './PartnerForm';
 
 const PACKAGES = [
   { id: 'TH_1BUOI', label: 'Học 01 buổi tại trường', desc: 'Tiểu học · tuyến gần', price: '2.695.000đ' },
@@ -14,6 +16,19 @@ const PACKAGES = [
 
 export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
   const { settings } = useSettings();
+  const { hash } = useLocation();
+  // Default audience is schools/partners; parents arrive via '#phu-huynh' links or a referral link.
+  const [audience, setAudience] = useState<'partner' | 'parent'>(() => {
+    try {
+      const { ref } = getStoredAttribution();
+      if (ref) return 'parent';
+    } catch { /* ignore */ }
+    return typeof window !== 'undefined' && window.location.hash === '#phu-huynh' ? 'parent' : 'partner';
+  });
+  useEffect(() => {
+    if (hash === '#phu-huynh') setAudience('parent');
+    else if (hash === '#lien-he' || hash === '#register') setAudience(a => (hash === '#lien-he' ? 'partner' : a));
+  }, [hash]);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -107,14 +122,34 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
   };
 
   return (
-    <section id="register" className="py-24 bg-gray-50 relative">
-      <div className="max-w-4xl mx-auto px-6 relative z-10">
+    <section id="register" className="py-24 bg-gray-50 relative scroll-mt-20">
+      <span id="phu-huynh" className="absolute -top-20" aria-hidden="true" />
+      <span id="lien-he" className="absolute -top-20" aria-hidden="true" />
+      <div className="max-w-5xl mx-auto px-6 relative z-10">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl md:text-4xl font-heading font-bold text-gray-900 mb-3">{t('Liên hệ với HVE', 'Contact HVE')}</h2>
+          <p className="text-gray-600 mb-6">{t('Chọn đúng đối tượng để HVE chuẩn bị thông tin phù hợp.', 'Tell us who you are so we can prepare the right information.')}</p>
+          <div role="tablist" className="inline-flex p-1 rounded-full bg-white border border-gray-200 shadow-sm">
+            {([['partner', 'Nhà trường & đối tác', 'Schools & partners'], ['parent', 'Phụ huynh', 'Parents']] as const).map(([key, vi, en]) => (
+              <button
+                key={key}
+                role="tab"
+                aria-selected={audience === key}
+                onClick={() => setAudience(key)}
+                className={`px-5 py-2.5 rounded-full text-sm font-heading font-semibold transition-colors ${audience === key ? 'bg-brand-blue text-white shadow' : 'text-gray-600 hover:text-brand-blue'}`}
+              >
+                {t(vi, en)}
+              </button>
+            ))}
+          </div>
+        </div>
         <motion.div 
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden"
         >
+          {audience === 'partner' ? <PartnerForm t={t} /> : (
           <div className="grid md:grid-cols-5">
             <div className="md:col-span-2 bg-gradient-to-br from-brand-blue to-brand-blue-dark p-10 text-white flex flex-col justify-between">
               <div>
@@ -299,6 +334,7 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
               </AnimatePresence>
             </div>
           </div>
+          )}
         </motion.div>
       </div>
     </section>

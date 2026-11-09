@@ -38,6 +38,12 @@ const STATUS_CONFIG: Record<LeadStatus, { label: string; color: string; bg: stri
 const STATUSES = Object.entries(STATUS_CONFIG) as [LeadStatus, (typeof STATUS_CONFIG)[LeadStatus]][];
 
 const PACKAGE_NAMES: Record<string, string> = {
+  // Partner / school enquiries (site = 'doi-tac')
+  'DT_GV_HLV': 'Đối tác · Cung ứng GV/HLV',
+  'DT_CCA': 'Đối tác · CCA tại trường',
+  'DT_FIELDTRIP': 'Đối tác · Field trip',
+  'DT_KHOAHE': 'Đối tác · Khóa hè, kỹ năng sống',
+  'DT_KHAC': 'Đối tác · Nhu cầu khác',
   'TH_1BUOI': 'Tiểu học (1 buổi)',
   'THCS_1BUOI': 'THCS (1 buổi)',
   'TH_2BUOI': 'Tiểu học (2 buổi)',

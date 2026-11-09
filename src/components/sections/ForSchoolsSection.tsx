@@ -161,6 +161,9 @@ export const ForSchoolsSection = ({ t, phone, email }: { t: any; phone: string; 
             </p>
           </div>
           <div className="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0">
+            <a href="#lien-he" className="inline-flex items-center justify-center gap-2 bg-brand-green hover:bg-[#46993F] text-white font-heading font-bold px-6 py-3 rounded-full transition-colors">
+              {tr('Gửi yêu cầu cho HVE', 'Send a brief to HVE')}
+            </a>
             <a href={`tel:${phone}`} className="inline-flex items-center justify-center gap-2 bg-white hover:bg-brand-blue-tint text-brand-blue font-heading font-bold px-6 py-3 rounded-full transition-colors">
               <Phone size={18} /> {phone}
             </a>

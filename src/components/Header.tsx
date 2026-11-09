@@ -137,11 +137,11 @@ export const Header = ({ lang, setLang, isScrolled, mobileMenuOpen, setMobileMen
                 {lang.toUpperCase()}
               </button>
               <Link
-                to="/#register"
+                to="/#lien-he"
                 className="flex items-center gap-1 bg-brand-blue hover:bg-brand-blue-dark text-white px-4 py-2.5 rounded-full font-heading font-semibold text-sm shadow-md shadow-brand-blue/30 hover:shadow-lg hover:shadow-brand-blue/40 hover:-translate-y-0.5 transition-all"
               >
-                <span className="hidden xl:inline">{t('Đăng Ký Đào Tạo', 'Enroll Now')}</span>
-                <span className="xl:hidden">{t('Đăng ký', 'Enroll')}</span>
+                <span className="hidden xl:inline">{t('Liên hệ HVE', 'Contact HVE')}</span>
+                <span className="xl:hidden">{t('Liên hệ', 'Contact')}</span>
                 <ChevronRight size={16} />
               </Link>
             </div>
@@ -233,11 +233,11 @@ export const Header = ({ lang, setLang, isScrolled, mobileMenuOpen, setMobileMen
                   {lang.toUpperCase()}
                 </button>
                 <Link
-                  to="/#register"
+                  to="/#lien-he"
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex-1 text-center bg-brand-blue text-white px-6 py-2.5 rounded-full font-heading font-semibold shadow-md shadow-brand-blue/30"
                 >
-                  {t('Đăng Ký Đào Tạo', 'Enroll Now')}
+                  {t('Liên hệ HVE', 'Contact HVE')}
                 </Link>
               </div>
             </div>

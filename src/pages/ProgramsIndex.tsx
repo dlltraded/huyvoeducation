@@ -204,7 +204,7 @@ export const ProgramsIndex: React.FC = () => {
                         </li>
                       ))}
                     </ul>
-                    <a href="/#register" className="shrink-0 inline-flex items-center gap-2 bg-brand-blue hover:bg-brand-blue-dark text-white font-heading font-semibold px-6 py-3 rounded-full transition-colors">
+                    <a href="/#lien-he" className="shrink-0 inline-flex items-center gap-2 bg-brand-blue hover:bg-brand-blue-dark text-white font-heading font-semibold px-6 py-3 rounded-full transition-colors">
                       {t('Nhận tư vấn', 'Get advice')} <ArrowRight size={16} />
                     </a>
                   </motion.div>
@@ -229,10 +229,10 @@ export const ProgramsIndex: React.FC = () => {
             ))}
           </div>
           <div className="flex flex-wrap gap-3">
-            <a href="/#register" className="inline-flex items-center gap-2 bg-brand-blue hover:bg-brand-blue-dark text-white font-heading font-semibold px-6 py-3 rounded-full transition-colors">
+            <a href="/#phu-huynh" className="inline-flex items-center gap-2 bg-brand-blue hover:bg-brand-blue-dark text-white font-heading font-semibold px-6 py-3 rounded-full transition-colors">
               {t('Phụ huynh: đăng ký tư vấn', 'Parents: request advice')} <ArrowRight size={16} />
             </a>
-            <Link to="/#nha-truong" className="inline-flex items-center gap-2 bg-white border border-brand-blue/30 text-brand-blue hover:bg-brand-blue-tint font-heading font-semibold px-6 py-3 rounded-full transition-colors">
+            <Link to="/#lien-he" className="inline-flex items-center gap-2 bg-white border border-brand-blue/30 text-brand-blue hover:bg-brand-blue-tint font-heading font-semibold px-6 py-3 rounded-full transition-colors">
               {t('Nhà trường: gửi yêu cầu', 'Schools: send a brief')} <ArrowRight size={16} />
             </Link>
           </div>

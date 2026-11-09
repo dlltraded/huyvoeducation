@@ -111,7 +111,7 @@ export const ProgramDetail: React.FC = () => {
 
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-center">
             <a
-              href="/#register"
+              href="/#phu-huynh"
               className="inline-flex items-center gap-2 bg-brand-blue hover:bg-brand-blue-dark text-white font-heading font-bold px-8 py-4 rounded-xl shadow-lg shadow-brand-blue/30 hover:shadow-xl hover:-translate-y-0.5 transition-all"
             >
               {t('Đăng ký tư vấn chương trình này', 'Register interest in this program')}
