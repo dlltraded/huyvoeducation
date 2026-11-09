@@ -33,7 +33,7 @@ export const PhilosophySection = ({ props, sectionId }: { props: any, sectionId:
       desc: 'Khơi dậy đam mê học hỏi qua trải nghiệm thực tế.',
       details: 'Con học qua vận động, thực hành và trải nghiệm thay vì ngồi nghe giảng. Mỗi khóa học có lộ trình, mục tiêu và đánh giá rõ ràng.',
       color: 'text-brand-blue',
-      bg: 'bg-blue-50'
+      bg: 'bg-brand-blue-tint'
     },
     { 
       title: 'CONNECT', 
@@ -42,8 +42,8 @@ export const PhilosophySection = ({ props, sectionId }: { props: any, sectionId:
       img: connectImg,
       desc: 'Xây dựng kỹ năng xã hội và sự thấu cảm.',
       details: 'Từng buổi tập, từng chuyến đi là dịp để con giao tiếp, làm việc nhóm và học cách lắng nghe bạn bè, thầy cô.',
-      color: 'text-brand-green',
-      bg: 'bg-green-50'
+      color: 'text-brand-navy',
+      bg: 'bg-[#FDF6DE]'
     },
     { 
       title: 'GROW', 
@@ -52,8 +52,8 @@ export const PhilosophySection = ({ props, sectionId }: { props: any, sectionId:
       img: growImg,
       desc: 'Trưởng thành toàn diện từ thể chất đến tinh thần.',
       details: 'Tiến bộ được ghi nhận qua đánh giá định kỳ và buổi tổng kết cuối khóa, để phụ huynh và nhà trường cùng theo dõi.',
-      color: 'text-yellow-600',
-      bg: 'bg-yellow-50'
+      color: 'text-brand-green',
+      bg: 'bg-[#EDF7EC]'
     }
   ];
 
@@ -85,8 +85,8 @@ export const PhilosophySection = ({ props, sectionId }: { props: any, sectionId:
               initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.2, duration: 0.6 }}
               className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-xl shadow-gray-200/40 hover:-translate-y-2 transition-transform duration-300 flex flex-col"
             >
-              <div className="h-48 overflow-hidden relative">
-                <EditableImage src={item.img} alt={item.title} className="w-full h-full object-cover" sectionId={sectionId} path={`items[${i}].img`} />
+              <div className="aspect-[16/10] overflow-hidden relative">
+                <EditableImage src={item.img} alt={item.title} className="w-full h-full object-cover object-[center_35%]" sectionId={sectionId} path={`items[${i}].img`} />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                 <div className={`absolute bottom-4 left-4 w-12 h-12 rounded-xl ${item.bg} ${item.color} flex items-center justify-center shadow-lg`}>
                   <Icon size={24} />

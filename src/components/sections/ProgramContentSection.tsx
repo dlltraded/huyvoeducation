@@ -33,7 +33,7 @@ export const ProgramContentSection = ({ props, sectionId }: { props: any, sectio
           
           {cta_text && (
             <div className="mt-12">
-              <Link to={cta_link} className="inline-flex items-center gap-2 bg-brand-blue text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-blue-700 hover:shadow-xl transition-all hover:-translate-y-1">
+              <Link to={cta_link} className="inline-flex items-center gap-2 bg-brand-blue text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-brand-blue-dark hover:shadow-xl transition-all hover:-translate-y-1">
                 <EditableText tag="span" value={cta_text} sectionId={sectionId} path="cta_text" /> <ArrowRight size={20} />
               </Link>
             </div>

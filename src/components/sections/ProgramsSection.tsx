@@ -1,14 +1,17 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Trophy, Palette, FlaskConical } from 'lucide-react';
+import bongDaImg from '../../assets/images/bong_da_real.jpg';
+import danTranhImg from '../../assets/images/dan_tranh_real.jpg';
 import { Link } from 'react-router-dom';
 
 import { EditableText } from '../editor/EditableText';
 import { EditableImage } from '../editor/EditableImage';
 
-// Real photography (Pexels, free commercial use) — no AI-generated images.
-const sportsImg = 'https://images.pexels.com/photos/5649993/pexels-photo-5649993.jpeg?auto=compress&cs=tinysrgb&w=800';
-const artsImg = 'https://images.pexels.com/photos/31022969/pexels-photo-31022969.jpeg?auto=compress&cs=tinysrgb&w=800';
+// Local photos for sports and arts; STEM still uses a Pexels photo (free commercial use).
+const sportsImg = bongDaImg;
+const artsImg = danTranhImg;
+const PROGRAM_ICONS: Record<string, React.ElementType> = { sports: Trophy, arts: Palette, stem: FlaskConical };
 const stemImg = 'https://images.pexels.com/photos/8471835/pexels-photo-8471835.jpeg?auto=compress&cs=tinysrgb&w=800';
 
 const fadeUp: any = {
@@ -17,33 +20,34 @@ const fadeUp: any = {
 };
 
 export const ProgramsSection = ({ props, sectionId, t }: { props: any, sectionId: string, t?: any }) => {
-  const title = props?.title || 'Hệ sinh thái Đa dạng';
-  const subtitle = props?.subtitle || 'Mỗi bộ môn đều được thiết kế chuyên sâu bởi các chuyên gia, nhưng lại được kết nối chặt chẽ để tạo nên một lộ trình phát triển toàn diện.';
+  // Title/subtitle follow the HVE Company Profile 2026 (activity areas), not the older CMS copy.
+  const title = 'Lĩnh vực hoạt động';
+  const subtitle = 'Thể thao, bơi lội, nghệ thuật, kỹ năng sống, STEM và sáng tạo: hoạt động được chọn phù hợp với học sinh và cơ sở vật chất của từng trường.';
   
   const programs = props?.programs || [
     {
       id: 'sports',
       title: 'Thể thao & Bơi lội',
-      desc: 'Phát triển thể chất, rèn luyện sự bền bỉ và tinh thần đồng đội trong môi trường chuyên nghiệp.',
+      desc: 'Bóng đá, bóng rổ, võ thuật và dạy bơi theo lộ trình từng độ tuổi: rèn thể lực, kỷ luật và tinh thần đồng đội.',
       img: sportsImg,
       icon: '🏊',
-      link: '/chuong-trinh/the-thao-boi-loi'
+      link: '/chuong-trinh#the-thao'
     },
     {
       id: 'arts',
-      title: 'Nghệ thuật & Sáng tạo',
-      desc: 'Kích thích sự tự do biểu đạt, nuôi dưỡng trí tưởng tượng và sự tinh tế trong tâm hồn trẻ.',
+      title: 'Nghệ thuật',
+      desc: 'Nhảy hiện đại, trống nghi thức và nhạc cụ dân tộc: nuôi dưỡng sự tự tin và khả năng biểu đạt.',
       img: artsImg,
       icon: '🎨',
-      link: '/chuong-trinh/nghe-thuat'
+      link: '/chuong-trinh#nghe-thuat'
     },
     {
       id: 'stem',
-      title: 'Khoa học & Lắp ráp (STEM)',
-      desc: 'Rèn luyện tư duy logic, kỹ năng giải quyết vấn đề qua các thử thách lắp ráp thực tế.',
+      title: 'STEM và sáng tạo',
+      desc: 'Robotics, lắp ráp và các thử thách sáng tạo, rèn tư duy logic và kỹ năng giải quyết vấn đề.',
       img: stemImg,
       icon: '🔬',
-      link: '/chuong-trinh/stem'
+      link: '/chuong-trinh#stem'
     }
   ];
 
@@ -60,8 +64,8 @@ export const ProgramsSection = ({ props, sectionId, t }: { props: any, sectionId
             </p>
           </motion.div>
           <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-            <Link to="/chuong-trinh" className="group flex items-center gap-2 text-brand-blue font-semibold hover:text-blue-800 transition-colors bg-blue-50/50 px-5 py-2.5 rounded-full border border-blue-100">
-              {t ? t('Xem tất cả lộ trình', 'View all programs') : 'Xem tất cả lộ trình'} 
+            <Link to="/chuong-trinh" className="group flex items-center gap-2 text-brand-blue font-semibold hover:text-brand-blue-dark transition-colors bg-brand-blue-tint px-5 py-2.5 rounded-full border border-blue-100">
+              {t ? t('Xem 5 lĩnh vực hoạt động', 'See all 5 activity areas') : 'Xem 5 lĩnh vực hoạt động'} 
               <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
             </Link>
           </motion.div>
@@ -74,11 +78,11 @@ export const ProgramsSection = ({ props, sectionId, t }: { props: any, sectionId
               initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ delay: i * 0.15, duration: 0.6 }}
               className="group bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 flex flex-col"
             >
-              <div className="h-56 relative overflow-hidden flex items-center justify-center">
-                <div className="absolute inset-0 bg-brand-blue/10 group-hover:bg-transparent transition-colors z-10 pointer-events-none"></div>
-                <EditableImage src={prog.img} alt={prog.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out absolute inset-0" sectionId={sectionId} path={`programs[${i}].img`} />
-                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-3 rounded-2xl shadow-sm z-20 text-2xl">
-                  {prog.icon}
+              <div className="aspect-[16/10] relative overflow-hidden flex items-center justify-center">
+                
+                <EditableImage src={prog.img} alt={prog.title} className="w-full h-full object-cover object-[center_30%] group-hover:scale-[1.03] transition-transform duration-700 ease-out absolute inset-0" sectionId={sectionId} path={`programs[${i}].img`} />
+                <div className="absolute top-4 right-4 w-12 h-12 bg-white/95 rounded-2xl shadow-sm z-20 flex items-center justify-center text-brand-blue">
+                  {(() => { const Icon = PROGRAM_ICONS[prog.id]; return Icon ? <Icon size={22} /> : <span className="text-2xl">{prog.icon}</span>; })()}
                 </div>
               </div>
               <div className="p-8 flex-1 flex flex-col">

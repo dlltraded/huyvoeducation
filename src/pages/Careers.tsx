@@ -27,25 +27,25 @@ const stagger: any = {
 const VALUES = [
   {
     icon: Heart,
-    color: 'from-rose-500 to-pink-400',
+    color: 'from-brand-navy to-brand-blue-dark',
     vi: { title: 'Yêu trẻ, tận tâm', body: 'Mỗi thành viên đều đặt sự an toàn và phát triển của học viên lên hàng đầu trong từng buổi học.' },
     en: { title: 'Genuine care for children', body: 'Every team member puts student safety and growth first, in every single session.' },
   },
   {
     icon: TrendingUp,
-    color: 'from-blue-500 to-cyan-400',
+    color: 'from-brand-blue to-brand-blue-light',
     vi: { title: 'Cơ hội phát triển chuyên môn', body: 'Được đào tạo nghiệp vụ sư phạm, tham gia các buổi chia sẻ chuyên môn định kỳ cùng đội ngũ giảng viên giàu kinh nghiệm.' },
     en: { title: 'Room to grow professionally', body: 'Ongoing pedagogy training and regular knowledge-sharing sessions with an experienced instructor team.' },
   },
   {
     icon: Users2,
-    color: 'from-emerald-500 to-teal-400',
+    color: 'from-brand-green to-[#6CC264]',
     vi: { title: 'Môi trường gắn kết', body: 'Làm việc trong một hệ sinh thái giáo dục năng động, nơi ý tưởng mới luôn được lắng nghe và ghi nhận.' },
     en: { title: 'A close-knit environment', body: 'Work inside a lively education ecosystem where new ideas are heard and valued.' },
   },
   {
     icon: Sparkles,
-    color: 'from-amber-500 to-orange-400',
+    color: 'from-brand-navy to-brand-blue-dark',
     vi: { title: 'Thu nhập cạnh tranh', body: 'Mức lương và thưởng theo hiệu quả giảng dạy, minh bạch và cạnh tranh so với mặt bằng chung.' },
     en: { title: 'Competitive compensation', body: 'Transparent, performance-based pay that stays competitive with the market.' },
   },
@@ -78,14 +78,14 @@ export const Careers: React.FC = () => {
       </Helmet>
 
       {/* Hero */}
-      <section className="relative pt-32 pb-28 lg:pt-44 lg:pb-36 bg-gray-900 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-blue via-[#0A4A8F] to-gray-900" />
+      <section className="relative pt-32 pb-28 lg:pt-44 lg:pb-36 bg-brand-navy overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-blue via-brand-blue-dark to-brand-navy" />
         <div className="absolute inset-0 opacity-[0.07]" style={{
           backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)',
           backgroundSize: '28px 28px',
         }} />
         <motion.div
-          className="absolute -top-32 -right-24 w-[28rem] h-[28rem] rounded-full bg-brand-yellow/20 blur-[100px]"
+          className="absolute -top-32 -right-24 w-[28rem] h-[28rem] rounded-full bg-brand-blue-light/30 blur-[100px]"
           animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.8, 0.5] }}
           transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
         />
@@ -113,7 +113,7 @@ export const Careers: React.FC = () => {
           <motion.h1 variants={fadeUp} className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white leading-tight mb-6 whitespace-pre-line">
             {t('Cùng Huy Võ Education\nđồng hành với thế hệ trẻ', "Grow the Next Generation\nWith Huy Vo Education")}
           </motion.h1>
-          <motion.p variants={fadeUp} className="text-lg text-blue-100/90 leading-relaxed max-w-2xl mx-auto">
+          <motion.p variants={fadeUp} className="text-lg text-white/80 leading-relaxed max-w-2xl mx-auto">
             {t(
               'Chúng tôi luôn tìm kiếm những giảng viên, huấn luyện viên và nhân sự tận tâm để cùng xây dựng một môi trường giáo dục sau giờ học an toàn và truyền cảm hứng.',
               'We are always looking for dedicated instructors, coaches, and staff to help build a safe, inspiring after-school education environment.'
@@ -167,7 +167,7 @@ export const Careers: React.FC = () => {
             variants={stagger}
             className="text-center mb-14"
           >
-            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 text-brand-blue px-4 py-1.5 rounded-full text-sm font-semibold mb-5">
+            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 bg-brand-blue-tint border border-blue-100 text-brand-blue px-4 py-1.5 rounded-full text-sm font-semibold mb-5">
               <GraduationCap size={15} />
               {t('Vị trí thường xuyên tuyển', 'Roles We Regularly Hire For')}
             </motion.div>
@@ -216,12 +216,12 @@ export const Careers: React.FC = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-gradient-to-br from-brand-blue to-[#0855A2] rounded-[2.5rem] shadow-2xl p-10 md:p-14 text-center text-white"
+            className="bg-gradient-to-br from-brand-blue to-brand-blue-dark rounded-[2.5rem] shadow-2xl p-10 md:p-14 text-center text-white"
           >
             <h3 className="text-2xl md:text-3xl font-heading font-bold mb-4">
               {t('Gửi hồ sơ ứng tuyển', 'Send Us Your Application')}
             </h3>
-            <p className="text-blue-100 text-lg mb-8 max-w-xl mx-auto">
+            <p className="text-white/80 text-lg mb-8 max-w-xl mx-auto">
               {t(
                 'Vui lòng gửi CV kèm vị trí mong muốn qua email hoặc gọi trực tiếp hotline — đội ngũ tuyển dụng sẽ liên hệ lại sớm nhất.',
                 'Send your CV along with the role you\'re interested in by email, or call our hotline directly — our team will get back to you soon.'
@@ -230,7 +230,7 @@ export const Careers: React.FC = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href={`mailto:${email}?subject=${encodeURIComponent(t('Ứng tuyển tại Huy Võ Education', 'Application to Huy Vo Education'))}`}
-                className="flex items-center justify-center gap-2 bg-brand-yellow hover:bg-amber-400 text-gray-900 px-7 py-3.5 rounded-full font-heading font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all"
+                className="flex items-center justify-center gap-2 bg-white hover:bg-brand-blue-tint text-brand-blue px-7 py-3.5 rounded-full font-heading font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all"
               >
                 <Mail size={18} /> {email}
               </a>

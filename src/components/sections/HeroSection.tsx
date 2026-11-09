@@ -40,7 +40,7 @@ const DEFAULT_SLIDES = [
       vi: 'Lớp kỹ năng sống, khóa hè, dạy bơi và thể thao theo lộ trình từng độ tuổi. Mỗi khóa học có mục tiêu và đánh giá rõ ràng.',
       en: 'Life-skills classes, summer camps, swimming and sports on age-based pathways. Every course has clear objectives and assessment.',
     },
-    ctaText: { vi: 'Xem chương trình học', en: 'See programmes' },
+    ctaText: { vi: 'Xem lĩnh vực hoạt động', en: 'See activity areas' },
     ctaLink: '/chuong-trinh',
   },
   {
@@ -112,7 +112,7 @@ export const HeroSection = ({ props, sectionId, t }: { props: any, sectionId: st
           <motion.img
             src={imageOverride || slide.image}
             alt={tr(slide.kicker?.vi, slide.kicker?.en)}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-[center_30%]"
             initial={{ scale: 1 }}
             animate={{ scale: 1.08 }}
             transition={{ duration: AUTO_ADVANCE_MS / 1000 + 1, ease: 'linear' }}
@@ -157,13 +157,13 @@ export const HeroSection = ({ props, sectionId, t }: { props: any, sectionId: st
               {badgeOverride || tr(slide.kicker?.vi, slide.kicker?.en)}
             </div>
 
-            <h1 className="font-heading font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.1] text-white mb-3 drop-shadow-lg">
+            <h1 className="font-heading font-bold text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] leading-[1.15] text-white mb-5 drop-shadow-lg">
               {title ? (
                 <EditableText tag="span" value={title} sectionId={sectionId} path="title" />
               ) : (
                 <>
-                  <span className="block">{tr(slide.headlineTop?.vi, slide.headlineTop?.en)}</span>
-                  <span className="inline-block bg-brand-blue px-3 py-1 mt-2 -ml-1 rounded-md">
+                  <span className="block mb-2">{tr(slide.headlineTop?.vi, slide.headlineTop?.en)}</span>
+                  <span className="inline bg-brand-blue px-3 py-0.5 -ml-1 rounded-md leading-[1.45] [box-decoration-break:clone] [-webkit-box-decoration-break:clone]">
                     {tr(slide.headlineHighlight?.vi, slide.headlineHighlight?.en)}
                   </span>
                 </>
@@ -177,7 +177,7 @@ export const HeroSection = ({ props, sectionId, t }: { props: any, sectionId: st
             <div className="flex flex-wrap gap-4">
               <Link
                 to={ctaOverride ? '/#register' : (slide.ctaLink || '/#register')}
-                className="group bg-brand-yellow hover:bg-amber-400 text-gray-900 px-7 py-3.5 rounded-full font-heading font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center gap-2"
+                className="group bg-brand-blue hover:bg-brand-blue-dark text-white px-7 py-3.5 rounded-full font-heading font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center gap-2"
               >
                 {ctaOverride || tr(slide.ctaText?.vi, slide.ctaText?.en)}
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />

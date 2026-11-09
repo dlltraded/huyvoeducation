@@ -92,7 +92,7 @@ export const ForSchoolsSection = ({ t, phone, email }: { t: any; phone: string; 
               className="bg-white rounded-3xl p-7 border border-gray-100 shadow-sm flex flex-col"
             >
               <div className="flex items-center justify-between mb-6">
-                <div className="w-12 h-12 rounded-2xl bg-blue-50 text-brand-blue flex items-center justify-center">
+                <div className="w-12 h-12 rounded-2xl bg-brand-blue-tint text-brand-blue flex items-center justify-center">
                   <s.Icon size={24} />
                 </div>
                 <span className="font-heading font-bold text-3xl text-gray-200">{s.no}</span>
@@ -149,19 +149,19 @@ export const ForSchoolsSection = ({ t, phone, email }: { t: any; phone: string; 
             <h3 className="font-heading font-bold text-2xl md:text-3xl mb-3">
               {tr('Hãy cùng viết tiếp phần sau tiếng chuông', 'Let us write what comes after the bell, together')}
             </h3>
-            <p className="text-blue-100 leading-relaxed">
+            <p className="text-white/80 leading-relaxed">
               {tr(
                 'Gửi mục tiêu, khối lớp và thời gian của nhà trường. HVE khảo sát, đề xuất phương án và báo giá. Có thể bắt đầu thí điểm với một học kỳ CCA hoặc một chuyến đi trước khi mở rộng.',
                 "Send us your objectives, grades and timing. HVE reviews the site and proposes a plan and quotation. Start with one CCA semester or one trip before scaling."
               )}
             </p>
-            <p className="mt-4 inline-flex items-center gap-2 text-sm text-blue-100">
+            <p className="mt-4 inline-flex items-center gap-2 text-sm text-white/80">
               <BadgeCheck size={16} className="text-brand-yellow" />
               {tr('Giấy phép kinh doanh lữ hành nội địa số 75-0079/2026/SVHTTDL-GP LHNĐ', 'Domestic tour operator licence No. 75-0079/2026/SVHTTDL-GP LHNĐ')}
             </p>
           </div>
           <div className="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0">
-            <a href={`tel:${phone}`} className="inline-flex items-center justify-center gap-2 bg-brand-yellow hover:bg-amber-400 text-gray-900 font-heading font-bold px-6 py-3 rounded-full transition-colors">
+            <a href={`tel:${phone}`} className="inline-flex items-center justify-center gap-2 bg-white hover:bg-brand-blue-tint text-brand-blue font-heading font-bold px-6 py-3 rounded-full transition-colors">
               <Phone size={18} /> {phone}
             </a>
             {email && (

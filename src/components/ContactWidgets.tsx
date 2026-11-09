@@ -16,7 +16,7 @@ export const ContactWidgets = () => {
           href={zaloUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 bg-blue-500 py-3.5 flex justify-center items-center gap-2 text-white font-semibold text-base active:bg-blue-600 transition-colors"
+          className="flex-1 bg-brand-blue py-3.5 flex justify-center items-center gap-2 text-white font-semibold text-base active:bg-brand-blue-dark transition-colors"
         >
           <span>Chat Zalo</span>
         </a>
@@ -38,9 +38,9 @@ export const ContactWidgets = () => {
           rel="noopener noreferrer"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          className="relative group w-14 h-14 bg-blue-500 rounded-full flex items-center justify-center shadow-lg shadow-blue-500/30 cursor-pointer"
+          className="relative group w-14 h-14 bg-brand-blue rounded-full flex items-center justify-center shadow-lg shadow-brand-blue/30 cursor-pointer"
         >
-          <div className="absolute inset-0 bg-blue-400 rounded-full animate-ping opacity-20"></div>
+          <div className="absolute inset-0 bg-brand-blue-light rounded-full animate-ping opacity-20"></div>
           <span className="font-bold text-white text-sm relative z-10">Zalo</span>
           <div className="absolute right-full mr-4 top-1/2 -translate-y-1/2 px-3 py-1.5 bg-gray-900 text-white text-sm font-medium rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
             Chat Zalo

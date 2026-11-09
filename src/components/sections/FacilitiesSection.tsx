@@ -43,13 +43,13 @@ export const FacilitiesSection = ({ props, sectionId, t }: { props: any, section
 
   return (
     <>
-      <section className="pt-28 pb-24 bg-brand-blue text-white overflow-hidden relative">
+      <section className="pt-28 pb-24 bg-brand-navy text-white overflow-hidden relative">
         <div className="absolute top-0 left-0 right-0 leading-none rotate-180">
           <svg viewBox="0 0 1440 50" className="w-full h-8 md:h-12" preserveAspectRatio="none">
             <path d="M0,26 C240,52 480,0 720,13 C960,26 1200,52 1440,26 L1440,50 L0,50 Z" fill="#F9FAFB" />
           </svg>
         </div>
-        <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/3 w-[800px] h-[800px] bg-blue-600/50 rounded-full blur-3xl mix-blend-screen pointer-events-none"></div>
+        <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/3 w-[800px] h-[800px] bg-brand-blue/40 rounded-full blur-3xl mix-blend-screen pointer-events-none"></div>
         <div className="absolute bottom-0 left-0 translate-y-1/3 -translate-x-1/3 w-[600px] h-[600px] bg-brand-green/30 rounded-full blur-3xl mix-blend-screen pointer-events-none"></div>
         <div
           className="absolute inset-0 opacity-[0.05] pointer-events-none"
@@ -61,7 +61,7 @@ export const FacilitiesSection = ({ props, sectionId, t }: { props: any, section
             <h2 className="text-3xl md:text-5xl font-heading font-bold mb-6">
               <EditableText tag="span" value={growth_title} sectionId={sectionId} path="growth_title" />
             </h2>
-            <p className="text-xl text-blue-100 max-w-3xl mx-auto">
+            <p className="text-xl text-white/80 max-w-3xl mx-auto">
               <EditableText tag="span" value={growth_subtitle} sectionId={sectionId} path="growth_subtitle" />
             </p>
           </motion.div>
@@ -142,7 +142,7 @@ export const FacilitiesSection = ({ props, sectionId, t }: { props: any, section
                 <img
                   src={item.img}
                   alt={tr(item.vi, item.en)}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  className="w-full h-full object-cover object-[center_30%] group-hover:scale-[1.04] transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
                 <span className="absolute bottom-3 left-0 right-0 text-white text-xs md:text-sm font-heading font-bold px-2">

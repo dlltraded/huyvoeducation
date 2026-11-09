@@ -8,14 +8,15 @@ export default {
     extend: {
       colors: {
         brand: {
-          blue: '#0A66C2',
-          green: '#20B84D',
-          yellow: '#FFC631',
-          dark: '#1D1D1F',
+          blue: '#3757B6',
+          green: '#50AC49',
+          yellow: '#EFC43D',
+          dark: '#1B1B1D',
+          navy: '#16213F',
         }
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['Be Vietnam Pro', 'Arial', 'sans-serif'],
         heading: ['Montserrat', 'sans-serif'],
       }
     },

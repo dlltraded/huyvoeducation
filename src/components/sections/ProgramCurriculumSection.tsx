@@ -45,10 +45,10 @@ const defaultLevels: Level[] = [
 ];
 
 const colorMap: Record<string, { bg: string; text: string; border: string; badge: string }> = {
-  blue:   { bg: 'bg-blue-50',   text: 'text-brand-blue',    border: 'border-blue-200',   badge: 'bg-brand-blue text-white' },
-  green:  { bg: 'bg-green-50',  text: 'text-brand-green',   border: 'border-green-200',  badge: 'bg-brand-green text-white' },
-  yellow: { bg: 'bg-yellow-50', text: 'text-yellow-700',    border: 'border-yellow-200', badge: 'bg-yellow-400 text-white' },
-  purple: { bg: 'bg-purple-50', text: 'text-purple-700',    border: 'border-purple-200', badge: 'bg-purple-600 text-white' },
+  blue:   { bg: 'bg-brand-blue-tint',   text: 'text-brand-blue',    border: 'border-blue-200',   badge: 'bg-brand-blue text-white' },
+  green:  { bg: 'bg-[#EDF7EC]',  text: 'text-brand-green',   border: 'border-green-200',  badge: 'bg-brand-green text-white' },
+  yellow: { bg: 'bg-[#FDF6DE]', text: 'text-brand-navy', border: 'border-brand-yellow/50', badge: 'bg-brand-navy text-white' },
+  purple: { bg: 'bg-brand-blue-tint', text: 'text-brand-blue-dark', border: 'border-brand-blue/30', badge: 'bg-brand-blue-dark text-white' },
 };
 
 export const ProgramCurriculumSection = ({ props, sectionId, t }: { props: any; sectionId: string; t?: any }) => {

@@ -116,12 +116,12 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
           className="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden"
         >
           <div className="grid md:grid-cols-5">
-            <div className="md:col-span-2 bg-gradient-to-br from-brand-blue to-[#0855A2] p-10 text-white flex flex-col justify-between">
+            <div className="md:col-span-2 bg-gradient-to-br from-brand-blue to-brand-blue-dark p-10 text-white flex flex-col justify-between">
               <div>
                 <h3 className="text-3xl font-heading font-bold mb-4 leading-tight">
                   {t('Đầu tư cho tuổi thơ của con', 'Invest in their childhood')}
                 </h3>
-                <p className="text-blue-100 text-lg mb-8">
+                <p className="text-white/80 text-lg mb-8">
                   {t('Đăng ký ngay để nhận tư vấn lộ trình phát triển cá nhân hóa cho bé.', 'Register now to receive a personalized development consultation for your child.')}
                 </p>
               </div>
@@ -132,7 +132,7 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
                     <Phone size={18} />
                   </div>
                   <div>
-                    <p className="text-sm text-blue-200">Hotline</p>
+                    <p className="text-sm text-white/70">Hotline</p>
                     <p className="font-semibold">{settings.phone}</p>
                   </div>
                 </div>
@@ -141,7 +141,7 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
                     <Mail size={18} />
                   </div>
                   <div>
-                    <p className="text-sm text-blue-200">Email</p>
+                    <p className="text-sm text-white/70">Email</p>
                     <p className="font-semibold">{settings.email}</p>
                   </div>
                 </div>
@@ -188,7 +188,7 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
                       <label className="block text-sm font-semibold text-gray-700 mb-3">{t('Chọn gói học kỹ năng theo tháng *', 'Select Monthly Skills Package *')}</label>
                       <div className="flex flex-col gap-3">
                         {PACKAGES.map((pkg) => (
-                          <label key={pkg.id} className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-colors ${selectedPackage === pkg.id ? 'border-brand-blue bg-blue-50/50' : 'border-gray-100 hover:border-gray-200 bg-white'}`}>
+                          <label key={pkg.id} className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-colors ${selectedPackage === pkg.id ? 'border-brand-blue bg-brand-blue-tint' : 'border-gray-100 hover:border-gray-200 bg-white'}`}>
                             <input
                               type="radio"
                               name="package"
@@ -271,7 +271,7 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full bg-brand-blue hover:bg-blue-700 text-white font-heading font-bold text-lg py-4 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                      className="w-full bg-brand-blue hover:bg-brand-blue-dark text-white font-heading font-bold text-lg py-4 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                     >
                       {isSubmitting ? <><Loader2 size={20} className="animate-spin" /> {t('Đang gửi...', 'Sending...')}</> : t('Nhận tư vấn ngay', 'Get Consultation Now')}
                     </button>

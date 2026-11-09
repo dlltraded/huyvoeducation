@@ -39,8 +39,8 @@ export const Instructors: React.FC = () => {
       </Helmet>
 
       {/* Hero */}
-      <section className="relative pt-32 pb-24 lg:pt-44 lg:pb-32 bg-gray-900 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0A4A8F] via-brand-blue to-gray-900" />
+      <section className="relative pt-32 pb-24 lg:pt-44 lg:pb-32 bg-brand-navy overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-blue-dark via-brand-blue to-brand-navy" />
         <div
           className="absolute inset-0 opacity-[0.06]"
           style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '28px 28px' }}
@@ -51,7 +51,7 @@ export const Instructors: React.FC = () => {
           transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
-          className="absolute -bottom-32 -right-16 w-[30rem] h-[30rem] rounded-full bg-brand-yellow/20 blur-[120px]"
+          className="absolute -bottom-32 -right-16 w-[30rem] h-[30rem] rounded-full bg-brand-blue-light/30 blur-[120px]"
           animate={{ scale: [1.1, 1, 1.1] }}
           transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
         />
@@ -69,13 +69,13 @@ export const Instructors: React.FC = () => {
           <motion.h1 variants={fadeUp} className="text-3xl md:text-5xl font-heading font-bold mb-6 leading-tight text-white">
             {t('Đội ngũ giảng viên tiêu biểu', 'Featured Instructors')}
           </motion.h1>
-          <motion.p variants={fadeUp} className="text-lg text-blue-100/90 leading-relaxed max-w-2xl mx-auto mb-3">
+          <motion.p variants={fadeUp} className="text-lg text-white/80 leading-relaxed max-w-2xl mx-auto mb-3">
             {t(
               'Giáo viên và huấn luyện viên do HVE tuyển chọn, ký hợp đồng và quản lý trực tiếp: kiểm tra lý lịch, bằng cấp và chứng chỉ chuyên môn; ký cam kết bảo vệ trẻ em và quy tắc ứng xử trước khi đứng lớp; dự giờ và đánh giá định kỳ.',
               'Instructors and coaches are recruited, contracted and managed directly by HVE: background, qualifications and credentials checked; child-protection pledge and code of conduct signed before teaching; class observation and regular reviews.'
             )}
           </motion.p>
-          <motion.p variants={fadeUp} className="text-sm text-blue-100/70 leading-relaxed max-w-2xl mx-auto mb-10 italic">
+          <motion.p variants={fadeUp} className="text-sm text-white/65 leading-relaxed max-w-2xl mx-auto mb-10 italic">
             {t(
               'Dưới đây là một số gương mặt tiêu biểu — đội ngũ giảng viên và huấn luyện viên thực tế của Huy Võ Education còn đông đảo hơn nhiều.',
               'Below are a few featured faces — the actual team of instructors and coaches at Huy Vo Education is much larger.'
@@ -86,7 +86,7 @@ export const Instructors: React.FC = () => {
             {STATS.map((s, i) => (
               <div key={i} className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl py-4 px-2">
                 <p className="text-2xl md:text-3xl font-heading font-bold text-white">{s.value}</p>
-                <p className="text-[11px] md:text-xs text-blue-100/80 mt-1 leading-tight">{t(s.vi, s.en)}</p>
+                <p className="text-[11px] md:text-xs text-white/80/80 mt-1 leading-tight">{t(s.vi, s.en)}</p>
               </div>
             ))}
           </motion.div>
@@ -107,7 +107,7 @@ export const Instructors: React.FC = () => {
             whileInView="visible"
             viewport={{ once: true, margin: '-60px' }}
             variants={stagger}
-            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6"
           >
             {INSTRUCTORS.map(ins => (
               <motion.button
@@ -122,7 +122,7 @@ export const Instructors: React.FC = () => {
                     <img
                       src={ins.photo}
                       alt={ins.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover object-[center_18%] group-hover:scale-[1.03] transition-transform duration-500"
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-gray-300">
@@ -130,14 +130,14 @@ export const Instructors: React.FC = () => {
                     </div>
                   )}
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-                    <span className="inline-block bg-brand-yellow text-gray-900 text-[11px] font-bold px-2.5 py-1 rounded-full">
+                    <span className="inline-block bg-white/95 text-brand-navy text-[11px] font-bold px-2.5 py-1 rounded-full">
                       {t(ins.specializationTag.vi, ins.specializationTag.en)}
                     </span>
                   </div>
                 </div>
-                <div className="p-5">
-                  <h3 className="font-heading font-bold text-lg text-gray-900 mb-0.5">{ins.name}</h3>
-                  <p className="text-sm text-brand-blue font-semibold mb-3">{t(ins.title.vi, ins.title.en)}</p>
+                <div className="p-3.5 sm:p-5">
+                  <h3 className="font-heading font-bold text-sm sm:text-lg text-gray-900 mb-0.5">{ins.name}</h3>
+                  <p className="text-xs sm:text-sm text-brand-blue font-semibold mb-2 sm:mb-3">{t(ins.title.vi, ins.title.en)}</p>
                   <div className="flex items-center gap-3 text-xs text-gray-500">
                     <span className="flex items-center gap-1"><Award size={13} /> {t(ins.experience.vi, ins.experience.en)}</span>
                     <span className="flex items-center gap-1"><Users size={13} /> {ins.learners} {t('tuổi', 'yrs')}</span>
@@ -168,7 +168,7 @@ export const Instructors: React.FC = () => {
               className="bg-white rounded-3xl max-w-2xl w-full max-h-[88vh] overflow-y-auto shadow-2xl"
             >
               <div className="relative">
-                <div className="h-40 bg-gradient-to-br from-brand-blue to-[#0A4A8F]" />
+                <div className="h-40 bg-gradient-to-br from-brand-blue to-brand-blue-dark" />
                 <button
                   onClick={() => setActive(null)}
                   className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center backdrop-blur-sm"
@@ -177,7 +177,7 @@ export const Instructors: React.FC = () => {
                 </button>
                 <div className="absolute -bottom-14 left-8 w-28 h-28 rounded-2xl border-4 border-white shadow-lg bg-gray-100 overflow-hidden">
                   {active.photo ? (
-                    <img src={active.photo} alt={active.name} className="w-full h-full object-cover" />
+                    <img src={active.photo} alt={active.name} className="w-full h-full object-cover object-top" />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-gray-300">
                       <User size={36} />

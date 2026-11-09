@@ -100,7 +100,7 @@ export const DynamicPage: React.FC<DynamicPageProps> = ({ slug }) => {
       <Helmet>
         {/* Helmet needs a single string child; JSX text + expression breaks the title. */}
         <title>{slug === 'home'
-          ? t('Huy Võ Education | Đối tác ngoại khóa cho nhà trường và phụ huynh', 'Huy Võ Education | After-school partner for schools and parents')
+          ? t('Huy Võ Education - Hệ sinh thái sau giờ học hàng đầu Việt Nam', 'Huy Võ Education - A leading after-school ecosystem in Vietnam')
           : `${pageData.title} | Huy Võ Education`}</title>
       </Helmet>
 

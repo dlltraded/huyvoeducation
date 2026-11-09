@@ -26,27 +26,27 @@ export const ProgramDetail: React.FC = () => {
       </Helmet>
 
       {/* Hero */}
-      <section className="relative pt-32 pb-24 lg:pt-44 lg:pb-32 bg-gray-900 overflow-hidden">
+      <section className="relative pt-32 pb-24 lg:pt-44 lg:pb-32 bg-brand-navy overflow-hidden">
         <img
           src={program.img}
           alt={t(program.name.vi, program.name.en)}
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/90 via-[#0A4A8F]/90 to-gray-900/95" />
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/90 via-brand-blue-dark/90 to-brand-navy/95" />
         <div
           className="absolute inset-0 opacity-[0.06]"
           style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '28px 28px' }}
         />
         <motion.div
-          className="absolute -top-24 -right-16 w-[26rem] h-[26rem] rounded-full bg-brand-yellow/20 blur-[110px]"
+          className="absolute -top-24 -right-16 w-[26rem] h-[26rem] rounded-full bg-brand-blue-light/30 blur-[110px]"
           animate={{ scale: [1, 1.15, 1] }}
           transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
         />
 
         <motion.div initial="hidden" animate="visible" variants={stagger} className="relative max-w-4xl mx-auto px-6 text-center">
           <motion.div variants={fadeUp}>
-            <Link to="/chuong-trinh" className="inline-flex items-center gap-1.5 text-sm text-blue-100/80 hover:text-white mb-6 transition-colors">
-              <ArrowLeft size={15} /> {t('Tất cả chương trình', 'All programs')}
+            <Link to="/chuong-trinh" className="inline-flex items-center gap-1.5 text-sm text-white/80/80 hover:text-white mb-6 transition-colors">
+              <ArrowLeft size={15} /> {t('Lĩnh vực hoạt động', 'Activity areas')}
             </Link>
           </motion.div>
           <motion.div variants={fadeUp} className="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center mx-auto mb-6 text-3xl">
@@ -58,7 +58,7 @@ export const ProgramDetail: React.FC = () => {
           <motion.h1 variants={fadeUp} className="text-3xl md:text-5xl font-heading font-bold mb-4 leading-tight text-white">
             {t(program.name.vi, program.name.en)}
           </motion.h1>
-          <motion.p variants={fadeUp} className="text-lg text-blue-100/90 leading-relaxed max-w-2xl mx-auto">
+          <motion.p variants={fadeUp} className="text-lg text-white/80 leading-relaxed max-w-2xl mx-auto">
             {t(program.tagline.vi, program.tagline.en)}
           </motion.p>
 
@@ -110,7 +110,7 @@ export const ProgramDetail: React.FC = () => {
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-center">
             <a
               href="/#register"
-              className="inline-flex items-center gap-2 bg-brand-blue hover:bg-blue-700 text-white font-heading font-bold px-8 py-4 rounded-xl shadow-lg shadow-brand-blue/30 hover:shadow-xl hover:-translate-y-0.5 transition-all"
+              className="inline-flex items-center gap-2 bg-brand-blue hover:bg-brand-blue-dark text-white font-heading font-bold px-8 py-4 rounded-xl shadow-lg shadow-brand-blue/30 hover:shadow-xl hover:-translate-y-0.5 transition-all"
             >
               {t('Đăng ký tư vấn chương trình này', 'Register interest in this program')}
             </a>

@@ -27,7 +27,7 @@ const stagger: any = {
 const PRINCIPLES = [
   {
     icon: Users,
-    color: 'from-blue-500 to-cyan-400',
+    color: 'from-brand-blue to-brand-blue-light',
     vi: {
       title: 'Ứng xử đúng mực với trẻ',
       body: 'Toàn bộ giảng viên, huấn luyện viên và nhân viên cam kết tuân thủ bộ quy tắc ứng xử: không ở một mình với một học viên trong không gian kín, luôn có ít nhất 2 người lớn giám sát mỗi lớp học hoặc buổi tập.',
@@ -39,7 +39,7 @@ const PRINCIPLES = [
   },
   {
     icon: Eye,
-    color: 'from-emerald-500 to-teal-400',
+    color: 'from-brand-green to-[#6CC264]',
     vi: {
       title: 'Giám sát trong suốt buổi học',
       body: 'Phụ huynh có thể quan sát một phần buổi học qua khu vực chờ hoặc theo lịch mở cửa tham quan lớp, thay vì lớp học hoàn toàn khép kín.',
@@ -51,7 +51,7 @@ const PRINCIPLES = [
   },
   {
     icon: UserCheck,
-    color: 'from-violet-500 to-purple-400',
+    color: 'from-brand-navy to-brand-blue-dark',
     vi: {
       title: 'Xác minh giảng viên trước khi đứng lớp',
       body: 'Mỗi giảng viên được xác minh chuyên môn, kinh nghiệm và đơn vị công tác trước khi được nhận lớp — hồ sơ giảng viên tại Huy Võ Education công khai học vấn, kinh nghiệm và thành tích để phụ huynh tham khảo trước khi đăng ký.',
@@ -63,7 +63,7 @@ const PRINCIPLES = [
   },
   {
     icon: MessageCircleWarning,
-    color: 'from-amber-500 to-orange-400',
+    color: 'from-brand-navy to-brand-blue-dark',
     vi: {
       title: 'Kênh báo cáo sự cố rõ ràng',
       body: 'Bất kỳ phụ huynh, học viên hay nhân viên nào phát hiện hành vi không phù hợp đều có thể báo cáo trực tiếp qua hotline hoặc email bên dưới. Mọi phản ánh được xử lý nghiêm túc và bảo mật thông tin người báo cáo.',
@@ -98,15 +98,15 @@ export const ChildProtection: React.FC = () => {
       </Helmet>
 
       {/* Hero */}
-      <section className="relative pt-32 pb-28 lg:pt-44 lg:pb-36 bg-gray-900 overflow-hidden">
+      <section className="relative pt-32 pb-28 lg:pt-44 lg:pb-36 bg-brand-navy overflow-hidden">
         {/* decorative background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-blue via-[#0A4A8F] to-gray-900" />
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-blue via-brand-blue-dark to-brand-navy" />
         <div className="absolute inset-0 opacity-[0.07]" style={{
           backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)',
           backgroundSize: '28px 28px',
         }} />
         <motion.div
-          className="absolute -top-32 -right-24 w-[28rem] h-[28rem] rounded-full bg-brand-yellow/20 blur-[100px]"
+          className="absolute -top-32 -right-24 w-[28rem] h-[28rem] rounded-full bg-brand-blue-light/30 blur-[100px]"
           animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.8, 0.5] }}
           transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
         />
@@ -134,7 +134,7 @@ export const ChildProtection: React.FC = () => {
           <motion.h1 variants={fadeUp} className="text-3xl md:text-5xl font-heading font-bold mb-6 leading-tight text-white">
             {t('Chính sách bảo vệ trẻ em', 'Child Protection & Safeguarding')}
           </motion.h1>
-          <motion.p variants={fadeUp} className="text-lg text-blue-100/90 leading-relaxed max-w-2xl mx-auto">
+          <motion.p variants={fadeUp} className="text-lg text-white/80 leading-relaxed max-w-2xl mx-auto">
             {t(
               'Tại Huy Võ Education, sự an toàn và phúc lợi của học viên luôn là ưu tiên hàng đầu trong mọi hoạt động — từ lớp học, buổi tập cho đến các sự kiện ngoại khóa.',
               'At Huy Vo Education, the safety and wellbeing of every student is our top priority — in every class, every training session, and every extracurricular event.'
@@ -224,8 +224,8 @@ export const ChildProtection: React.FC = () => {
         className="py-16"
       >
         <div className="max-w-4xl mx-auto px-6">
-          <div className="relative overflow-hidden bg-amber-50 border border-amber-200 rounded-2xl p-8">
-            <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full bg-amber-200/40 blur-2xl" />
+          <div className="relative overflow-hidden bg-[#FDF6DE] border border-brand-yellow/50 rounded-2xl p-8">
+            <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full bg-brand-yellow/30 blur-2xl" />
             <h3 className="relative font-heading font-bold text-gray-900 mb-2">
               {t('Tài liệu chính sách đầy đủ', 'Full policy document')}
             </h3>
@@ -240,8 +240,8 @@ export const ChildProtection: React.FC = () => {
       </motion.section>
 
       {/* Reporting / contact */}
-      <section className="relative py-20 bg-gray-900 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-[#141428] to-gray-900" />
+      <section className="relative py-20 bg-brand-navy overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-navy via-[#1B2A50] to-brand-navy" />
         <motion.div
           className="absolute top-0 left-1/2 -translate-x-1/2 w-[36rem] h-[20rem] rounded-full bg-brand-blue/20 blur-[110px]"
           animate={{ opacity: [0.4, 0.7, 0.4] }}

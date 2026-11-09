@@ -4,10 +4,11 @@ import { Menu, X, Globe, ChevronRight, ChevronDown, PhoneCall } from 'lucide-rea
 import { Link, useLocation } from 'react-router-dom';
 import { useSettings } from '../contexts/SettingsContext';
 import { useHasNews } from '../lib/useHasNews';
+import { BrandLockup } from './BrandLockup';
 
 const NAV_ITEMS: { to: string; vi: string; en: string; children?: { to: string; vi: string; en: string }[] }[] = [
   { to: '/', vi: 'Trang chủ', en: 'Home' },
-  { to: '/chuong-trinh', vi: 'Chương trình học', en: 'Programs' },
+  { to: '/chuong-trinh', vi: 'Lĩnh vực hoạt động', en: 'Activity areas' },
   { to: '/#nha-truong', vi: 'Nhà trường', en: 'For schools' },
   { to: '/doi-ngu-giang-vien', vi: 'Giảng viên', en: 'Instructors' },
   { to: '/tin-tuc', vi: 'Tin tức', en: 'News' },
@@ -35,24 +36,17 @@ export const Header = ({ lang, setLang, isScrolled, mobileMenuOpen, setMobileMen
           <div
             className={`flex justify-between items-center rounded-2xl px-4 sm:px-5 transition-all duration-300 ${
               isScrolled
-                ? 'bg-white/85 backdrop-blur-xl shadow-lg shadow-black/5 border border-white/60 py-2'
-                : 'bg-white/60 backdrop-blur-lg border border-white/40 shadow-sm py-2.5'
+                ? 'bg-white/95 backdrop-blur-xl shadow-lg shadow-brand-navy/5 border border-gray-100 py-2'
+                : 'bg-white/90 backdrop-blur-lg border border-white/60 shadow-sm py-2.5'
             }`}
           >
             <div className="flex items-center gap-3 shrink-0">
-              <Link to="/" className="flex items-center gap-2 group">
-                <img
-                  src="/favicon.svg"
-                  alt="Huy Võ Education"
-                  className="w-9 h-9 transition-transform duration-300 group-hover:rotate-6"
-                />
-                <span className="inline lg:hidden font-heading font-bold text-lg text-gray-900 whitespace-nowrap">
-                  Huy Võ <span className="text-brand-blue">Education</span>
-                </span>
+              <Link to="/" aria-label="Huy Võ Education — Trang chủ" className="flex items-center">
+                <BrandLockup compactOnLg />
               </Link>
             </div>
 
-            <div className="hidden lg:flex items-center gap-0.5 mx-2">
+            <div className="hidden lg:flex items-center gap-0 xl:gap-0.5 mx-1 xl:mx-2">
               {navItems.map(item => {
                 const active = isActive(item.to);
                 if (item.children) {
@@ -65,7 +59,7 @@ export const Header = ({ lang, setLang, isScrolled, mobileMenuOpen, setMobileMen
                     >
                       <Link
                         to={item.to}
-                        className={`relative flex items-center gap-1 px-2.5 py-2 text-sm font-semibold whitespace-nowrap rounded-full transition-colors duration-200 ${
+                        className={`relative flex items-center gap-1 px-2 xl:px-2.5 py-2 text-[13px] xl:text-sm font-semibold whitespace-nowrap rounded-full transition-colors duration-200 ${
                           active ? 'text-brand-blue' : 'text-gray-600 hover:text-brand-blue'
                         }`}
                       >
@@ -93,7 +87,7 @@ export const Header = ({ lang, setLang, isScrolled, mobileMenuOpen, setMobileMen
                                 <Link
                                   key={sub.vi}
                                   to={sub.to}
-                                  className="px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-700 hover:bg-blue-50 hover:text-brand-blue transition-colors"
+                                  className="px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-700 hover:bg-brand-blue-tint hover:text-brand-blue transition-colors"
                                 >
                                   {t(sub.vi, sub.en)}
                                 </Link>
@@ -109,7 +103,7 @@ export const Header = ({ lang, setLang, isScrolled, mobileMenuOpen, setMobileMen
                   <Link
                     key={item.to}
                     to={item.to}
-                    className={`relative px-2.5 py-2 text-sm font-semibold whitespace-nowrap rounded-full transition-colors duration-200 ${
+                    className={`relative px-2 xl:px-2.5 py-2 text-[13px] xl:text-sm font-semibold whitespace-nowrap rounded-full transition-colors duration-200 ${
                       active ? 'text-brand-blue' : 'text-gray-600 hover:text-brand-blue'
                     }`}
                   >
@@ -130,7 +124,7 @@ export const Header = ({ lang, setLang, isScrolled, mobileMenuOpen, setMobileMen
               <a
                 href={`tel:${phoneNumber}`}
                 title={phoneNumber}
-                className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-900/5 hover:bg-brand-blue/10 text-gray-600 hover:text-brand-blue transition-colors"
+                className="hidden xl:flex items-center justify-center w-8 h-8 rounded-full bg-gray-900/5 hover:bg-brand-blue/10 text-gray-600 hover:text-brand-blue transition-colors"
                 aria-label="Gọi ngay"
               >
                 <PhoneCall size={14} />
@@ -144,9 +138,10 @@ export const Header = ({ lang, setLang, isScrolled, mobileMenuOpen, setMobileMen
               </button>
               <Link
                 to="/#register"
-                className="flex items-center gap-1 bg-brand-blue hover:bg-blue-700 text-white px-4 py-2.5 rounded-full font-heading font-semibold text-sm shadow-md shadow-brand-blue/30 hover:shadow-lg hover:shadow-brand-blue/40 hover:-translate-y-0.5 transition-all"
+                className="flex items-center gap-1 bg-brand-blue hover:bg-brand-blue-dark text-white px-4 py-2.5 rounded-full font-heading font-semibold text-sm shadow-md shadow-brand-blue/30 hover:shadow-lg hover:shadow-brand-blue/40 hover:-translate-y-0.5 transition-all"
               >
-                {t('Đăng Ký Đào Tạo', 'Enroll Now')}
+                <span className="hidden xl:inline">{t('Đăng Ký Đào Tạo', 'Enroll Now')}</span>
+                <span className="xl:hidden">{t('Đăng ký', 'Enroll')}</span>
                 <ChevronRight size={16} />
               </Link>
             </div>

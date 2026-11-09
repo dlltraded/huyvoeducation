@@ -26,7 +26,7 @@ export const NotFound: React.FC = () => {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
             to="/"
-            className="flex items-center gap-2 bg-brand-blue hover:bg-blue-700 text-white font-heading font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all"
+            className="flex items-center gap-2 bg-brand-blue hover:bg-brand-blue-dark text-white font-heading font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all"
           >
             <Home size={18} /> {t('Về trang chủ', 'Back to homepage')}
           </Link>
