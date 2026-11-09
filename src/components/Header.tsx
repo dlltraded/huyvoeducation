@@ -4,12 +4,6 @@ import { Menu, X, Globe, ChevronRight, ChevronDown, PhoneCall } from 'lucide-rea
 import { Link, useLocation } from 'react-router-dom';
 import { useSettings } from '../contexts/SettingsContext';
 
-// Per leadership: only the Nhà Văn Hoá logo stays alongside our own — the two
-// organizations co-train together, so only that partnership is shown here.
-const PARTNER_LOGOS = [
-  { src: '/partners/nha-van-hoa-dong-nai.png', alt: 'Nhà Văn Hoá Thanh Thiếu Nhi Thành Phố Đồng Nai' },
-];
-
 const INFO_DROPDOWN = [
   { to: '/tin-tuc', vi: 'Tin Tức', en: 'News' },
   { to: '/tin-tuc', vi: 'Sự kiện', en: 'Events' },
@@ -57,19 +51,6 @@ export const Header = ({ lang, setLang, isScrolled, mobileMenuOpen, setMobileMen
                   Huy Võ <span className="text-brand-blue">Education</span>
                 </span>
               </Link>
-
-              {/* Partner / accreditation badges — same trust cue used on our partner Nhà Văn Hoá's own site */}
-              <div className="hidden md:flex items-center gap-1.5 pl-2.5 border-l border-gray-300/60">
-                {PARTNER_LOGOS.map(logo => (
-                  <img
-                    key={logo.src}
-                    src={logo.src}
-                    alt={logo.alt}
-                    title={logo.alt}
-                    className="w-6 h-6 rounded-full object-contain bg-white shadow-sm ring-1 ring-black/5"
-                  />
-                ))}
-              </div>
             </div>
 
             <div className="hidden lg:flex items-center gap-0.5 mx-2">
@@ -248,16 +229,6 @@ export const Header = ({ lang, setLang, isScrolled, mobileMenuOpen, setMobileMen
                   </Link>
                 )
               ))}
-
-              {/* Partner badges, mobile */}
-              <div className="flex items-center gap-2 pt-3 mt-2 border-t border-gray-100">
-                <span className="text-xs font-bold text-gray-400 uppercase tracking-wide mr-1">
-                  {t('Đối tác', 'Partner')}
-                </span>
-                {PARTNER_LOGOS.map(logo => (
-                  <img key={logo.src} src={logo.src} alt={logo.alt} title={logo.alt} className="w-7 h-7 rounded-full object-contain bg-white shadow-sm ring-1 ring-black/5" />
-                ))}
-              </div>
 
               <div className="pt-4 mt-2 border-t border-gray-100 flex items-center gap-3">
                 <button
