@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { formatPhone, telHref } from '../../lib/phone';
 import { School, Sun, Bus, UserCheck, Check, X, Phone, Mail, BadgeCheck } from 'lucide-react';
 
 // Content mirrors the HVE Company Profile 2026 (services 01–04, "what we are / are not",
@@ -164,8 +165,8 @@ export const ForSchoolsSection = ({ t, phone, email }: { t: any; phone: string; 
             <a href="#lien-he" className="inline-flex items-center justify-center gap-2 bg-brand-green hover:bg-[#46993F] text-white font-heading font-bold px-6 py-3 rounded-full transition-colors">
               {tr('Gửi yêu cầu cho HVE', 'Send a brief to HVE')}
             </a>
-            <a href={`tel:${phone}`} className="inline-flex items-center justify-center gap-2 bg-white hover:bg-brand-blue-tint text-brand-blue font-heading font-bold px-6 py-3 rounded-full transition-colors">
-              <Phone size={18} /> {phone}
+            <a href={telHref(phone)} className="inline-flex items-center justify-center gap-2 bg-white hover:bg-brand-blue-tint text-brand-blue font-heading font-bold px-6 py-3 rounded-full transition-colors">
+              <Phone size={18} /> {formatPhone(phone)}
             </a>
             {email && (
               <a href={`mailto:${email}`} className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/30 font-heading font-semibold px-6 py-3 rounded-full transition-colors">

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { formatPhone, telHref } from '../lib/phone';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Globe, ChevronRight, ChevronDown, PhoneCall } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
@@ -122,8 +123,8 @@ export const Header = ({ lang, setLang, isScrolled, mobileMenuOpen, setMobileMen
 
             <div className="hidden lg:flex items-center gap-2 shrink-0">
               <a
-                href={`tel:${phoneNumber}`}
-                title={phoneNumber}
+                href={telHref(phoneNumber)}
+                title={formatPhone(phoneNumber)}
                 className="hidden xl:flex items-center justify-center w-8 h-8 rounded-full bg-gray-900/5 hover:bg-brand-blue/10 text-gray-600 hover:text-brand-blue transition-colors"
                 aria-label="Gọi ngay"
               >
@@ -148,7 +149,7 @@ export const Header = ({ lang, setLang, isScrolled, mobileMenuOpen, setMobileMen
 
             {/* Mobile: hotline stays one tap away */}
             <a
-              href={`tel:${phoneNumber}`}
+              href={telHref(phoneNumber)}
               className="lg:hidden flex items-center justify-center w-9 h-9 rounded-full bg-brand-blue/10 text-brand-blue mr-1"
               aria-label="Gọi ngay"
             >

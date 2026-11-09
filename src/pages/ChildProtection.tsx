@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatPhone, telHref } from '../lib/phone';
 import { useOutletContext } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
@@ -265,10 +266,10 @@ export const ChildProtection: React.FC = () => {
           </motion.p>
           <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
-              href={`tel:${settings.phone}`}
+              href={telHref(settings.phone)}
               className="flex items-center gap-2 bg-white text-gray-900 font-heading font-bold px-6 py-3 rounded-xl hover:-translate-y-0.5 hover:shadow-xl transition-all"
             >
-              <PhoneCall size={18} /> {settings.phone}
+              <PhoneCall size={18} /> {formatPhone(settings.phone)}
             </a>
             <a
               href={`mailto:${settings.email}`}

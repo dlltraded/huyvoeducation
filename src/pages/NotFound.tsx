@@ -31,10 +31,10 @@ export const NotFound: React.FC = () => {
             <Home size={18} /> {t('Về trang chủ', 'Back to homepage')}
           </Link>
           <a
-            href="tel:0907828939"
+            href="tel:+84907828939"
             className="flex items-center gap-2 bg-white border border-gray-200 text-gray-700 font-heading font-bold px-6 py-3 rounded-xl hover:bg-gray-100 transition-all"
           >
-            <Phone size={18} /> 0907 828 939
+            <Phone size={18} /> (+84)907828939
           </a>
         </div>
       </div>

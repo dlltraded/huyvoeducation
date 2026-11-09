@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { formatPhone, telHref } from '../lib/phone';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle2, Phone, Mail, Loader2 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
@@ -168,7 +169,7 @@ export const RegistrationForm = ({ t, initialProgram = '' }: any) => {
                   </div>
                   <div>
                     <p className="text-sm text-white/70">Hotline</p>
-                    <p className="font-semibold">{settings.phone}</p>
+                    <p className="font-semibold">{formatPhone(settings.phone)}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">

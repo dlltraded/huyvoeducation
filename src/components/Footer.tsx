@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatPhone, telHref } from '../lib/phone';
 import { Link } from 'react-router-dom';
 import { MapPin, Phone, Mail, MessageCircle, ArrowUpRight, Share2, Video } from 'lucide-react';
 import { useSettings } from '../contexts/SettingsContext';
@@ -64,7 +65,7 @@ export const Footer = ({ t }: any) => {
             </li>
             <li className="flex items-center gap-3">
               <Phone size={18} className="text-brand-yellow shrink-0" />
-              <a href={`tel:${settings.phone}`} className="hover:text-white transition-colors">{settings.phone}</a>
+              <a href={telHref(settings.phone)} className="hover:text-white transition-colors">{formatPhone(settings.phone)}</a>
             </li>
             {settings.email && (
               <li className="flex items-center gap-3">
@@ -164,7 +165,7 @@ export const Footer = ({ t }: any) => {
               <a href="mailto:info@huyvoeducation.vn" className="text-white/80 hover:text-white transition-colors underline decoration-white/30">info@huyvoeducation.vn</a>
               <span className="mx-2 text-white/20">|</span>
               <span className="text-white/80 font-medium">{t('Điện thoại:', 'Hotline:')}</span>{' '}
-              <a href="tel:+84907828939" className="text-white/80 hover:text-white transition-colors underline decoration-white/30">(+84) 907 828 939</a>
+              <a href={telHref(settings.phone)} className="text-white/80 hover:text-white transition-colors underline decoration-white/30">{formatPhone(settings.phone)}</a>
             </p>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatPhone, telHref } from '../lib/phone';
 import { useOutletContext } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
@@ -235,10 +236,10 @@ export const Careers: React.FC = () => {
                 <Mail size={18} /> {email}
               </a>
               <a
-                href={`tel:${phoneNumber}`}
+                href={telHref(phoneNumber)}
                 className="flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/30 px-7 py-3.5 rounded-full font-heading font-semibold transition-all"
               >
-                <PhoneCall size={18} /> {phoneNumber}
+                <PhoneCall size={18} /> {formatPhone(phoneNumber)}
               </a>
             </div>
           </motion.div>

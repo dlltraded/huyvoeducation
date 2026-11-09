@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatPhone, telHref } from '../lib/phone';
 import { motion } from 'framer-motion';
 import { PhoneCall, MessageCircle } from 'lucide-react';
 import { useSettings } from '../contexts/SettingsContext';
@@ -21,7 +22,7 @@ export const ContactWidgets = () => {
           <span>Chat Zalo</span>
         </a>
         <a
-          href={`tel:${phoneNumber}`}
+          href={telHref(phoneNumber)}
           className="flex-1 bg-brand-green py-3.5 flex justify-center items-center gap-2 text-white font-semibold text-base active:bg-green-700 transition-colors"
         >
           <PhoneCall size={20} />
@@ -49,7 +50,7 @@ export const ContactWidgets = () => {
 
         {/* Phone Widget */}
         <motion.a
-          href={`tel:${phoneNumber}`}
+          href={telHref(phoneNumber)}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           className="relative group w-14 h-14 bg-brand-green rounded-full flex items-center justify-center shadow-lg shadow-brand-green/30 cursor-pointer"
@@ -57,7 +58,7 @@ export const ContactWidgets = () => {
           <div className="absolute inset-0 bg-brand-green rounded-full animate-ping opacity-40" style={{ animationDuration: '2s' }}></div>
           <PhoneCall className="text-white relative z-10" size={24} />
           <div className="absolute right-full mr-4 top-1/2 -translate-y-1/2 px-3 py-1.5 bg-gray-900 text-white text-sm font-medium rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-            {phoneNumber}
+            {formatPhone(phoneNumber)}
           </div>
         </motion.a>
       </div>

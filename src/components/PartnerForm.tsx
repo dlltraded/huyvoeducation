@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { formatPhone, telHref } from '../lib/phone';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle2, Phone, Mail, Loader2, School, UserCheck, Bus, Sun, MoreHorizontal } from 'lucide-react';
 import { supabase } from '../lib/supabase';
@@ -121,9 +122,9 @@ export const PartnerForm = ({ t }: { t: any }) => {
           </ol>
         </div>
         <div className="space-y-4 text-sm">
-          <a href={`tel:${settings.phone}`} className="flex items-center gap-3 hover:text-white/90">
+          <a href={telHref(settings.phone)} className="flex items-center gap-3 hover:text-white/90">
             <span className="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center"><Phone size={16} /></span>
-            <span className="font-semibold">{settings.phone}</span>
+            <span className="font-semibold">{formatPhone(settings.phone)}</span>
           </a>
           {settings.email && (
             <a href={`mailto:${settings.email}`} className="flex items-center gap-3 hover:text-white/90">
