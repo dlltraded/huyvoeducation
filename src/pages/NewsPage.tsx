@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
-import { Calendar, ArrowRight, Loader2, Image as ImageIcon } from 'lucide-react';
+import { Calendar, ArrowRight, Loader2, Image as ImageIcon, Newspaper } from 'lucide-react';
 import { format } from 'date-fns';
 
 export const NewsPage = () => {
+  const { t } = useOutletContext<any>() || { t: (vi: string) => vi };
   const [posts, setPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -27,38 +28,51 @@ export const NewsPage = () => {
   return (
     <>
       <Helmet>
-        <title>Tin tức & Cập nhật | Huy Võ Education</title>
-        <meta name="description" content="Cập nhật những tin tức, sự kiện và thông báo mới nhất từ Huy Võ Education." />
+        <title>{t('Tin tức & hoạt động | Huy Võ Education', 'News & activities | Huy Võ Education')}</title>
+        <meta name="description" content={t('Hoạt động CCA tại trường, field trip, khóa hè và tin tức mới nhất từ Huy Võ Education.', 'On-campus CCA, field trips, summer camps and the latest news from Huy Võ Education.')} />
       </Helmet>
 
-      <section className="pt-32 pb-20 bg-gray-50 min-h-screen">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-heading font-bold text-gray-900 mb-6">
-              Tin tức & Cập nhật
-            </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Những thông tin mới nhất về các chương trình học, sự kiện ngoại khóa và hoạt động nổi bật tại hệ sinh thái giáo dục của chúng tôi.
-            </p>
-          </div>
+      <section className="relative pt-32 pb-24 lg:pt-40 lg:pb-28 bg-brand-navy overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-blue via-brand-blue-dark to-brand-navy" />
+        <div className="relative max-w-3xl mx-auto px-6 text-center">
+          <p className="uppercase tracking-widest text-xs font-bold text-brand-blue-soft mb-4">{t('Tin tức & hoạt động', 'News & activities')}</p>
+          <h1 className="text-3xl md:text-5xl font-heading font-bold text-white mb-5">{t('Hoạt động của HVE', 'What HVE has been doing')}</h1>
+          <p className="text-lg text-white/80 leading-relaxed">
+            {t('CCA tại trường, field trip, khóa hè và những buổi tổng kết cùng nhà trường. Hình ảnh học sinh chỉ được đăng khi gia đình đồng ý.', 'On-campus CCA, field trips, summer camps and end-of-term reviews with schools. Student photos appear only with family consent.')}
+          </p>
+        </div>
+        <div className="absolute bottom-0 left-0 right-0 leading-none">
+          <svg viewBox="0 0 1440 60" className="w-full h-10 md:h-14" preserveAspectRatio="none">
+            <path d="M0,32 C240,64 480,0 720,16 C960,32 1200,64 1440,32 L1440,60 L0,60 Z" fill="#F9FAFB" />
+          </svg>
+        </div>
+      </section>
 
+      <section className="py-16 bg-gray-50 min-h-[40vh]">
+        <div className="max-w-7xl mx-auto px-6">
           {loading ? (
             <div className="flex justify-center py-20">
               <Loader2 className="animate-spin text-brand-blue w-10 h-10" />
             </div>
           ) : posts.length === 0 ? (
-            <div className="text-center py-20 bg-white rounded-3xl shadow-sm border border-gray-100">
-              <p className="text-gray-500 text-lg">Hiện chưa có bài viết nào được đăng tải.</p>
+            <div className="max-w-2xl mx-auto text-center py-16 px-8 bg-white rounded-3xl border border-gray-100">
+              <div className="w-14 h-14 rounded-2xl bg-brand-blue-tint text-brand-blue flex items-center justify-center mx-auto mb-5"><Newspaper size={26} /></div>
+              <h2 className="text-xl font-heading font-bold text-gray-900 mb-2">{t('Bản tin đầu tiên đang được chuẩn bị', 'Our first update is on its way')}</h2>
+              <p className="text-gray-600 leading-relaxed mb-6">{t('Trong lúc chờ, quý trường và phụ huynh có thể xem các dịch vụ và dự án HVE đang triển khai.', 'Meanwhile, schools and parents can browse the services and projects HVE is running.')}</p>
+              <Link to="/dich-vu#ho-so" className="inline-flex items-center gap-2 bg-brand-blue hover:bg-brand-blue-dark text-white font-heading font-semibold px-6 py-3 rounded-full transition-colors">
+                {t('Xem dự án tiêu biểu', 'See featured projects')} <ArrowRight size={16} />
+              </Link>
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {posts.map(post => (
-                <Link key={post.id} to={`/tin-tuc/${post.id}`} className="group bg-white rounded-3xl shadow-md hover:shadow-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 border border-gray-100 flex flex-col">
-                  <div className="aspect-[4/3] bg-gray-100 relative overflow-hidden">
+                <Link key={post.id} to={`/tin-tuc/${post.id}`} className="group bg-white rounded-2xl shadow-sm hover:shadow-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 border border-gray-100 flex flex-col">
+                  <div className="aspect-[16/10] bg-gray-100 relative overflow-hidden">
                     {post.cover_image ? (
                       <img 
-                        src={post.cover_image} 
+                        src={post.cover_image}
                         alt={post.title}
+                        loading="lazy"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     ) : (
@@ -76,7 +90,7 @@ export const NewsPage = () => {
                       {post.title}
                     </h3>
                     <div className="mt-auto flex items-center gap-2 text-brand-blue font-medium">
-                      Xem chi tiết <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                      {t('Xem chi tiết', 'Read more')} <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                     </div>
                   </div>
                 </Link>

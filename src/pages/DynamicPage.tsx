@@ -17,6 +17,7 @@ import { ProgramFAQSection } from '../components/sections/ProgramFAQSection';
 import { RegistrationForm } from '../components/RegistrationForm';
 import { ForSchoolsSection } from '../components/sections/ForSchoolsSection';
 import { SafetySection } from '../components/sections/SafetySection';
+import { LatestNewsSection } from '../components/sections/LatestNewsSection';
 import { useSettings } from '../contexts/SettingsContext';
 
 const sectionMap: Record<string, React.FC<any>> = {
@@ -100,10 +101,10 @@ export const DynamicPage: React.FC<DynamicPageProps> = ({ slug }) => {
       <Helmet>
         {/* Helmet needs a single string child; JSX text + expression breaks the title. */}
         <title>{slug === 'home'
-          ? t('Huy Võ Education - Đối tác ngoại khóa của nhà trường tại Đồng Nai', 'Huy Võ Education - After-school partner for schools in Đồng Nai')
+          ? t('Huy Võ Education - Đối tác ngoại khóa của nhà trường', 'Huy Võ Education - The after-school partner for schools')
           : `${pageData.title} | Huy Võ Education`}</title>
         {slug === 'home' && (
-          <meta name="description" content={t('Huy Võ Education là đối tác ngoại khóa của nhà trường, học sinh và phụ huynh tại Đồng Nai: CCA tại trường, cung ứng giáo viên và huấn luyện viên, field trip, khóa hè và kỹ năng sống.', 'Huy Võ Education is the after-school partner for schools, students and parents in Đồng Nai: on-campus CCA, instructor and coach staffing, field trips, summer camps and life skills.')} />
+          <meta name="description" content={t('Huy Võ Education là đối tác ngoại khóa của nhà trường, học sinh và phụ huynh: CCA tại trường, cung ứng giáo viên và huấn luyện viên, field trip, khóa hè và kỹ năng sống.', 'Huy Võ Education is the after-school partner for schools, students and parents: on-campus CCA, instructor and coach staffing, field trips, summer camps and life skills.')} />
         )}
       </Helmet>
 
@@ -124,6 +125,7 @@ export const DynamicPage: React.FC<DynamicPageProps> = ({ slug }) => {
         <>
           <ForSchoolsSection t={t} phone={settings.phone} email={settings.email} />
           <SafetySection t={t} />
+          <LatestNewsSection t={t} />
         </>
       )}
 

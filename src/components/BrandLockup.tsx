@@ -26,7 +26,7 @@ export const BrandLockup = ({
         className={showSlogan ? 'h-11 w-auto' : 'h-9 w-auto'}
       />
       <span className="flex flex-col leading-none">
-        <span className={`font-heading font-bold text-[1.05rem] tracking-tight whitespace-nowrap ${reversed ? 'text-white' : 'text-brand-dark'}`}>
+        <span className={`font-heading font-[700] text-[1.05rem] tracking-tight whitespace-nowrap ${reversed ? 'text-white' : 'text-brand-dark'}`}>
           Huy Võ <span className={reversed ? 'text-brand-blue-soft' : 'text-brand-blue'}>Education</span>
         </span>
         {showSlogan && (

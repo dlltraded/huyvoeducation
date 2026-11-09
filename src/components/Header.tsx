@@ -4,14 +4,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Globe, ChevronRight, ChevronDown, PhoneCall } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useSettings } from '../contexts/SettingsContext';
-import { useHasNews } from '../lib/useHasNews';
 import { BrandLockup } from './BrandLockup';
 
 const NAV_ITEMS: { to: string; vi: string; en: string; children?: { to: string; vi: string; en: string }[] }[] = [
   { to: '/', vi: 'Trang chủ', en: 'Home' },
   { to: '/dich-vu', vi: 'Dịch vụ cho nhà trường', en: 'For schools' },
   { to: '/doi-ngu-giang-vien', vi: 'Giảng viên', en: 'Instructors' },
-  { to: '/tin-tuc', vi: 'Tin tức', en: 'News' },
+  { to: '/tin-tuc', vi: 'Hoạt động', en: 'News' },
   { to: '/chinh-sach-bao-ve-tre-em', vi: 'An toàn', en: 'Safeguarding' },
   { to: '/tuyen-dung', vi: 'Tuyển dụng', en: 'Careers' },
 ];
@@ -23,9 +22,7 @@ export const Header = ({ lang, setLang, isScrolled, mobileMenuOpen, setMobileMen
   const [openDropdown, setOpenDropdown] = useState(false);
   const [mobileInfoOpen, setMobileInfoOpen] = useState(false);
 
-  const hasNews = useHasNews();
-  // Hide the News link until at least one post is published.
-  const navItems = NAV_ITEMS.filter(item => item.to !== '/tin-tuc' || hasNews);
+  const navItems = NAV_ITEMS;
 
   const isActive = (to: string) => (to === '/' ? pathname === '/' : pathname.startsWith(to));
 
