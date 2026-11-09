@@ -1,4 +1,5 @@
 import React from 'react';
+import { IllustrationTag } from '../components/IllustrationTag';
 import { Link, useOutletContext, useParams, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
@@ -33,6 +34,7 @@ export const ProgramDetail: React.FC = () => {
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/90 via-brand-blue-dark/90 to-brand-navy/95" />
+        <IllustrationTag t={t} className="top-28 right-6 md:right-8" />
         <div
           className="absolute inset-0 opacity-[0.06]"
           style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '28px 28px' }}

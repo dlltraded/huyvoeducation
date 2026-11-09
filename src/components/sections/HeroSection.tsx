@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { IllustrationTag } from '../IllustrationTag';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -121,6 +122,8 @@ export const HeroSection = ({ props, sectionId, t }: { props: any, sectionId: st
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 md:from-black/60 via-black/10 to-transparent" />
         </motion.div>
       </AnimatePresence>
+
+      <IllustrationTag t={tr} className="top-28 right-6 md:right-8" />
 
       {/* Prev / next arrows */}
       {slides.length > 1 && (

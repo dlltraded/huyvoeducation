@@ -1,4 +1,5 @@
 import React from 'react';
+import { IllustrationTag } from '../IllustrationTag';
 import { motion } from 'framer-motion';
 import { MapPin, CheckCircle2, Building2, Landmark, Waves } from 'lucide-react';
 
@@ -145,6 +146,7 @@ export const FacilitiesSection = ({ props, sectionId, t }: { props: any, section
                   className="w-full h-full object-cover object-[center_30%] group-hover:scale-[1.04] transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                <IllustrationTag t={tr} className="top-2.5 right-2.5" />
                 <span className="absolute bottom-3 left-0 right-0 text-white text-xs md:text-sm font-heading font-bold px-2">
                   {tr(item.vi, item.en)}
                 </span>

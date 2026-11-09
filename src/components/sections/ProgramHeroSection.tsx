@@ -1,4 +1,5 @@
 import React from 'react';
+import { IllustrationTag } from '../IllustrationTag';
 import { motion } from 'framer-motion';
 import { EditableText } from '../editor/EditableText';
 import { EditableImage } from '../editor/EditableImage';
@@ -10,10 +11,11 @@ export const ProgramHeroSection = ({ props, sectionId }: { props: any, sectionId
   const bg_image = props?.bg_image || 'https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=1600&auto=format&fit=crop';
 
   return (
-    <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-gray-900 overflow-hidden">
+    <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-brand-navy overflow-hidden">
+      <IllustrationTag className="top-28 right-6 md:right-8" />
       <div className="absolute inset-0 z-0 flex items-center justify-center">
         <EditableImage src={bg_image} alt={title} className="w-full h-full object-cover opacity-40 absolute inset-0" sectionId={sectionId} path="bg_image" />
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent pointer-events-none"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-navy via-brand-navy/60 to-transparent pointer-events-none"></div>
       </div>
       <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>

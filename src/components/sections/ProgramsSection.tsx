@@ -1,4 +1,5 @@
 import React from 'react';
+import { IllustrationTag } from '../IllustrationTag';
 import { motion } from 'framer-motion';
 import { ArrowRight, Trophy, Palette, FlaskConical } from 'lucide-react';
 import bongDaImg from '../../assets/images/bong_da_real.jpg';
@@ -81,6 +82,7 @@ export const ProgramsSection = ({ props, sectionId, t }: { props: any, sectionId
               <div className="aspect-[16/10] relative overflow-hidden flex items-center justify-center">
                 
                 <EditableImage src={prog.img} alt={prog.title} className="w-full h-full object-cover object-[center_30%] group-hover:scale-[1.03] transition-transform duration-700 ease-out absolute inset-0" sectionId={sectionId} path={`programs[${i}].img`} />
+                <IllustrationTag t={t} />
                 <div className="absolute top-4 right-4 w-12 h-12 bg-white/95 rounded-2xl shadow-sm z-20 flex items-center justify-center text-brand-blue">
                   {(() => { const Icon = PROGRAM_ICONS[prog.id]; return Icon ? <Icon size={22} /> : <span className="text-2xl">{prog.icon}</span>; })()}
                 </div>

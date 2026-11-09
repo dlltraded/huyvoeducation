@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { ArrowRight, Trophy, Waves, Palette, HeartHandshake, FlaskConical, School, Home, Sun, Bus } from 'lucide-react';
 import { PROGRAMS, type Program } from '../data/programs';
+import { IllustrationTag } from '../components/IllustrationTag';
 
 const fadeUp: any = {
   hidden: { opacity: 0, y: 26 },
@@ -86,6 +87,7 @@ const ProgramCard = ({ p, t }: { p: Program; t: any }) => (
           loading="lazy"
           className="w-full h-full object-cover object-[center_30%] group-hover:scale-[1.04] transition-transform duration-500"
         />
+        <IllustrationTag t={t} />
       </div>
       <div className="p-6">
         <h4 className="font-heading font-bold text-lg text-gray-900 mb-1">{t(p.name.vi, p.name.en)}</h4>

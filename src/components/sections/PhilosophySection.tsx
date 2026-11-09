@@ -1,4 +1,5 @@
 import React from 'react';
+import { IllustrationTag } from '../IllustrationTag';
 import { motion } from 'framer-motion';
 import { BookOpen, Users, Award, Sparkles } from 'lucide-react';
 
@@ -88,6 +89,7 @@ export const PhilosophySection = ({ props, sectionId }: { props: any, sectionId:
               <div className="aspect-[16/10] overflow-hidden relative">
                 <EditableImage src={item.img} alt={item.title} className="w-full h-full object-cover object-[center_35%]" sectionId={sectionId} path={`items[${i}].img`} />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                <IllustrationTag className="top-3 right-3" />
                 <div className={`absolute bottom-4 left-4 w-12 h-12 rounded-xl ${item.bg} ${item.color} flex items-center justify-center shadow-lg`}>
                   <Icon size={24} />
                 </div>
