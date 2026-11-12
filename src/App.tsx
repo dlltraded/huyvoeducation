@@ -57,7 +57,7 @@ function App() {
 
           <Route path="/admin/login" element={<Login />} />
           <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<div className="p-8 text-xl font-bold">Trang chủ Admin (Đang cập nhật)</div>} />
+            <Route index element={<Navigate to="leads" replace />} />
             <Route path="news" element={<NewsManager />} />
             <Route path="content" element={<PageBuilder />} />
             <Route path="settings" element={<GlobalSettings />} />
