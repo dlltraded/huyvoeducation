@@ -1,6 +1,28 @@
 {
   "redirects": [
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.huyvoeducation.com"
+        }
+      ],
+      "destination": "https://www.huyvoeducation.vn/",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "huyvoeducation.com"
+        }
+      ],
+      "destination": "https://www.huyvoeducation.vn/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [
         {
