@@ -44,3 +44,16 @@ API tham khảo: https://ai.google.dev/gemini-api/docs/structured-output
 - Kiểm tra trình duyệt với API giả lập: sửa/lưu, tự dịch, ẩn khỏi danh sách và chi tiết, chặn ghi khi dịch lỗi, xung đột phiên bản, thêm giảng viên mặc định ẩn, bố cục điện thoại không tràn ngang.
 - `node --test tests/catalog-translation.test.mjs`: qua; kiểm tra phương thức, đăng nhập, quyền admin, cấu hình, đầu vào sai/quá lớn, bản dịch thành công/bị cắt và lỗi nhà cung cấp.
 - Đã kiểm chứng RLS hiện tại bằng truy vấn read-only; gọi Gemini trực tiếp thành công. Các bài kiểm tra tự động dùng dữ liệu giả lập.
+
+## Nghiệm thu production 17/11/2026
+
+- Production READY: `dpl_FuznLTGuMTVZNQhcfih5ScNzSurm`; tên miền chính `https://www.huyvoeducation.vn`.
+- Mã ứng dụng đã kiểm tra: `c192fd5`.
+- Đã đăng nhập admin thật, lưu 9 môn và 9 giảng viên vào `site_content`; cả 18 mục vẫn hiển thị.
+- Tự dịch khi lưu đã điền tiếng Anh cho thời lượng 9 môn, ví dụ `24 buổi → 24 sessions`. Gộp phần thiếu vào một lượt gọi để giảm giới hạn Gemini; danh mục lớn chia nhóm theo kích thước.
+- Nút dịch hồ sơ giảng viên trả bản dịch xem trước thành công. Đã bỏ bản xem trước sau kiểm tra, giữ nguyên hồ sơ đã duyệt.
+- Trang công khai chi tiết Bóng đá ở chế độ EN hiển thị `Football`, `24 sessions` và giảng viên phụ trách từ danh mục; trang đội ngũ hiển thị đủ 9 người.
+- API thật trả 405 khi GET, 401 khi chưa đăng nhập hoặc token giả. Quyền bảng CMS đã kiểm tra read-only: RLS bật, chỉ UUID admin được ghi.
+- Quét output build và toàn bộ file Git theo dõi: không chứa khóa Gemini. Khóa chỉ nằm trong Vercel Production Secret và file local được Git bỏ qua.
+- Ảnh nghiệm thu: `E:/HUYVOEDUCATION/outputs/hve-catalog-admin/production-admin.jpg`.
+- Build, lint và test handler qua. Ẩn/hiện, thêm và xung đột phiên bản đã kiểm tra bằng API giả lập; không cố tình ẩn nội dung đang công khai khi nghiệm thu production.
