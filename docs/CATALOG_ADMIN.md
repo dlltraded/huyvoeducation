@@ -9,7 +9,7 @@
 - `/admin/programs`: thêm/sửa môn học, nhóm môn, ảnh tải trực tiếp hoặc bằng URL, thời lượng, độ tuổi, giới thiệu và điểm nổi bật.
 - `/admin/instructors`: thêm/sửa hồ sơ giảng viên, ảnh tải trực tiếp hoặc bằng URL, kinh nghiệm và thành tích.
 - Nhãn mùa/học kỳ chỉ là ghi chú trong admin; không tự lên lịch đổi mùa.
-- Dùng Hiển thị trên website và Lên/Xuống để đổi danh sách theo mùa. Mục mới mặc định ẩn; không có xoá vĩnh viễn.
+- Dùng Hiển thị trên website và Lên/Xuống để đổi danh sách theo mùa. Mục mới mặc định ẩn. Nút Xoá bỏ mục khỏi danh sách đang sửa sau khi xác nhận; phải bấm Lưu danh sách để ghi thay đổi.
 - Lưu danh sách ghi toàn bộ danh mục. Kiểm tra phiên bản `updated_at` ngăn ghi đè khi có phiên khác đã lưu trước.
 - Tự dịch khi lưu mặc định bật, chỉ điền các bản tiếng Anh còn thiếu. Bản đã nhập tay được giữ lại.
 - Sửa tiếng Việt xoá bản tiếng Anh tương ứng. Nút Dịch sang tiếng Anh dịch lại toàn bộ mục, có xác nhận trước khi thay bản đã có.
@@ -66,3 +66,11 @@ API tham khảo: https://ai.google.dev/gemini-api/docs/structured-output
 - Bucket công khai để phục vụ ảnh website. RLS chỉ cho UUID admin hiện có INSERT/SELECT; không cho khách tải lên, không cấp UPDATE/DELETE. Chỉ nhận MIME JPG/PNG/WebP và giới hạn 5 MB tại máy chủ.
 - Ảnh có sẵn: 9 ảnh giảng viên ở `public/instructors/` và một số ảnh môn ở `src/assets/images/`, phục vụ qua Vercel; vài ảnh môn dùng Pexels. Danh mục Supabase lưu đường dẫn ảnh; việc thêm upload không di chuyển toàn bộ ảnh cũ.
 - Migration `20261117043902_catalog_image_uploads.sql` đã áp dụng production bằng MCP. Đã kiểm tra bucket, MIME, giới hạn dung lượng, RLS và advisor; không có lỗi storage mới.
+
+## Sửa biểu mẫu tên và thêm xoá danh mục
+
+- Tên giảng viên/tên môn học được render tường minh ở đầu biểu mẫu, không phụ thuộc thứ tự thuộc tính JSON từ database hoặc dữ liệu mặc định.
+- Khi thêm mới, tự cuộn tới ô tên và đặt con trỏ để nhập ngay.
+- Xoá có xác nhận theo tên mục; chỉ thay danh sách đang sửa, chưa ghi database cho tới khi bấm Lưu danh sách. Không xoá file ảnh trên Storage.
+- Hỗ trợ xoá mục cuối cùng, lưu danh sách rỗng và tạo lại mục mới; danh sách rỗng đã lưu không khôi phục dữ liệu mẫu.
+- Build/lint và kiểm tra câu chữ qua. Kiểm tra trình duyệt với API giả lập cho cả môn học/giảng viên: thứ tự tên với thuộc tính JSON xáo trộn, nhập tên mới và focus, huỷ xoá, xác nhận xoá, chỉ ghi khi Lưu, lưu/reread danh sách rỗng và thêm lại. Không xoá dữ liệu production để thử nghiệm.
