@@ -1,9 +1,10 @@
+import { useCatalog } from '../lib/catalog';
 import React, { useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GraduationCap, Users, X, Award, MapPin, User } from 'lucide-react';
-import { INSTRUCTORS, type Instructor } from '../data/instructors';
+import { type Instructor } from '../data/instructors';
 
 const fadeUp: any = {
   hidden: { opacity: 0, y: 26 },
@@ -15,16 +16,21 @@ const stagger: any = {
   visible: { transition: { staggerChildren: 0.08 } },
 };
 
-const STATS = [
-  { value: '9', vi: 'Gương mặt tiêu biểu', en: 'Featured instructors' },
-  { value: '100+', vi: 'Năm kinh nghiệm cộng dồn', en: 'Combined years of experience' },
-  { value: '6', vi: 'Bộ môn chuyên sâu', en: 'Specializations' },
-];
+
 
 export const Instructors: React.FC = () => {
-  const { t } = useOutletContext<any>() || { t: (vi: string) => vi };
+  const { t: translate } = useOutletContext<any>() || { t: (vi: string) => vi };
+  const t = (vi: string, en: string) => translate(vi, en || vi);
+  const { items: catalogItems, loading: catalogLoading, error: catalogError } = useCatalog('instructors');
+  const INSTRUCTORS = catalogItems as Instructor[];
   const [active, setActive] = useState<Instructor | null>(null);
 
+  const STATS = [
+    { value: String(INSTRUCTORS.length), vi: 'Gương mặt tiêu biểu', en: 'Featured instructors' },
+    { value: String(new Set(INSTRUCTORS.map(i => i.specializationTag.vi)).size), vi: 'Bộ môn chuyên sâu', en: 'Specializations' },
+  ];
+  if (catalogError) return <p role="alert" className="pt-40 pb-20 text-center">{t('Chưa tải được danh sách. Vui lòng tải lại trang.', 'Unable to load the list. Please refresh the page.')}</p>;
+  if (catalogLoading) return <p className="pt-40 pb-20 text-center">{t('Đang tải…', 'Loading…')}</p>;
   return (
     <div className="bg-white">
       <Helmet>
@@ -82,7 +88,7 @@ export const Instructors: React.FC = () => {
             )}
           </motion.p>
 
-          <motion.div variants={fadeUp} className="grid grid-cols-3 gap-4 max-w-lg mx-auto">
+          <motion.div variants={fadeUp} className="grid grid-cols-2 gap-4 max-w-lg mx-auto">
             {STATS.map((s, i) => (
               <div key={i} className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl py-4 px-2">
                 <p className="text-2xl md:text-3xl font-heading font-bold text-white">{s.value}</p>
@@ -195,7 +201,7 @@ export const Instructors: React.FC = () => {
                     { label: t('Kinh nghiệm', 'Experience'), value: t(active.experience.vi, active.experience.en) },
                     { label: t('Học viên', 'Learners'), value: `${active.learners} ${t('tuổi', 'yrs')}` },
                     { label: t('Sĩ số lớp', 'Class size'), value: active.classSize },
-                    { label: t('Năm sinh', 'Born'), value: String(active.yearOfBirth) },
+                    { label: t('Năm sinh', 'Born'), value: active.yearOfBirth ? String(active.yearOfBirth) : '—' },
                   ].map((item, i) => (
                     <div key={i} className="bg-gray-50 rounded-xl p-3 text-center">
                       <p className="text-sm font-heading font-bold text-gray-900">{item.value}</p>

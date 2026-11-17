@@ -1,11 +1,12 @@
+import { useCatalog } from '../lib/catalog';
 import React from 'react';
 import { IllustrationTag } from '../components/IllustrationTag';
 import { Link, useOutletContext, useParams, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { ArrowLeft, CalendarDays, Users, CheckCircle2, MapPin, Wallet, Clock, Trophy, Shield, Palette } from 'lucide-react';
-import { INSTRUCTORS } from '../data/instructors';
-import { PROGRAMS, CATEGORIES } from '../data/programs';
+import type { Instructor } from '../data/instructors';
+import { CATEGORIES } from '../data/programs';
 
 const fadeUp: any = {
   hidden: { opacity: 0, y: 26 },
@@ -24,10 +25,17 @@ const LEAD_INSTRUCTORS: Record<string, string[]> = {
 const stagger: any = { hidden: {}, visible: { transition: { staggerChildren: 0.1 } } };
 
 export const ProgramDetail: React.FC = () => {
-  const { t } = useOutletContext<any>() || { t: (vi: string) => vi };
+  const { items: catalogItems, loading: catalogLoading, error: catalogError } = useCatalog('programs');
+  const PROGRAMS = catalogItems as (import('../data/programs').Program & { sessionsEn?: string })[];
+  const { t: translate } = useOutletContext<any>() || { t: (vi: string) => vi };
+  const t = (vi: string, en: string) => translate(vi, en || vi);
+  const { items: instructorItems } = useCatalog('instructors');
+  const INSTRUCTORS = instructorItems as Instructor[];
   const { slug } = useParams();
   const program = PROGRAMS.find(p => p.slug === slug);
 
+  if (catalogError) return <p role="alert" className="pt-40 pb-20 text-center">{t('Chưa tải được danh sách. Vui lòng tải lại trang.', 'Unable to load the list. Please refresh the page.')}</p>;
+  if (catalogLoading) return <p className="pt-40 pb-20 text-center">{t('Đang tải…', 'Loading…')}</p>;
   if (!program) return <Navigate to="/dich-vu#linh-vuc" replace />;
 
   return (
@@ -80,7 +88,7 @@ export const ProgramDetail: React.FC = () => {
               <Users size={15} /> {program.ageGroups} {t('tuổi', 'yrs old')}
             </span>
             <span className="flex items-center gap-2 bg-white/10 border border-white/15 rounded-full px-4 py-2 text-sm text-white">
-              <CalendarDays size={15} /> {program.sessions}
+              <CalendarDays size={15} /> {t(program.sessions, program.sessionsEn || program.sessions.replace(/buổi/g, 'sessions').replace(/cấp đai/g, 'belt level').replace(/cấp/g, 'level'))}
             </span>
           </motion.div>
         </motion.div>
@@ -126,7 +134,7 @@ export const ProgramDetail: React.FC = () => {
             <dl className="divide-y divide-gray-100 rounded-2xl border border-gray-100 overflow-hidden text-sm">
               {[
                 { Icon: Users, k: t('Độ tuổi', 'Ages'), v: `${program.ageGroups} ${t('tuổi', 'years')}` },
-                { Icon: CalendarDays, k: t('Thời lượng', 'Length'), v: program.sessions },
+                { Icon: CalendarDays, k: t('Thời lượng', 'Length'), v: t(program.sessions, program.sessionsEn || program.sessions.replace(/buổi/g, 'sessions').replace(/cấp đai/g, 'belt level').replace(/cấp/g, 'level')) },
                 { Icon: MapPin, k: t('Nơi học', 'Where'), v: t('Tại trường đối tác (CCA) hoặc tại campus HVE', 'At partner schools (CCA) or at HVE campuses') },
                 { Icon: Clock, k: t('Lịch mở lớp', 'Schedule'), v: t('Theo học kỳ của từng trường; HVE gửi lịch cụ thể khi tư vấn', "Follows each school's term; HVE sends the exact timetable when advising") },
                 { Icon: Wallet, k: t('Học phí', 'Fees'), v: t('Báo theo trường và hình thức học, gửi trước khi ba mẹ quyết định', 'Quoted per school and format, before you decide') },

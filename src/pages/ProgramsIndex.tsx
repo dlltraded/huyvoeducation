@@ -1,10 +1,11 @@
+import { useCatalog } from '../lib/catalog';
 import React from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { ArrowRight, Trophy, Waves, Palette, HeartHandshake, FlaskConical, Check, X, BadgeCheck } from 'lucide-react';
 import { SERVICES, WE_ARE, WE_ARE_NOT, PROCESS } from '../components/sections/ForSchoolsSection';
-import { PROGRAMS, type Program } from '../data/programs';
+import { type Program } from '../data/programs';
 import { IllustrationTag } from '../components/IllustrationTag';
 
 const fadeUp: any = {
@@ -69,7 +70,7 @@ const SUBGROUP: Record<Program['category'], { vi: string; en: string }> = {
   arts: { vi: 'Nghệ thuật & văn hóa', en: 'Arts & culture' },
 };
 
-const ProgramCard = ({ p, t }: { p: Program; t: any }) => (
+const ProgramCard = ({ p, t }: { p: Program & { sessionsEn?: string }; t: any }) => (
   <motion.div variants={fadeUp}>
     <Link
       to={`/chuong-trinh/${p.slug}`}
@@ -88,7 +89,7 @@ const ProgramCard = ({ p, t }: { p: Program; t: any }) => (
         <h4 className="font-heading font-bold text-lg text-gray-900 mb-1">{t(p.name.vi, p.name.en)}</h4>
         <p className="text-sm text-gray-500 mb-4">{t(p.tagline.vi, p.tagline.en)}</p>
         <div className="flex items-center justify-between text-xs text-gray-500 font-semibold">
-          <span>{p.ageGroups} {t('tuổi', 'yrs')} · {p.sessions}</span>
+          <span>{p.ageGroups} {t('tuổi', 'yrs')} · {t(p.sessions, p.sessionsEn || p.sessions.replace(/buổi/g, 'sessions').replace(/cấp đai/g, 'belt level').replace(/cấp/g, 'level'))}</span>
           <ArrowRight size={16} className="text-brand-blue group-hover:translate-x-1 transition-transform" />
         </div>
       </div>
@@ -97,8 +98,13 @@ const ProgramCard = ({ p, t }: { p: Program; t: any }) => (
 );
 
 export const ProgramsIndex: React.FC = () => {
-  const { t } = useOutletContext<any>() || { t: (vi: string) => vi };
+  const { items: catalogItems, loading: catalogLoading, error: catalogError } = useCatalog('programs');
+  const PROGRAMS = catalogItems as (import('../data/programs').Program & { sessionsEn?: string })[];
+  const { t: translate } = useOutletContext<any>() || { t: (vi: string) => vi };
+  const t = (vi: string, en: string) => translate(vi, en || vi);
 
+  if (catalogError) return <p role="alert" className="pt-40 pb-20 text-center">{t('Chưa tải được danh sách. Vui lòng tải lại trang.', 'Unable to load the list. Please refresh the page.')}</p>;
+  if (catalogLoading) return <p className="pt-40 pb-20 text-center">{t('Đang tải…', 'Loading…')}</p>;
   return (
     <div className="bg-white">
       <Helmet>

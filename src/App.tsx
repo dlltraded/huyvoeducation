@@ -17,6 +17,7 @@ const NewsManager = lazy(() => import('./pages/admin/NewsManager').then(m => ({ 
 const PageBuilder = lazy(() => import('./pages/admin/PageBuilder').then(m => ({ default: m.PageBuilder })));
 const GlobalSettings = lazy(() => import('./pages/admin/GlobalSettings').then(m => ({ default: m.GlobalSettings })));
 const LeadsManager = lazy(() => import('./pages/admin/LeadsManager').then(m => ({ default: m.LeadsManager })));
+const CatalogManager = lazy(() => import('./pages/admin/CatalogManager').then(m => ({ default: m.CatalogManager })));
 const ReferrersManager = lazy(() => import('./pages/admin/ReferrersManager').then(m => ({ default: m.ReferrersManager })));
 import { NotFound } from './pages/NotFound';
 import ScrollToTop from './components/ScrollToTop';
@@ -58,6 +59,8 @@ function App() {
           <Route path="/admin/login" element={<Login />} />
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<Navigate to="leads" replace />} />
+            <Route path="programs" element={<CatalogManager key="programs" kind="programs" />} />
+            <Route path="instructors" element={<CatalogManager key="instructors" kind="instructors" />} />
             <Route path="news" element={<NewsManager />} />
             <Route path="content" element={<PageBuilder />} />
             <Route path="settings" element={<GlobalSettings />} />

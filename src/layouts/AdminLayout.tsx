@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, useNavigate, Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Newspaper, Settings, LogOut, Loader2, Users, Gift } from 'lucide-react';
+import { LayoutDashboard, Newspaper, Settings, LogOut, Loader2, Users, Gift, BookOpen, GraduationCap } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
 export const AdminLayout = () => {
@@ -39,6 +39,8 @@ export const AdminLayout = () => {
   };
 
   const navItems = [
+    { name: 'Môn học', mobileName: 'Môn học', path: '/admin/programs', icon: BookOpen },
+    { name: 'Giảng viên', mobileName: 'Giảng viên', path: '/admin/instructors', icon: GraduationCap },
     { name: 'Lead đăng ký', mobileName: 'Leads', path: '/admin/leads', icon: Users },
     { name: 'Giới thiệu (Referral)', mobileName: 'Referral', path: '/admin/referrers', icon: Gift },
     { name: 'Quản lý Tin tức', mobileName: 'Tin tức', path: '/admin/news', icon: Newspaper },
@@ -126,7 +128,7 @@ export const AdminLayout = () => {
       </div>
 
       {/* Mobile Bottom Navigation */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-between items-center z-50 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex overflow-x-auto items-center z-50 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = location.pathname.startsWith(item.path);
@@ -134,7 +136,7 @@ export const AdminLayout = () => {
             <Link
               key={item.path}
               to={item.path}
-              className={`flex flex-col items-center justify-center py-3 px-1 flex-1 transition-colors ${
+              className={`flex flex-col items-center justify-center py-3 px-1 flex-1 min-w-[70px] transition-colors ${
                 isActive ? 'text-brand-blue' : 'text-gray-400 hover:text-gray-600'
               }`}
             >
