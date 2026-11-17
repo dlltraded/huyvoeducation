@@ -48,8 +48,15 @@ export async function translateCatalogItem(item: CatalogItem, missingOnly = fals
   collect(item, '');
   if ('sessions' in item && item.sessions.trim() && (!missingOnly || !item.sessionsEn)) fields.sessionsEn = item.sessions;
   if (!Object.keys(fields).length) return structuredClone(item);
-  const { data, error } = await supabase.functions.invoke('translate-catalog', { body: { fields } });
-  if (error) throw new Error('Chưa dịch được. Vui lòng kiểm tra dịch vụ dịch hoặc nhập bản tiếng Anh thủ công.');
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) throw new Error('Vui lòng đăng nhập lại để dịch nội dung.');
+  const response = await fetch('/api/translate-catalog', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${session.access_token}` },
+    body: JSON.stringify({ fields }),
+  });
+  const data = await response.json();
+  if (!response.ok) throw new Error('Chưa dịch được. Vui lòng kiểm tra dịch vụ dịch hoặc nhập bản tiếng Anh thủ công.');
   if (!data?.fields || Object.keys(fields).some(key => typeof data.fields[key] !== 'string' || !data.fields[key].trim())) throw new Error('Bản dịch chưa đầy đủ. Vui lòng thử lại.');
   const result = structuredClone(item);
   for (const key of Object.keys(fields)) {
