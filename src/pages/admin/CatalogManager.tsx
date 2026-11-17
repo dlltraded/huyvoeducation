@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { catalogKey, defaults, loadCatalog, translateCatalogItem, translateCatalogItems, type CatalogItem, type CatalogKind } from '../../lib/catalog';
 import { CATEGORIES } from '../../data/programs';
 import { supabase } from '../../lib/supabase';
+import { CatalogImageUpload } from '../../components/editor/CatalogImageUpload';
 
 const labels: Record<string, string> = {
   slug: 'Đường dẫn (không dấu)', name: 'Tên', icon: 'Biểu tượng', img: 'Đường dẫn ảnh', photo: 'Đường dẫn ảnh chân dung',
@@ -38,6 +39,7 @@ export function CatalogManager({ kind }: { kind: CatalogKind }) {
   const update = (next: CatalogItem) => { setItems(items.map((value, i) => i === selected ? next : value)); setDirty(true); setMessage(''); };
   const field = (key: string, value: unknown) => {
     const set = (next: unknown) => update({ ...item, [key]: next } as CatalogItem);
+    if (key === 'img' || key === 'photo') return <CatalogImageUpload key={`${selected}-${key}`} value={typeof value === 'string' ? value : ''} kind={kind} onChange={set} onBusyChange={setBusy} />;
     if (Array.isArray(value)) return <div key={key} className="space-y-3"><h3 className="font-semibold">{labels[key]}</h3>{value.map((pair, index) => <div key={index} className="grid sm:grid-cols-2 gap-2"><textarea aria-label={`${labels[key]} ${index + 1} tiếng Việt`} className={inputClass} placeholder="Tiếng Việt" value={pair.vi} onChange={e => set(value.map((p, i) => i === index ? { ...p, vi: e.target.value, en: '' } : p))} /><textarea aria-label={`${labels[key]} ${index + 1} tiếng Anh`} className={inputClass} placeholder="English" value={pair.en} onChange={e => set(value.map((p, i) => i === index ? { ...p, en: e.target.value } : p))} /><button type="button" className="text-red-600 text-left" onClick={() => set(value.filter((_, i) => i !== index))}>Bỏ dòng</button></div>)}<button type="button" className="text-brand-blue" onClick={() => set([...value, { vi: '', en: '' }])}>+ Thêm dòng</button></div>;
     if (value && typeof value === 'object' && 'vi' in value) {
       const pair = value as { vi: string; en: string };

@@ -2,13 +2,12 @@
 
 ## Trạng thái ngày 17/11/2026
 
-Đã làm và kiểm tra ở local; chưa push hoặc triển khai website/Edge Function.
-Chưa kiểm tra lưu bằng tài khoản admin thật hoặc dịch với Gemini thật.
+Đã triển khai website thật, nghiệm thu đăng nhập admin, lưu danh mục và dịch Gemini.
 
 ## Sử dụng
 
-- `/admin/programs`: thêm/sửa môn học, nhóm môn, ảnh bằng URL, thời lượng, độ tuổi, giới thiệu và điểm nổi bật.
-- `/admin/instructors`: thêm/sửa hồ sơ giảng viên, ảnh bằng URL, kinh nghiệm và thành tích.
+- `/admin/programs`: thêm/sửa môn học, nhóm môn, ảnh tải trực tiếp hoặc bằng URL, thời lượng, độ tuổi, giới thiệu và điểm nổi bật.
+- `/admin/instructors`: thêm/sửa hồ sơ giảng viên, ảnh tải trực tiếp hoặc bằng URL, kinh nghiệm và thành tích.
 - Nhãn mùa/học kỳ chỉ là ghi chú trong admin; không tự lên lịch đổi mùa.
 - Dùng Hiển thị trên website và Lên/Xuống để đổi danh sách theo mùa. Mục mới mặc định ẩn; không có xoá vĩnh viễn.
 - Lưu danh sách ghi toàn bộ danh mục. Kiểm tra phiên bản `updated_at` ngăn ghi đè khi có phiên khác đã lưu trước.
@@ -57,3 +56,13 @@ API tham khảo: https://ai.google.dev/gemini-api/docs/structured-output
 - Quét output build và toàn bộ file Git theo dõi: không chứa khóa Gemini. Khóa chỉ nằm trong Vercel Production Secret và file local được Git bỏ qua.
 - Ảnh nghiệm thu: `E:/HUYVOEDUCATION/outputs/hve-catalog-admin/production-admin.jpg`.
 - Build, lint và test handler qua. Ẩn/hiện, thêm và xung đột phiên bản đã kiểm tra bằng API giả lập; không cố tình ẩn nội dung đang công khai khi nghiệm thu production.
+
+## Tải ảnh trực tiếp
+
+- Admin môn học/giảng viên có nút chọn ảnh từ máy/điện thoại và ảnh xem trước. Dùng đường dẫn có sẵn vẫn nằm trong mục mở rộng.
+- Nhận JPG/PNG/WebP tối đa 15 MB. Trình duyệt chuyển thành WebP (hoặc PNG nếu trình duyệt không hỗ trợ), cạnh dài tối đa 1920 px, tải file tối đa 5 MB. Không cắt ảnh.
+- Kho `website-images` trong Supabase project HVE, thư mục `programs/` và `instructors/`. Mỗi lần tải dùng UUID mới, không ghi đè ảnh cũ.
+- Ảnh tải xong chưa đổi website cho tới khi bấm Lưu danh sách. Nếu bỏ chỉnh sửa, file đã tải vẫn còn trong kho; chưa có chức năng dọn ảnh không sử dụng.
+- Bucket công khai để phục vụ ảnh website. RLS chỉ cho UUID admin hiện có INSERT/SELECT; không cho khách tải lên, không cấp UPDATE/DELETE. Chỉ nhận MIME JPG/PNG/WebP và giới hạn 5 MB tại máy chủ.
+- Ảnh có sẵn: 9 ảnh giảng viên ở `public/instructors/` và một số ảnh môn ở `src/assets/images/`, phục vụ qua Vercel; vài ảnh môn dùng Pexels. Danh mục Supabase lưu đường dẫn ảnh; việc thêm upload không di chuyển toàn bộ ảnh cũ.
+- Migration `20261117043902_catalog_image_uploads.sql` đã áp dụng production bằng MCP. Đã kiểm tra bucket, MIME, giới hạn dung lượng, RLS và advisor; không có lỗi storage mới.
