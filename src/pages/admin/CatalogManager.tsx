@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { catalogKey, defaults, loadCatalog, needsTranslation, translateCatalogItem, type CatalogItem, type CatalogKind } from '../../lib/catalog';
+import { catalogKey, defaults, loadCatalog, translateCatalogItem, translateCatalogItems, type CatalogItem, type CatalogKind } from '../../lib/catalog';
 import { CATEGORIES } from '../../data/programs';
 import { supabase } from '../../lib/supabase';
 
@@ -56,8 +56,7 @@ export function CatalogManager({ kind }: { kind: CatalogKind }) {
     if (items.some(i => typeof i.name === 'string' ? !i.name.trim() : !i.name.vi.trim())) { setMessage('Vui lòng nhập tên cho mọi mục.'); return; }
     setBusy(true);
     try {
-      const savedItems: CatalogItem[] = [];
-      for (const entry of items) savedItems.push(autoTranslate && needsTranslation(entry) ? await translateCatalogItem(entry, true) : entry);
+      const savedItems = autoTranslate ? await translateCatalogItems(items, true) : items;
       const updated_at = new Date().toISOString();
       const payload = { section_key: catalogKey(kind), content: { items: savedItems }, updated_at };
       const query = version

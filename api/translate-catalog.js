@@ -36,7 +36,7 @@ export default async function handler(req, res) {
     });
     if (!response.ok) {
       console.error('Catalog translation provider failed', response.status);
-      return res.status(502).json({ error: 'Translation provider unavailable' });
+      return res.status(response.status === 429 ? 429 : 502).json({ error: 'Translation provider unavailable' });
     }
     const generated = await response.json();
     const candidate = generated.candidates?.[0];

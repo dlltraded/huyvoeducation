@@ -40,7 +40,7 @@ test('translation authenticates the CMS admin and rejects failed or incomplete t
     assert.deepEqual(result.body, { fields: { summary: 'English translation' } });
     assert.equal(result.headers['Cache-Control'], 'no-store');
     finishReason = 'MAX_TOKENS'; assert.equal((await invoke()).statusCode, 502);
-    finishReason = 'STOP'; providerStatus = 429; assert.equal((await invoke()).statusCode, 502);
+    finishReason = 'STOP'; providerStatus = 429; assert.equal((await invoke()).statusCode, 429);
   } finally {
     globalThis.fetch = originalFetch;
     for (const [key, value] of Object.entries(originals)) { if (value === undefined) delete process.env[key]; else process.env[key] = value; }
