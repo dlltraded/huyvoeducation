@@ -21,12 +21,16 @@ Chưa kiểm tra lưu bằng tài khoản admin thật hoặc dịch với Gemin
 
 ## Triển khai phần dịch
 
-1. Kiểm tra quyền hiện tại của `site_content`: khách chỉ đọc; chỉ tài khoản quản trị được ghi. Đối chiếu migration `20261021_secure_public_content.sql` đang có trong workspace; không suy ra đã áp dụng chỉ từ file local.
-2. Cấu hình secret `GEMINI_API_KEY` trong Supabase Edge Functions. Không dùng biến `VITE_` cho khoá dịch.
-3. `GEMINI_TRANSLATION_MODEL` tuỳ chọn, mặc định `gemini-2.5-flash`.
-4. `CATALOG_ADMIN_ID` tuỳ chọn; mặc định cùng UUID tài khoản quản trị trong migration CMS nói trên. Khi đổi tài khoản, cập nhật cả quyền bảng và quyền gọi dịch.
-5. Deploy `supabase/functions/translate-catalog` với xác thực JWT bật, rồi build/deploy frontend theo quy trình của dự án.
-6. Thử đăng nhập thật, lưu một thay đổi đã duyệt, mở trang công khai Việt/Anh, thử ẩn/hiện và xác nhận tài khoản không có quyền không thể ghi/gọi dịch.
+- Website: Vercel project `thucphamso-1/huyvoeducation`, domain `www.huyvoeducation.vn`. Liên kết cũ `website` của worktree gốc đã lỗi thời.
+- API: `POST /api/translate-catalog` chạy bằng Vercel Function; không cần deploy Edge Function Supabase.
+- Secret `GEMINI_API_KEY` ở Vercel Production. Không đưa vào biến `VITE_`. Khóa local do chủ dự án cung cấp nằm trong file được Git bỏ qua; không ghi giá trị vào tài liệu.
+- `GEMINI_TRANSLATION_MODEL` tuỳ chọn, mặc định `gemini-2.5-flash`.
+- Xác minh Supabase Auth bằng access token của người dùng; chỉ UUID admin cùng chính sách CMS được gọi dịch.
+- API không cache, không trả lỗi nguyên bản từ Gemini hoặc khoá ra client.
+- `CATALOG_ADMIN_ID` tuỳ chọn; khi đổi admin phải cập nhật cả quyền bảng và quyền gọi dịch.
+- Vercel config build nguồn bằng `npm run build`, xuất `dist` và giữ route API trước SPA fallback.
+- Supabase production đã kiểm tra: RLS bật, khách chỉ đọc `site_content`, quyền ghi chỉ có admin; hai khoá danh mục chưa tồn tại trước triển khai. Không cần thay schema.
+- Trang dịch vụ hiện tại là `/dich-vu`; `/chuong-trinh` giữ chuyển hướng cũ. Giảng viên trên chi tiết môn học cũng đọc danh mục mới.
 
 Tên riêng, URL, ảnh và slug không gửi dịch. Dịch vụ kiểm tra tài khoản admin trước khi gọi Gemini; kiểm tra đầu vào, JSON trả về và từ chối bản dịch bị cắt. Prompt giữ nguyên sự kiện, bằng cấp và số liệu; người quản trị vẫn nên duyệt lại thuật ngữ chuyên môn.
 
@@ -35,8 +39,8 @@ API tham khảo: https://ai.google.dev/gemini-api/docs/structured-output
 ## Kiểm tra đã thực hiện
 
 - `npm run build`: qua; còn cảnh báo bundle lớn của dự án.
-- `npm run lint`: qua, còn 22 cảnh báo ở các file sẵn có, không phát sinh cảnh báo trong phần mới.
+- `npm run lint`: qua, còn cảnh báo ở các file sẵn có, không phát sinh cảnh báo trong phần mới.
 - Kiểm tra câu chữ bằng `validate_copy.py`: 0 lỗi, 0 cảnh báo cho CatalogManager.
 - Kiểm tra trình duyệt với API giả lập: sửa/lưu, tự dịch, ẩn khỏi danh sách và chi tiết, chặn ghi khi dịch lỗi, xung đột phiên bản, thêm giảng viên mặc định ẩn, bố cục điện thoại không tràn ngang.
-- Kiểm tra handler dịch với Auth/Gemini giả lập: OPTIONS, thiếu đăng nhập, sai quyền, thiếu cấu hình, đầu vào sai, dịch thành công, bản dịch bị cắt.
-- Chưa kiểm chứng RLS/database và Gemini trên production; các bài kiểm tra không ghi dữ liệu thật.
+- `node --test tests/catalog-translation.test.mjs`: qua; kiểm tra phương thức, đăng nhập, quyền admin, cấu hình, đầu vào sai/quá lớn, bản dịch thành công/bị cắt và lỗi nhà cung cấp.
+- Đã kiểm chứng RLS hiện tại bằng truy vấn read-only; gọi Gemini trực tiếp thành công. Các bài kiểm tra tự động dùng dữ liệu giả lập.
